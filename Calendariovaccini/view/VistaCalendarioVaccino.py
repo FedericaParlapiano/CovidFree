@@ -10,11 +10,21 @@ class VistaCalendarioVaccini(QWidget):
     currentYear = datetime.now().year
 
     def __init__(self, parent=None):
+
         super(VistaCalendarioVaccini, self).__init__(parent)
+
+        calendario = QCalendarWidget(self)
+        calendario.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        calendario.setGeometry(200,200,300,200)
+        calendario.setGridVisible(True)
+
+        calendario.setMinimumDate(QDate(currentYear, currentMonth, 1))
+        calendario.setMaximumDate(QDate(currentYear + 1, currentMonth, calendar.monthrange(currentYear, currentMonth)[1]))
+        calendario.setSelectedDate(QDate(currentYear, currentMonth, 1))
 
         h_layout = QHBoxLayout()
         calendar_layout = QVBoxLayout()
-        calendar_layout.addWidget(self.init_calendario())
+        calendar_layout.addWidget(calendario)
 
         buttons_layout = QVBoxLayout()
 
@@ -36,12 +46,3 @@ class VistaCalendarioVaccini(QWidget):
         self.resize(500,300)
 
 
-    def init_calendario(self):
-        self.calendar = QCalendarWidget(self)
-        self.calendar.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        #self.calendar.setGeometry(200,200,300,200)
-        self.calendar.setGridVisible(True)
-
-        self.calendar.setMinimumDate(QDate(currentYear, currentMonth, 1))
-        self.calendar.setMaximumDate(QDate(currentYear + 1, currentMonth, calendar.monthrange(currentYear, currentMonth)[1]))
-        self.calendar.setSelectedDate(QDate(currentYear, currentMonth, 1))
