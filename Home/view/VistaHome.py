@@ -1,4 +1,7 @@
+from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
+
+from Calendariovaccini.view.VistaCalendarioVaccino import VistaCalendarioVaccini
 
 
 class VistaHome(QWidget):
@@ -14,17 +17,20 @@ class VistaHome(QWidget):
 
         self.setLayout(grid_layout)
         self.resize(400, 300)
+
         self.setWindowTitle("Clinica COVID FREE")
 
     def get_generic_button(self, titolo, colore, on_click):
         button = QPushButton(titolo)
         button.setStyleSheet("background-color: {}".format(colore))
+        button.setFont(QFont('Georgia', 10))
         button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         button.clicked.connect(on_click)
         return button
 
     def go_calendario_vaccini(self):
-        pass
+        self.vista_calendario_vaccini = VistaCalendarioVaccini()
+        self.vista_calendario_vaccini.show()
 
     def go_calendario_tamponi(self):
         pass
