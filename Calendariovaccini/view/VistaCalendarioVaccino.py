@@ -5,9 +5,6 @@ from PyQt5.QtCore import QDate
 
 
 class VistaCalendarioVaccini(QWidget):
-    global currentYear, currentMonth
-    currentMonth = datetime.now().month
-    currentYear = datetime.now().year
 
     def __init__(self, parent=None):
 
@@ -18,6 +15,8 @@ class VistaCalendarioVaccini(QWidget):
         calendario.setGeometry(200,200,300,200)
         calendario.setGridVisible(True)
 
+        currentMonth = datetime.now().month
+        currentYear = datetime.now().year
         calendario.setMinimumDate(QDate(currentYear, currentMonth, 1))
         calendario.setMaximumDate(QDate(currentYear + 1, currentMonth, calendar.monthrange(currentYear, currentMonth)[1]))
         calendario.setSelectedDate(QDate(currentYear, currentMonth, 1))
