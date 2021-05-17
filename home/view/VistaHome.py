@@ -3,7 +3,6 @@ from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 
 from calendariovaccini.view.VistaCalendarioVaccini import VistaCalendarioVaccini
 
-
 class VistaHome(QWidget):
 
     def __init__(self, parent=None):
