@@ -1,9 +1,7 @@
 import sys
-
-from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QApplication
 
-from Home.view.VistaHome import VistaHome
+from home.view.VistaHome import VistaHome
 
 if __name__ == '__main__':
 

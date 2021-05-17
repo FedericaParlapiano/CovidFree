@@ -1,7 +1,7 @@
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 
-from Calendariovaccini.view.VistaCalendarioVaccino import VistaCalendarioVaccini
+from calendariovaccini.view.VistaCalendarioVaccini import VistaCalendarioVaccini
 
 
 class VistaHome(QWidget):
@@ -13,7 +13,6 @@ class VistaHome(QWidget):
         grid_layout.addWidget(self.get_generic_button("Calendario Vaccini", "rgb(204,255,255)", self.go_calendario_vaccini), 0, 0)
         grid_layout.addWidget(self.get_generic_button("Calendario Tamponi", "rgb(255,255,153)", self.go_calendario_tamponi), 1, 0)
         grid_layout.addWidget(self.get_generic_button("Magazzino", "rgb(255,204,255)", self.go_magazzino), 2, 0)
-
 
         self.setLayout(grid_layout)
         self.resize(400, 300)
