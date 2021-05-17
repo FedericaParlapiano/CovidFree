@@ -37,5 +37,5 @@ class VistaHome(QWidget):
     def go_magazzino(self):
         pass
 
-    def prova(self):
+    def ciao(self):
         pass
