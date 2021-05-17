@@ -1,11 +1,12 @@
-import calendar
 from datetime import datetime
+import calendar
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QWidget, QCalendarWidget, QSizePolicy, QVBoxLayout, QPushButton, QHBoxLayout
 from PyQt5.QtCore import QDate
 
 
 class VistaCalendarioVaccini(QWidget):
+
     def __init__(self, parent=None):
         super(VistaCalendarioVaccini, self).__init__(parent)
 
@@ -30,7 +31,8 @@ class VistaCalendarioVaccini(QWidget):
         currentYear = datetime.now().year
 
         calendario.setMinimumDate(QDate(currentYear, currentMonth, 1))
-        calendario.setMaximumDate(QDate(currentYear + 1, currentMonth, calendar.monthrange(currentYear, currentMonth)[1]))
+        calendario.setMaximumDate(
+            QDate(currentYear + 1, currentMonth, calendar.monthrange(currentYear, currentMonth)[1]))
         calendario.setSelectedDate(QDate(currentYear, currentMonth, 1))
 
         calendario.setFont(QFont('Georgia', 10))
