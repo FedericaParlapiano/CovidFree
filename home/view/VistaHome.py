@@ -1,7 +1,7 @@
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 
-from Calendariovaccini.view.VistaCalendarioVaccini import VistaCalendarioVaccini
+from Calendariovaccinii.view.VistaCalendarioVaccini import VistaCalendarioVaccini
 
 
 class VistaHome(QWidget):
