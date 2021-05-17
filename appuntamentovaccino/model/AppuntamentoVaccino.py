@@ -1,4 +1,5 @@
 class AppuntamentoVaccino():
+
     def __init__(self, data, orario, cartella_paziente, is_a_domicilio):
         super(AppuntamentoVaccino, self).__init__()
 

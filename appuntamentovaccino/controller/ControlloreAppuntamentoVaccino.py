@@ -1,4 +1,5 @@
 class ControlloreAppuntamentoVaccino():
+
     def __init__(self, appuntamento_vaccino):
         self.model = appuntamento_vaccino
 
