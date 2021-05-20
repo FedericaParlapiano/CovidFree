@@ -1,5 +1,5 @@
-from PyQt5.QtGui import QFont
-from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
+from PyQt5.QtGui import QFont, QPixmap
+from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy, QLabel
 
 from calendariovaccini.view.VistaCalendarioVaccini import VistaCalendarioVaccini
 
@@ -10,10 +10,18 @@ class VistaHome(QWidget):
         super(VistaHome, self).__init__(parent)
         grid_layout = QGridLayout()
 
-        grid_layout.addWidget(self.get_generic_button("Calendario Vaccini", "rgb(255,219,88)", self.go_calendario_vaccini), 0, 0)
+        self.label = QLabel(self)
+        self.pixmap = QPixmap('C:/Users/feder/Downloads/vaccinicovid.jpg')
+        self.label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.label.setPixmap(self.pixmap)
+        self.label.adjustSize()
+        grid_layout.addWidget(self.label, 0, 0)
+
+        grid_layout.addWidget(self.get_generic_button("Calendario Vaccini", "rgb(255,255,153)", self.go_calendario_vaccini), 0, 0)
         grid_layout.addWidget(self.get_generic_button("Calendario Tamponi", "rgb(152,255,152)", self.go_calendario_tamponi), 1, 0)
-        grid_layout.addWidget(self.get_generic_button("Magazzino", "rgb(250,80,90)", self.go_magazzino), 2, 0)
-        grid_layout.addWidget(self.get_generic_button("Statistiche", "rgb(171,205,239)", self.go_magazzino), 3, 0)
+        grid_layout.addWidget(self.get_generic_button("Magazzino", "rgb(255,160,122)", self.go_magazzino), 2, 0)
+        grid_layout.addWidget(self.get_generic_button("Statistiche", "rgb(176,224,230)", self.go_magazzino), 3, 0)
+
 
         self.setLayout(grid_layout)
         self.resize(400, 300)

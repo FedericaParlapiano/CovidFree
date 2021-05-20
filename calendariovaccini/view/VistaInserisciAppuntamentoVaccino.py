@@ -1,5 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QSpacerItem, QSizePolicy, QPushButton, QLabel, QLineEdit, QMessageBox, \
-    QGridLayout, QCheckBox
+    QGridLayout, QCheckBox, QRadioButton
+
+from calendariovaccini.view.VistaInserisciAnamnesi import VistaInserisciAnamnesi
 
 
 class VistaInserisciAppuntamentoVaccino(QWidget):
@@ -18,31 +20,25 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
         self.get_form_entry("Codice Fiscale")
         self.get_form_entry("Indirizzo")
         self.get_form_entry("Telefono")
-        self.get_form_entry("Patologie")
+        #self.get_form_entry("Patologie")
 
         button = QPushButton("Anamnesi")
-        button.clicked.connect(self.get_checkbox)
+        button.clicked.connect(self.go_inserisci_anamnesi)
 
-        grid = QGridLayout()
-        cbutton = QCheckBox("Malattie cardiache")
-        dbutton = QCheckBox("Asma")
-        #cbutton.setChecked(True)
-        cbutton.toggled.connect(self.onClicked)
-        dbutton.toggled.connect(self.onClicked)
-        grid.addWidget(cbutton)
-        grid.addWidget(dbutton)
+
 
 
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
         self.v_layout.addWidget(button)
         btn_ok = QPushButton("OK")
         btn_ok.clicked.connect(self.add_appuntamento)
-        self.v_layout.addLayout(grid)
+
 
         self.v_layout.addWidget(btn_ok)
 
         self.setLayout(self.v_layout)
         self.setWindowTitle("Nuovo Appuntamento")
+
 
     def get_form_entry(self, tipo):
         self.v_layout.addWidget(QLabel(tipo))
@@ -71,3 +67,10 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
             self.callback()
             self.close()
 
+    def go_inserisci_anamnesi(self):
+        self.vista_inserisci_anamnesi = VistaInserisciAnamnesi(self.controller, self.update_ui)
+        self.vista_inserisci_anamnesi.show()
+
+
+    def update_ui(self):
+        pass
