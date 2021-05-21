@@ -1,7 +1,7 @@
 from datetime import datetime
 import calendar
 from PyQt5.QtGui import QFont, QStandardItemModel, QStandardItem
-from PyQt5.QtWidgets import QWidget, QCalendarWidget, QSizePolicy, QVBoxLayout, QPushButton, QHBoxLayout
+from PyQt5.QtWidgets import QWidget, QCalendarWidget, QSizePolicy, QVBoxLayout, QPushButton, QHBoxLayout, QLabel
 from PyQt5.QtCore import QDate
 
 from calendariovaccini.controller import ControlloreCalendarioVaccini
@@ -16,9 +16,16 @@ class VistaCalendarioVaccini(QWidget):
 
         self.controller = ControlloreCalendarioVaccini
 
+        self.calendario_vaccini = self.init_calendario()
+
         h_layout = QHBoxLayout()
         calendar_layout = QVBoxLayout()
-        calendar_layout.addWidget(self.init_calendario())
+        calendar_layout.addWidget(self.calendario_vaccini)
+
+        self.calendario_vaccini.selectionChanged.connect(self.calendar_date)
+        self.label = QLabel('')
+        calendar_layout.addWidget(self.label)
+
 
         buttons_layout = QVBoxLayout()
         buttons_layout.addWidget(self.get_generic_button("Visualizza", self.show_selected_data))
@@ -35,6 +42,7 @@ class VistaCalendarioVaccini(QWidget):
         calendario = QCalendarWidget(self)
         currentMonth = datetime.now().month
         currentYear = datetime.now().year
+
 
         calendario.setMinimumDate(QDate(currentYear, currentMonth, 1))
         calendario.setMaximumDate(
@@ -65,3 +73,9 @@ class VistaCalendarioVaccini(QWidget):
 
     def update_ui(self):
         pass
+
+    def calendar_date(self):
+        dateselected = self.calendario_vaccini.selectedDate()
+        date_in_string = str(dateselected.toPyDate())
+
+        self.label.setText("Data selezionata : " + date_in_string)
