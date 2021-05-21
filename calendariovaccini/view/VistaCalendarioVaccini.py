@@ -6,6 +6,7 @@ from PyQt5.QtCore import QDate
 
 from calendariovaccini.controller import ControlloreCalendarioVaccini
 from calendariovaccini.view.VistaInserisciAppuntamentoVaccino import VistaInserisciAppuntamentoVaccino
+from calendariovaccini.view.VistaListaAppuntamentiVaccini import VistaListaAppuntamentiVaccini
 
 
 class VistaCalendarioVaccini(QWidget):
@@ -65,7 +66,8 @@ class VistaCalendarioVaccini(QWidget):
         return button
 
     def show_selected_data(self):
-        pass
+        self.vista_visualizza_appuntamenti = VistaListaAppuntamentiVaccini(self.controller, self.update_ui)
+        self.vista_visualizza_appuntamenti.show()
 
     def show_add_appuntamento(self):
         self.vista_inserisci_appuntamento = VistaInserisciAppuntamentoVaccino(self.controller, self.update_ui)
