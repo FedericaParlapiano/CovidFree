@@ -25,20 +25,15 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
         button = QPushButton("Anamnesi")
         button.clicked.connect(self.go_inserisci_anamnesi)
 
-
-
-
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
         self.v_layout.addWidget(button)
         btn_ok = QPushButton("OK")
         btn_ok.clicked.connect(self.add_appuntamento)
 
-
         self.v_layout.addWidget(btn_ok)
 
         self.setLayout(self.v_layout)
         self.setWindowTitle("Nuovo Appuntamento")
-
 
     def get_form_entry(self, tipo):
         self.v_layout.addWidget(QLabel(tipo))
@@ -59,8 +54,7 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
         cf = self.info["Codice Fiscale"].text()
         indirizzo = self.info["Indirizzo"].text()
         telefono = self.info["Telefono"].text()
-        patologie = self.info["Patologie"].text()
-        if nome == "" or cognome == "" or data_nascita == "" or cf == "" or indirizzo == ""  or telefono == "" or patologie == "":
+        if nome == "" or cognome == "" or data_nascita == "" or cf == "" or indirizzo == ""  or telefono == "":
             QMessageBox.critical(self, 'Errore', 'Per favore, completa tutti i campi', QMessageBox.Ok, QMessageBox.Ok)
         else:
             #self.controller.aggiungi_cliente(Cliente((nome+cognome).lower(), nome, cognome, cf, indirizzo, email, telefono, eta))
@@ -70,7 +64,6 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
     def go_inserisci_anamnesi(self):
         self.vista_inserisci_anamnesi = VistaInserisciAnamnesi(self.controller, self.update_ui)
         self.vista_inserisci_anamnesi.show()
-
 
     def update_ui(self):
         pass
