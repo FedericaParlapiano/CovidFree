@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QRadioButton
+from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QRadioButton, QButtonGroup
 
 
 class VistaInserisciAnamnesi(QWidget):
@@ -9,7 +9,6 @@ class VistaInserisciAnamnesi(QWidget):
         self.controller = controller
         self.callback = callback
         self.info = {}
-
 
         self.grid_layout = QGridLayout()
         self.nota1 = QLabel('Da compilare a cura del personale e da riesaminare insieme ai Professionisti Sanitari addetti alla vaccinazione.')
@@ -40,25 +39,24 @@ class VistaInserisciAnamnesi(QWidget):
         self.get_domanda('Ha fatto qualche viaggio internazionale nell\'ultimo mese?', 17)
         self.get_domanda('Test covid: ???????', 18)
 
-
-
-
         self.setLayout(self.grid_layout)
-
 
     def get_domanda(self, domanda, riga):
 
         label = QLabel(domanda)
-        rbtn1 = QRadioButton('Si')
-        rbtn2 = QRadioButton('No')
 
-        rbtn1.toggled.connect(self.onClicked)
-        rbtn2.toggled.connect(self.onClicked)
+        btn1 = QRadioButton('Sì')
+        btn2 = QRadioButton('No')
+        bg = QButtonGroup(self)
+
+        btn1.toggled.connect(self.onClicked)
+        btn2.toggled.connect(self.onClicked)
+        bg.addButton(btn1)
+        bg.addButton(btn2)
 
         self.grid_layout.addWidget(label, riga, 0)
-        self.grid_layout.addWidget(rbtn1, riga, 1)
-        self.grid_layout.addWidget(rbtn2, riga, 2)
-
+        self.grid_layout.addWidget(btn1, riga, 1)
+        self.grid_layout.addWidget(btn2, riga, 2)
 
     def onClicked(self):
         pass

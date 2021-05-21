@@ -10,12 +10,6 @@ class VistaHome(QWidget):
         super(VistaHome, self).__init__(parent)
         grid_layout = QGridLayout()
 
-        self.label = QLabel(self)
-        self.pixmap = QPixmap('C:/Users/feder/Downloads/vaccinicovid.jpg')
-        self.label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.label.setPixmap(self.pixmap)
-        self.label.adjustSize()
-        grid_layout.addWidget(self.label, 0, 0)
 
         grid_layout.addWidget(self.get_generic_button("Calendario Vaccini", "rgb(255,255,153)", self.go_calendario_vaccini), 0, 0)
         grid_layout.addWidget(self.get_generic_button("Calendario Tamponi", "rgb(152,255,152)", self.go_calendario_tamponi), 1, 0)
