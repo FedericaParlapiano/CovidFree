@@ -20,7 +20,7 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
         self.get_form_entry("Codice Fiscale")
         self.get_form_entry("Indirizzo")
         self.get_form_entry("Telefono")
-        #self.get_form_entry("Patologie")
+
 
         button = QPushButton("Anamnesi")
         button.clicked.connect(self.go_inserisci_anamnesi)

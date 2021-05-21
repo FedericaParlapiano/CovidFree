@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QRadioButton, QButtonGroup
+from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QRadioButton, QButtonGroup, QPushButton
 
 
 class VistaInserisciAnamnesi(QWidget):
@@ -39,6 +39,10 @@ class VistaInserisciAnamnesi(QWidget):
         self.get_domanda('Ha fatto qualche viaggio internazionale nell\'ultimo mese?', 17)
         self.get_domanda('Test covid: ???????', 18)
 
+        btn = QPushButton("OK")
+        btn.clicked.connect(self.get)
+        self.grid_layout.addWidget(btn)
+
         self.setLayout(self.grid_layout)
 
     def get_domanda(self, domanda, riga):
@@ -61,6 +65,8 @@ class VistaInserisciAnamnesi(QWidget):
     def onClicked(self):
         pass
 
+    def get(self):
+        pass
 
 
 
