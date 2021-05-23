@@ -66,7 +66,7 @@ class VistaCalendarioVaccini(QWidget):
         return button
 
     def show_selected_data(self):
-        self.vista_visualizza_appuntamenti = VistaListaAppuntamentiVaccini(self.controller, self.update_ui)
+        self.vista_visualizza_appuntamenti = VistaListaAppuntamentiVaccini(self.controller, self.calendar_date(), self.update_ui)
         self.vista_visualizza_appuntamenti.show()
 
     def show_add_appuntamento(self):
@@ -78,6 +78,7 @@ class VistaCalendarioVaccini(QWidget):
 
     def calendar_date(self):
         dateselected = self.calendario_vaccini.selectedDate()
-        date_in_string = str(dateselected.toPyDate())
+        data_selezionata = str(dateselected.toPyDate())
 
-        self.label.setText("Data selezionata : " + date_in_string)
+        self.label.setText("Data selezionata : " + data_selezionata)
+        return data_selezionata

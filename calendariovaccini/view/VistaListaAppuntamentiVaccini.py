@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushB
 
 
 class VistaListaAppuntamentiVaccini(QWidget):
-    def __init__(self, controller, callback):
+    def __init__(self, controller, data, callback):
 
         super(VistaListaAppuntamentiVaccini, self).__init__()
         self.controller = controller
@@ -23,7 +23,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
 
         self.setLayout(h_layout)
         self.resize(600, 300)
-        self.setWindowTitle('Lista Appuntamenti Vaccini Giorno: ????????')
+        self.setWindowTitle('Lista Appuntamenti Vaccini Giorno: {}'.format(data))
 
     def show_selected_info(self):
         pass
