@@ -1,7 +1,10 @@
+from datetime import datetime
+
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QSpacerItem, QSizePolicy, QPushButton, QLabel, QLineEdit, QMessageBox, \
     QGridLayout, QCheckBox, QRadioButton, QComboBox
 
 from calendariovaccini.view.VistaInserisciAnamnesi import VistaInserisciAnamnesi
+from cartellapaziente.model.CartellaPaziente import CartellaPaziente
 
 
 class VistaInserisciAppuntamentoVaccino(QWidget):
@@ -29,16 +32,16 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
 
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
         self.v_layout.addWidget(QLabel("Preferenza (opzionale)"))
-        preferenza = QComboBox()
-        preferenza.addItems([" ","Pfizer", "Moderna", "Astrazeneca"])
-        self.v_layout.addWidget(preferenza)
+        self.preferenza = QComboBox()
+        self.preferenza.addItems([" ","Pfizer", "Moderna", "Astrazeneca"])
+        self.v_layout.addWidget(self.preferenza)
 
-        check_consenso = QCheckBox("Consenso al trattamento dei dati personali")
+        self.consenso1 = QCheckBox("Consenso al trattamento dei dati personali")
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
-        self.v_layout.addWidget(check_consenso)
+        self.v_layout.addWidget(self.consenso1)
 
-        check_consenso2 = QCheckBox("Consenso al trattamento sanitario")
-        self.v_layout.addWidget(check_consenso2)
+        self.consenso2 = QCheckBox("Consenso al trattamento sanitario")
+        self.v_layout.addWidget(self.consenso2)
 
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
@@ -69,11 +72,19 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
         cf = self.info["Codice Fiscale"].text()
         indirizzo = self.info["Indirizzo"].text()
         telefono = self.info["Telefono"].text()
+        preferenze = self.preferenza.currentText()
 
-        if nome == "" or cognome == "" or data_nascita == "" or cf == "" or indirizzo == ""  or telefono == "":
+        try:
+            date = datetime.strptime(self.info["Data di nascita"].text(), '%d/%m/%Y')
+        except:
+            QMessageBox.critical(self, 'Errore', 'Inserisci la data nel formato richiesto: dd/MM/yyyy', QMessageBox.Ok, QMessageBox.Ok)
+
+        if nome == "" or cognome == "" or data_nascita == "" or cf == "" or indirizzo == "" or telefono == "":
             QMessageBox.critical(self, 'Errore', 'Per favore, completa tutti i campi', QMessageBox.Ok, QMessageBox.Ok)
+        elif self.consenso1.isChecked() == False or self.consenso2.isChecked() == False:
+            QMessageBox.critical(self, 'Errore', 'Se non viene fornito il consenso non è possibile procedere con la prenotazione', QMessageBox.Ok, QMessageBox.Ok)
         else:
-            #self.controller.aggiungi_appuntamento(AppuntamentoVaccino((nome+cognome).lower(), nome, cognome, cf, indirizzo, email, telefono, eta))
+            cartella_paziente = CartellaPaziente(nome, cognome, data_nascita, cf, indirizzo, telefono, preferenze)
             self.callback()
             self.close()
 
