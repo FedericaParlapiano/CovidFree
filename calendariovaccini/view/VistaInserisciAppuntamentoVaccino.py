@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QSpacerItem, QSizePolicy, QPushButton, QLabel, QLineEdit, QMessageBox, \
-    QGridLayout, QCheckBox, QRadioButton
+    QGridLayout, QCheckBox, QRadioButton, QComboBox
 
 from calendariovaccini.view.VistaInserisciAnamnesi import VistaInserisciAnamnesi
 
@@ -21,12 +21,27 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
         self.get_form_entry("Indirizzo")
         self.get_form_entry("Telefono")
 
-
         button = QPushButton("Anamnesi")
         button.clicked.connect(self.go_inserisci_anamnesi)
 
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
         self.v_layout.addWidget(button)
+
+        self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
+        self.v_layout.addWidget(QLabel("Preferenza (opzionale)"))
+        preferenza = QComboBox()
+        preferenza.addItems([" ","Pfizer", "Moderna", "Astrazeneca"])
+        self.v_layout.addWidget(preferenza)
+
+        check_consenso = QCheckBox("Consenso al trattamento dei dati personali")
+        self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
+        self.v_layout.addWidget(check_consenso)
+
+        check_consenso2 = QCheckBox("Consenso al trattamento sanitario")
+        self.v_layout.addWidget(check_consenso2)
+
+        self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
         btn_ok = QPushButton("OK")
         btn_ok.clicked.connect(self.add_appuntamento)
 
@@ -54,10 +69,11 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
         cf = self.info["Codice Fiscale"].text()
         indirizzo = self.info["Indirizzo"].text()
         telefono = self.info["Telefono"].text()
+
         if nome == "" or cognome == "" or data_nascita == "" or cf == "" or indirizzo == ""  or telefono == "":
             QMessageBox.critical(self, 'Errore', 'Per favore, completa tutti i campi', QMessageBox.Ok, QMessageBox.Ok)
         else:
-            #self.controller.aggiungi_cliente(Cliente((nome+cognome).lower(), nome, cognome, cf, indirizzo, email, telefono, eta))
+            #self.controller.aggiungi_appuntamento(AppuntamentoVaccino((nome+cognome).lower(), nome, cognome, cf, indirizzo, email, telefono, eta))
             self.callback()
             self.close()
 
