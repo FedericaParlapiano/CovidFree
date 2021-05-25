@@ -1,4 +1,3 @@
-from dateutil.relativedelta import relativedelta
 from datetime import date, datetime
 
 class CartellaPaziente():

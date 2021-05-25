@@ -14,7 +14,7 @@ class VistaHome(QWidget):
         grid_layout.addWidget(self.get_generic_button("Calendario Vaccini", "rgb(255,255,153)", self.go_calendario_vaccini), 0, 0)
         grid_layout.addWidget(self.get_generic_button("Calendario Tamponi", "rgb(152,255,152)", self.go_calendario_tamponi), 1, 0)
         grid_layout.addWidget(self.get_generic_button("Magazzino", "rgb(255,160,122)", self.go_magazzino), 2, 0)
-        grid_layout.addWidget(self.get_generic_button("Statistiche", "rgb(176,224,230)", self.go_magazzino), 3, 0)
+        grid_layout.addWidget(self.get_generic_button("Statistiche", "rgb(176,224,230)", self.go_statistiche), 3, 0)
 
 
         self.setLayout(grid_layout)

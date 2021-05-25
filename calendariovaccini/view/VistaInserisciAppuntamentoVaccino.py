@@ -1,5 +1,4 @@
 from datetime import date, datetime
-from dateutil.relativedelta import relativedelta
 
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QSpacerItem, QSizePolicy, QPushButton, QLabel, QLineEdit, QMessageBox, \
     QGridLayout, QCheckBox, QRadioButton, QComboBox
