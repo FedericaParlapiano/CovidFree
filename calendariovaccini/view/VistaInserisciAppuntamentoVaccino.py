@@ -17,7 +17,7 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
         self.v_layout = QVBoxLayout()
         self.get_form_entry("Nome")
         self.get_form_entry("Cognome")
-        self.get_form_entry("Data di nascita")
+        self.get_form_entry("Data di nascita (dd/mm/YYYY)")
         self.get_form_entry("Codice Fiscale")
         self.get_form_entry("Indirizzo")
         self.get_form_entry("Telefono")
@@ -57,7 +57,7 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
     def add_appuntamento(self):
         nome = self.info["Nome"].text()
         cognome = self.info["Cognome"].text()
-        data_nascita = self.info["Data di nascita"].text()
+        data_nascita = self.info["Data di nascita (dd/mm/YYYY)"].text()
         cf = self.info["Codice Fiscale"].text()
         indirizzo = self.info["Indirizzo"].text()
         telefono = self.info["Telefono"].text()
@@ -71,13 +71,18 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
 
         if ok is True:
             try:
-                data_inserita = datetime.strptime(self.info["Data di nascita"].text(), '%Y/%m/%d')
+                data_inserita = datetime.strptime(self.info["Data di nascita (dd/mm/YYYY)"].text(), '%d/%m/%Y')
             except:
                 QMessageBox.critical(self, 'Errore', 'Inserisci la data nel formato richiesto: dd/MM/yyyy',
                                      QMessageBox.Ok, QMessageBox.Ok)
                 ok = False
 
-            if ok is True  and date.today().year - data_inserita.year < 16:
+            if ok is True and date.today().year - data_inserita.year < 0:
+                QMessageBox.critical(self, 'Errore', 'La data inserita non è valida',
+                                         QMessageBox.Ok, QMessageBox.Ok)
+                ok = False
+
+            if ok is True and date.today().year - data_inserita.year < 16:
                 QMessageBox.critical(self, 'Errore', 'Per i minori di 16 anni non è prevista la possibilità di prenotarsi per la vaccinazione',
                                          QMessageBox.Ok, QMessageBox.Ok)
                 ok = False

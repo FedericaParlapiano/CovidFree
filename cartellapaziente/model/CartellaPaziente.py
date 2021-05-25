@@ -16,7 +16,7 @@ class CartellaPaziente():
 
     def assegna_categoria(self):
 
-        '''anno_corrente = date.today().year
+        anno_corrente = date.today().year
         anno_di_nascita = datetime.strptime(self.data_di_nascita, '%Y/%m/%d').year
 
         differenza = anno_corrente - anno_di_nascita
@@ -34,6 +34,6 @@ class CartellaPaziente():
         elif differenza >= 30:
             categoria = 'categoria 30-39'
         else:
-            categoria = 'under 30' '''
+            categoria = 'under 30'
 
         return None
