@@ -10,6 +10,7 @@ from cartellapaziente.model.CartellaPaziente import CartellaPaziente
 
 class VistaInserisciAppuntamentoVaccino(QWidget):
     def __init__(self, controller, callback):
+
         super(VistaInserisciAppuntamentoVaccino, self).__init__()
         self.controller = controller
         self.callback = callback
@@ -62,6 +63,7 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
         indirizzo = self.info["Indirizzo"].text()
         telefono = self.info["Telefono"].text()
         preferenze = self.preferenza.currentText()
+
         ok = True
 
         if nome == "" or cognome == "" or data_nascita == "" or cf == "" or indirizzo == "" or telefono == "":
