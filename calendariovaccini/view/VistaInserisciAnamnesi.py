@@ -26,7 +26,7 @@ class VistaInserisciAnamnesi(QWidget):
 
         self.grid_layout.addWidget(QLabel(' '))
         self.grid_layout.addWidget(QLabel('Anamnesi COVID-Correlata'), 10, 0)
-        self.get_domanda(' Nell\'ultimo mese è stato in contatto con una persona contagiata da Sars-CoV2 o affetta da COVID-19?', 11)
+        self.get_domanda('Nell\'ultimo mese è stato in contatto con una persona contagiata da Sars-CoV2 o affetta da COVID-19?', 11)
         self.get_domanda('Manifesta sistomi riconducibili a infezione da COVID-19?', 12)
 
         btn = QPushButton("OK")
@@ -57,7 +57,6 @@ class VistaInserisciAnamnesi(QWidget):
         pass
 
     def check_anamnesi_completa(self):
-
         pass
 
 
