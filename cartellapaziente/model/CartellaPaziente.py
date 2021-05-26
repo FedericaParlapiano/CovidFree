@@ -1,7 +1,8 @@
+from dateutil.relativedelta import relativedelta
 from datetime import date, datetime
 
 class CartellaPaziente():
-    def __init__(self, nome, cognome, data_di_nascita, cf, indirizzo, telefono, preferenza):
+    def __init__(self, nome, cognome, data_di_nascita, cf, indirizzo, telefono, categoria, preferenza):
         super(CartellaPaziente, self).__init__()
 
         self.nome = nome
@@ -12,7 +13,10 @@ class CartellaPaziente():
         #self.patologie = patologie
         self.telefono = telefono
         self.preferenza = preferenza
-        #self.categoria = self.assegna_categoria()
+        if (categoria == ' '):
+            self.categoria = self.assegna_categoria()
+        else:
+            self.categoria = categoria
 
     def assegna_categoria(self):
 

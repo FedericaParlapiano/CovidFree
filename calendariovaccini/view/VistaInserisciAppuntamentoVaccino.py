@@ -1,4 +1,5 @@
 from datetime import date, datetime
+from dateutil.relativedelta import relativedelta
 
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QSpacerItem, QSizePolicy, QPushButton, QLabel, QLineEdit, QMessageBox, \
     QGridLayout, QCheckBox, QRadioButton, QComboBox
@@ -9,33 +10,44 @@ from cartellapaziente.model.CartellaPaziente import CartellaPaziente
 
 class VistaInserisciAppuntamentoVaccino(QWidget):
     def __init__(self, controller, callback):
-
         super(VistaInserisciAppuntamentoVaccino, self).__init__()
         self.controller = controller
         self.callback = callback
         self.info = {}
+
         self.v_layout = QVBoxLayout()
+
         self.get_form_entry("Nome")
         self.get_form_entry("Cognome")
         self.get_form_entry("Data di nascita (dd/mm/YYYY)")
         self.get_form_entry("Codice Fiscale")
         self.get_form_entry("Indirizzo")
         self.get_form_entry("Telefono")
+        self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
+        self.v_layout.addWidget(QLabel("Categorie speciali"))
+        self.categorie_speciali = QComboBox()
+        self.categorie_speciali.addItems([" ", "Medici e Infermieri (personale sanitario)", "Membri delle Forze Armate", "Persone con comorbidità", "Persone che assistono individui fragili"])
+        self.v_layout.addWidget(self.categorie_speciali)
+        self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
         button = QPushButton("Anamnesi")
         button.clicked.connect(self.go_inserisci_anamnesi)
-        self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
         self.v_layout.addWidget(button)
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
         self.v_layout.addWidget(QLabel("Preferenza (opzionale)"))
         self.preferenza = QComboBox()
         self.preferenza.addItems([" ","Pfizer", "Moderna", "Astrazeneca"])
         self.v_layout.addWidget(self.preferenza)
-        self.consenso1 = QCheckBox("Consenso al trattamento dei dati personali")
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
+        self.consenso1 = QCheckBox("Consenso al trattamento dei dati personali")
         self.v_layout.addWidget(self.consenso1)
         self.consenso2 = QCheckBox("Consenso al trattamento sanitario")
         self.v_layout.addWidget(self.consenso2)
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
         btn_ok = QPushButton("OK")
         btn_ok.clicked.connect(self.add_appuntamento)
         self.v_layout.addWidget(btn_ok)
@@ -62,7 +74,7 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
         indirizzo = self.info["Indirizzo"].text()
         telefono = self.info["Telefono"].text()
         preferenze = self.preferenza.currentText()
-
+        categoria_speciale = self.categorie_speciali.currentText()
         ok = True
 
         if nome == "" or cognome == "" or data_nascita == "" or cf == "" or indirizzo == "" or telefono == "":
@@ -71,7 +83,7 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
 
         if ok is True:
             try:
-                data_inserita = datetime.strptime(self.info["Data di nascita (dd/mm/YYYY)"].text(), '%d/%m/%Y')
+                data_inserita = datetime.strptime(self.info["Data di nascita (dd/mm/YYYY)"].text(),'%d/%m/%Y')
             except:
                 QMessageBox.critical(self, 'Errore', 'Inserisci la data nel formato richiesto: dd/MM/yyyy',
                                      QMessageBox.Ok, QMessageBox.Ok)
@@ -79,12 +91,18 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
 
             if ok is True and date.today().year - data_inserita.year < 0:
                 QMessageBox.critical(self, 'Errore', 'La data inserita non è valida',
-                                         QMessageBox.Ok, QMessageBox.Ok)
+                                     QMessageBox.Ok, QMessageBox.Ok)
                 ok = False
 
             if ok is True and date.today().year - data_inserita.year < 16:
-                QMessageBox.critical(self, 'Errore', 'Per i minori di 16 anni non è prevista la possibilità di prenotarsi per la vaccinazione',
-                                         QMessageBox.Ok, QMessageBox.Ok)
+                QMessageBox.critical(self, 'Errore',
+                                     'Per i minori di 16 anni non è prevista la possibilità di prenotarsi per la vaccinazione',
+                                     QMessageBox.Ok, QMessageBox.Ok)
+                ok = False
+
+            if ok is True and categoria_speciale == ' ' and date.today().year - data_inserita.year < 50:
+                QMessageBox.critical(self, 'Errore', 'Attualmente le direttive nazionali non permettono la prenotazione a coloro che hanno '
+                                                     'un\'età inferiore ai 50 anni e non rientrano in una delle categorie con priorità', QMessageBox.Ok, QMessageBox.Ok)
                 ok = False
 
         if ok is True and (self.consenso1.isChecked() is False or self.consenso2.isChecked() is False):
@@ -92,7 +110,7 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
             QMessageBox.critical(self, 'Errore', 'Se non viene fornito il consenso non è possibile procedere con la prenotazione', QMessageBox.Ok, QMessageBox.Ok)
 
         if ok is True:
-            cartella_paziente = CartellaPaziente(nome, cognome, data_nascita, cf, indirizzo, telefono, preferenze)
+            cartella_paziente = CartellaPaziente(nome, cognome, data_nascita, cf, indirizzo, telefono, categoria_speciale, preferenze)
             self.callback()
             self.close()
 
