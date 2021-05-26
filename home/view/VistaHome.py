@@ -2,6 +2,7 @@ from PyQt5.QtGui import QFont, QPixmap
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy, QLabel
 
 from calendariovaccini.view.VistaCalendarioVaccini import VistaCalendarioVaccini
+from magazzino.view.VistaMagazzino import VistaMagazzino
 
 
 class VistaHome(QWidget):
@@ -38,7 +39,8 @@ class VistaHome(QWidget):
         pass
 
     def go_magazzino(self):
-        pass
+        self.vista_magazzino = VistaMagazzino()
+        self.vista_magazzino.show()
 
     def go_statistiche(self):
         pass

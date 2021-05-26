@@ -1,7 +1,7 @@
 from datetime import date, datetime
 
 class CartellaPaziente():
-    def __init__(self, nome, cognome, data_di_nascita, cf, indirizzo, telefono, categoria, preferenza):
+    def __init__(self, nome, cognome, data_di_nascita, cf, indirizzo, telefono, categoria, preferenza, anamnesi):
         super(CartellaPaziente, self).__init__()
 
         self.nome = nome
@@ -9,9 +9,9 @@ class CartellaPaziente():
         self.data_di_nascita = data_di_nascita
         self.cf = cf
         self.indirizzo = indirizzo
-        #self.patologie = patologie
         self.telefono = telefono
         self.preferenza = preferenza
+        self.anamnesi = anamnesi
         if (categoria == ' '):
             self.categoria = self.assegna_categoria()
         else:
