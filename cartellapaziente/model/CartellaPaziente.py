@@ -1,4 +1,3 @@
-from dateutil.relativedelta import relativedelta
 from datetime import date, datetime
 
 class CartellaPaziente():
@@ -21,7 +20,7 @@ class CartellaPaziente():
     def assegna_categoria(self):
 
         anno_corrente = date.today().year
-        anno_di_nascita = datetime.strptime(self.data_di_nascita, '%Y/%m/%d').year
+        anno_di_nascita = datetime.strptime(self.data_di_nascita, '%d/%m/%Y').year
 
         differenza = anno_corrente - anno_di_nascita
 
