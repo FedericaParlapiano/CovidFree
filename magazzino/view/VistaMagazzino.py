@@ -7,6 +7,7 @@ from magazzino.controller.ControlloreMagazzino import ControlloreMagazzino
 class VistaMagazzino(QWidget):
 
      def __init__(self, parent=None):
+
         super(VistaMagazzino, self).__init__(parent)
 
         self.controller = ControlloreMagazzino()
