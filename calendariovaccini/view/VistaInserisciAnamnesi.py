@@ -80,6 +80,7 @@ class VistaInserisciAnamnesi(QWidget):
             self.anamnesi['Gravidanza'] = self.info['Gravidanza'].checkedButton().text()
             self.anamnesi['Contatto'] = self.info['Contatto'].checkedButton().text()
             self.anamnesi['Sintomi'] = self.info['Sintomi'].checkedButton().text()
+            self.anamnesi['Positivo COVID-19'] = self.mesi.currentText()
 
             self.close()
         else:

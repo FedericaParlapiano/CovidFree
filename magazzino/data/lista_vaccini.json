@@ -1,0 +1,23 @@
+[
+  {
+    "tipologia": "Astrazeneca",
+    "monodose": false,
+    "distanza": 60,
+    "id": "V1",
+    "quantita": 0
+  },
+  {
+    "tipologia": "Moderna",
+    "monodose": false,
+    "distanza": 28,
+    "id": "V2",
+    "quantita": 0
+  },
+  {
+    "tipologia": "Pfizer",
+    "monodose": false,
+    "distanza": 21,
+    "id": "V3",
+    "quantita": 0
+  }
+]

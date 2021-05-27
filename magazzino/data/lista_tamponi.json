@@ -1,0 +1,20 @@
+[
+  {
+    "tipologia": "Antigenico Rapido",
+    "id": "T1",
+    "quantita": 0,
+    "prezzo": 30.0
+  },
+  {
+    "tipologia": "Molecolare",
+    "id": "T2",
+    "quantita": 0,
+    "prezzo": 70.0
+  },
+  {
+    "tipologia": "Sierologico",
+    "id": "T3",
+    "quantita": 0,
+    "prezzo": 20.0
+  }
+]
