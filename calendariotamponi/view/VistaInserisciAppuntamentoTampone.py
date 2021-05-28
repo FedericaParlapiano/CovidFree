@@ -8,3 +8,5 @@ class VistaInserisciAppuntamentoTampone(QWidget):
         self.callback = callback
         self.info = {}
 
+
+
