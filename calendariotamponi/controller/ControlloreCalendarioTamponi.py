@@ -1,5 +1,6 @@
 from calendariotamponi.model.CalendarioTamponi import CalendarioTamponi
 
+
 class ControlloreCalendarioTamponi():
     def __init__(self):
         super(ControlloreCalendarioTamponi, self).__init__()

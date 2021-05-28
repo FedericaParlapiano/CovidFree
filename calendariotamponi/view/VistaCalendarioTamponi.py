@@ -8,6 +8,7 @@ from calendariotamponi.controller.ControlloreCalendarioTamponi import Controllor
 from calendariotamponi.view.VistaInserisciAppuntamentoTampone import VistaInserisciAppuntamentoTampone
 from calendariotamponi.view.VistaListaAppuntamentiTamponi import VistaListaAppuntamentiTamponi
 
+
 class VistaCalendarioTamponi(QWidget):
 
     def __init__(self, parent=None):

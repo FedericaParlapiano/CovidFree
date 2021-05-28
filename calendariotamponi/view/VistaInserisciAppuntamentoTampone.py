@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QCheckBox, QSpacerItem, QSizeP
     QPushButton, QMessageBox
 
 
+
 class VistaInserisciAppuntamentoTampone(QWidget):
     def __init__(self, controller, callback):
         super(VistaInserisciAppuntamentoTampone, self).__init__()
