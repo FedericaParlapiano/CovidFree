@@ -44,6 +44,12 @@ class Magazzino():
     def get_presidio_by_index(self, index):
         return self.magazzino[index]
 
+    def get_tamponi(self):
+        return self.tamponi
+
+    def get_vaccini(self):
+        return self.vaccini
+
     def get_magazzino(self):
         return self.magazzino
 
