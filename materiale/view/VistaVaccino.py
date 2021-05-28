@@ -36,7 +36,7 @@ class VistaVaccino(QWidget):
         label_monodose.setFont(font_monodose)
         v_layout.addWidget(label_monodose)
 
-        label_distanza = QLabel("Distanza: {}".format(self.controller.get_distanza_seconda_dose_vaccino()))
+        label_distanza = QLabel("Giorni di distanza tra le due dosi: {}".format(self.controller.get_distanza_seconda_dose_vaccino()))
         font_distanza = label_distanza.font()
         font_distanza.setPointSize(16)
         label_distanza.setFont(font_quantita)
