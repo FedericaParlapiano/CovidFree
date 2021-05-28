@@ -2,10 +2,10 @@ from materiale.model.Materiale import Materiale
 
 
 class Vaccino(Materiale):
-    def __init__(self, tipologia, monodose, distanza, id, quantita):
+    def __init__(self, tipologia, doppiadose, distanza, id, quantita):
         super(Vaccino, self).__init__(tipologia, id, quantita)
 
-        self.is_monodose = monodose
+        self.is_doppia_dose = doppiadose
         self.distanza_seconda_dose = distanza
         self.limitazioni = None
 

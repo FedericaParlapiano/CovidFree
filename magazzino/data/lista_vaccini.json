@@ -1,21 +1,21 @@
 [
   {
     "tipologia": "Astrazeneca",
-    "monodose": false,
+    "doppia dose": 1,
     "distanza": 60,
     "id": "V1",
     "quantita": 0
   },
   {
     "tipologia": "Moderna",
-    "monodose": false,
+    "doppia dose": 1,
     "distanza": 28,
     "id": "V2",
     "quantita": 0
   },
   {
     "tipologia": "Pfizer",
-    "monodose": false,
+    "doppia dose": 1,
     "distanza": 21,
     "id": "V3",
     "quantita": 0

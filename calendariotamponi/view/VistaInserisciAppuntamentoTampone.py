@@ -16,6 +16,7 @@ class VistaInserisciAppuntamentoTampone(QWidget):
         self.get_form_entry("Codice Fiscale")
         self.get_form_entry("Indirizzo")
         self.get_form_entry("Telefono")
+        self.get_form_entry("Data appuntamento")
 
         self.drive_through = QCheckBox("Presenta sintomi o ha avuto contatti con persone positive o è attualmente positivo")
         self.v_layout.addWidget(self.drive_through)

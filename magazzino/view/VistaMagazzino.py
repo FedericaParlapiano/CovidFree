@@ -2,6 +2,8 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QPushButton, QListView, QVBoxLayout, QGridLayout, QLabel, QSizePolicy
 
 from magazzino.controller.ControlloreMagazzino import ControlloreMagazzino
+from materiale.view.VistaTampone import VistaTampone
+from materiale.view.VistaVaccino import VistaVaccino
 
 
 class VistaMagazzino(QWidget):
@@ -61,15 +63,26 @@ class VistaMagazzino(QWidget):
         v_layout_tamponi.addWidget(label_tamponi)
         v_layout_tamponi.addWidget(self.list_view_tamponi)
 
-        buttons_layout = QVBoxLayout()
-        open_button = QPushButton("Visualizza")
-        open_button.clicked.connect(self.show_selected_info)
-        buttons_layout.addWidget(open_button)
-        buttons_layout.addStretch()
+        buttons_vaccini = QVBoxLayout()
+        open_vaccino = QPushButton("Visualizza")
+        aggiorna_vaccino = QPushButton("Aggiorna")
+        open_vaccino.clicked.connect(self.show_selected_vaccino)
+        aggiorna_vaccino.clicked.connect(self.aggiorna_selected_vaccino)
+        buttons_vaccini.addWidget(open_vaccino)
+        buttons_vaccini.addWidget(aggiorna_vaccino)
+
+        buttons_tamponi = QVBoxLayout()
+        open_tampone = QPushButton("Visualizza")
+        aggiorna_tampone = QPushButton("Aggiorna")
+        open_tampone.clicked.connect(self.show_selected_tampone)
+        aggiorna_tampone.clicked.connect(self.aggiorna_selected_tampone)
+        buttons_tamponi.addWidget(open_tampone)
+        buttons_tamponi.addWidget(aggiorna_tampone)
 
         grid_layout.addLayout(v_layout_vaccini, 0, 0)
         grid_layout.addLayout(v_layout_tamponi, 0, 1)
-        grid_layout.addLayout(buttons_layout, 0, 2)
+        grid_layout.addLayout(buttons_vaccini, 1, 0)
+        grid_layout.addLayout(buttons_tamponi, 1, 1)
 
         self.setLayout(grid_layout)
         self.resize(600, 300)
@@ -80,10 +93,23 @@ class VistaMagazzino(QWidget):
         self.controller.save_data()
         event.accept()
 
+     def show_selected_vaccino(self):
+         selected = self.list_view_vaccini.selectedIndexes()[0].row()
+         vaccino_selezionato = self.controller.get_presidio_by_index(selected)
+         self.vista_vaccino = VistaVaccino(vaccino_selezionato)
+         self.vista_vaccino.show()
 
+     def aggiorna_selected_vaccino(self):
+         pass
 
-     def show_selected_info(self):
-          pass
+     def show_selected_tampone(self):
+         selected = self.list_view_tamponi.selectedIndexes()[0].row()
+         tampone_selezionato = self.controller.get_presidio_by_index(selected+3)
+         self.vista_tampone = VistaTampone(tampone_selezionato)
+         self.vista_tampone.show()
+
+     def aggiorna_selected_tampone(self):
+         pass
 
 
 

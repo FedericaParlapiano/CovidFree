@@ -21,7 +21,7 @@ class Magazzino():
             with open('magazzino/data/lista_vaccini.json') as f:
                 vaccini_iniziali = json.load(f)
             for vaccino in vaccini_iniziali:
-                self.aggiungi_vaccino(Vaccino(vaccino["tipologia"], vaccino["monodose"], vaccino["distanza"], vaccino["id"], vaccino["quantita"]))
+                self.aggiungi_vaccino(Vaccino(vaccino["tipologia"], vaccino["doppia dose"], vaccino["distanza"], vaccino["id"], vaccino["quantita"]))
 
         if os.path.isfile('magazzino/data/lista_tamponi_salvata.pickle'):
             with open('magazzino/data/lista_tamponi_salvata.pickle', 'rb') as f:
