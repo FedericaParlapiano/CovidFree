@@ -1,6 +1,5 @@
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton
 
-
 class VistaListaAppuntamentiTamponi(QWidget):
     def __init__(self, controller, data, callback):
 
