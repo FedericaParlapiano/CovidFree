@@ -2,7 +2,6 @@ from datetime import date, datetime
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QCheckBox, QSpacerItem, QSizePolicy, QLabel, QComboBox, QLineEdit, \
     QPushButton, QMessageBox
 
-
 class VistaInserisciAppuntamentoTampone(QWidget):
     def __init__(self, controller, callback):
         super(VistaInserisciAppuntamentoTampone, self).__init__()

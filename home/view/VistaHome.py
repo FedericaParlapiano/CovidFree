@@ -5,6 +5,7 @@ from calendariotamponi.view.VistaCalendarioTamponi import VistaCalendarioTamponi
 from calendariovaccini.view.VistaCalendarioVaccini import VistaCalendarioVaccini
 from magazzino.view.VistaMagazzino import VistaMagazzino
 
+
 class VistaHome(QWidget):
 
     def __init__(self, parent=None):
