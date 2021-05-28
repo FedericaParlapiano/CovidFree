@@ -94,8 +94,6 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
                                      QMessageBox.Ok, QMessageBox.Ok)
                 ok = False
 
-                ok = False
-
             if ok is True and date.today().year - data_inserita.year < 0:
                 QMessageBox.critical(self, 'Errore', 'La data inserita non è valida',
                                      QMessageBox.Ok, QMessageBox.Ok)

@@ -2,6 +2,7 @@ import os
 import pickle
 
 class CalendarioTamponi():
+
     def __init__(self):
         super(CalendarioTamponi, self).__init__()
         self.elenco_appuntamenti = []
