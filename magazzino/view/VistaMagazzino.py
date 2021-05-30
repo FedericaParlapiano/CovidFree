@@ -94,7 +94,7 @@ class VistaMagazzino(QWidget):
         event.accept()
 
      def show_selected_vaccino(self):
-         if self.list_view_tamponi.selectedIndexes() is None:
+         if self.list_view_vaccini.selectedIndexes():
              selected = self.list_view_vaccini.selectedIndexes()[0].row()
              vaccino_selezionato = self.controller.get_presidio_by_index(selected)
              self.vista_vaccino = VistaVaccino(vaccino_selezionato)
@@ -103,13 +103,13 @@ class VistaMagazzino(QWidget):
              pass
 
      def aggiorna_selected_vaccino(self):
-         if self.list_view_vaccini.selectedIndexes() is None:
+         if self.list_view_vaccini.selectedIndexes():
              print('Da implementare')
          else:
              pass
 
      def show_selected_tampone(self):
-         if self.list_view_tamponi.selectedIndexes() is None:
+         if self.list_view_tamponi.selectedIndexes():
              selected = self.list_view_tamponi.selectedIndexes()[0].row()
              tampone_selezionato = self.controller.get_presidio_by_index(selected+3)
              self.vista_tampone = VistaTampone(tampone_selezionato)
@@ -118,7 +118,7 @@ class VistaMagazzino(QWidget):
              pass
 
      def aggiorna_selected_tampone(self):
-         if self.list_view_tamponi.selectedIndexes() is None:
+         if self.list_view_tamponi.selectedIndexes():
              print('Da implementare')
          else:
              pass
