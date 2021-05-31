@@ -19,5 +19,8 @@ class ControlloreMagazzino():
     def get_magazzino(self):
         return self.model.get_magazzino()
 
+    def aggiorna_quantita_by_tipologia(self, tipologia, quantita):
+        self.model.aggiorna_quantita_by_tipologia(tipologia, quantita)
+
     def save_data(self):
         self.model.save_data()

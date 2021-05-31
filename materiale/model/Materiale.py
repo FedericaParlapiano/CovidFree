@@ -6,5 +6,8 @@ class Materiale():
         self.id = id
         self.quantita = quantita
 
+    def aggiorna_quantita(self, quantita):
+        self.quantita = quantita
+
     def is_disponibile(self):
         pass

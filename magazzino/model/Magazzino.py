@@ -53,6 +53,11 @@ class Magazzino():
     def get_magazzino(self):
         return self.magazzino
 
+    def aggiorna_quantita_by_tipologia(self, tipologia, quantita):
+        for materiale in self.get_magazzino():
+            if materiale.tipologia == tipologia:
+                materiale.aggiorna_quantita(quantita)
+
     def save_data(self):
         with open('magazzino/data/lista_vaccini_salvata.pickle', 'wb') as handle:
             pickle.dump(self.vaccini, handle, pickle.HIGHEST_PROTOCOL)

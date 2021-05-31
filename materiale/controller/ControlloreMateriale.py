@@ -17,9 +17,6 @@ class ControlloreMateriale():
     def get_quantita_materiale(self):
         return self.model.quantita
 
-    def get_scadenza_materiale(self):
-        return self.model.scadenza
-
     def get_is_doppia_dose_vaccino(self):
         return self.model.is_doppia_dose
 
@@ -31,6 +28,10 @@ class ControlloreMateriale():
 
     def get_prezzo_tampone(self):
         return self.model.prezzo
+
+    def aggiorna_quantita(self, quantita):
+        self.model.aggiorna_quantita(quantita)
+
 
 
 

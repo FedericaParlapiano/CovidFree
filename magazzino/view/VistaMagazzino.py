@@ -2,13 +2,14 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QPushButton, QListView, QVBoxLayout, QGridLayout, QLabel, QSizePolicy
 
 from magazzino.controller.ControlloreMagazzino import ControlloreMagazzino
+from magazzino.view.VistaAggiornaFornitura import VistaAggiornaFornitura
 from materiale.view.VistaTampone import VistaTampone
 from materiale.view.VistaVaccino import VistaVaccino
 
 
 class VistaMagazzino(QWidget):
 
-     def __init__(self, parent=None):
+    def __init__(self, parent=None):
 
         super(VistaMagazzino, self).__init__(parent)
 
@@ -19,31 +20,9 @@ class VistaMagazzino(QWidget):
         v_layout_tamponi = QVBoxLayout()
 
         self.list_view_vaccini = QListView()
-        self.listview_vaccini_model = QStandardItemModel(self.list_view_vaccini)
         self.list_view_tamponi = QListView()
-        self.listview_tamponi_model = QStandardItemModel(self.list_view_tamponi)
 
-        for vaccino in self.controller.get_vaccini():
-             item = QStandardItem()
-             item.setText(vaccino.tipologia)
-             item.setEditable(False)
-             font = item.font()
-             font.setFamily('Georgia')
-             font.setPointSize(12)
-             item.setFont(font)
-             self.listview_vaccini_model.appendRow(item)
-        self.list_view_vaccini.setModel(self.listview_vaccini_model)
-
-        for tampone in self.controller.get_tamponi():
-             item = QStandardItem()
-             item.setText(tampone.tipologia)
-             item.setEditable(False)
-             font = item.font()
-             font.setFamily('Georgia')
-             font.setPointSize(12)
-             item.setFont(font)
-             self.listview_tamponi_model.appendRow(item)
-        self.list_view_tamponi.setModel(self.listview_tamponi_model)
+        self.update_ui()
 
         label_vaccini = QLabel("Presidi sezione vaccini")
         font_vaccini = label_vaccini.font()
@@ -88,41 +67,56 @@ class VistaMagazzino(QWidget):
         self.resize(600, 300)
         self.setWindowTitle("Lista Presidi")
 
+    def update_ui(self):
+        self.listview_vaccini_model = QStandardItemModel(self.list_view_vaccini)
+        for vaccino in self.controller.get_vaccini():
+            item = QStandardItem()
+            item.setText(vaccino.tipologia)
+            item.setEditable(False)
+            font = item.font()
+            font.setFamily('Georgia')
+            font.setPointSize(12)
+            item.setFont(font)
+            self.listview_vaccini_model.appendRow(item)
+        self.list_view_vaccini.setModel(self.listview_vaccini_model)
 
-     def closeEvent(self, event):
+        self.listview_tamponi_model = QStandardItemModel(self.list_view_tamponi)
+        for tampone in self.controller.get_tamponi():
+            item = QStandardItem()
+            item.setText(tampone.tipologia)
+            item.setEditable(False)
+            font = item.font()
+            font.setFamily('Georgia')
+            font.setPointSize(12)
+            item.setFont(font)
+            self.listview_tamponi_model.appendRow(item)
+        self.list_view_tamponi.setModel(self.listview_tamponi_model)
+
+    def closeEvent(self, event):
         self.controller.save_data()
         event.accept()
 
-     def show_selected_vaccino(self):
+    def show_selected_vaccino(self):
          if self.list_view_vaccini.selectedIndexes():
              selected = self.list_view_vaccini.selectedIndexes()[0].row()
              vaccino_selezionato = self.controller.get_presidio_by_index(selected)
              self.vista_vaccino = VistaVaccino(vaccino_selezionato)
              self.vista_vaccino.show()
-         else:
-             pass
 
-     def aggiorna_selected_vaccino(self):
+
+    def aggiorna_selected_vaccino(self):
          if self.list_view_vaccini.selectedIndexes():
-             print('Da implementare')
-         else:
-             pass
+             selected = self.list_view_vaccini.selectedIndexes()[0].row()
+             vaccino_selezionato = self.controller.get_presidio_by_index(selected)
+             self.vista_fornitura_vaccini = VistaAggiornaFornitura(vaccino_selezionato, self.controller.aggiorna_quantita_by_tipologia, self.update_ui)
+             self.vista_fornitura_vaccini.show()
 
-     def show_selected_tampone(self):
+
+    def show_selected_tampone(self):
          if self.list_view_tamponi.selectedIndexes():
              selected = self.list_view_tamponi.selectedIndexes()[0].row()
              tampone_selezionato = self.controller.get_presidio_by_index(selected+3)
              self.vista_tampone = VistaTampone(tampone_selezionato)
              self.vista_tampone.show()
-         else:
-             pass
-
-     def aggiorna_selected_tampone(self):
-         if self.list_view_tamponi.selectedIndexes():
-             print('Da implementare')
-         else:
-             pass
-
-
 
 
