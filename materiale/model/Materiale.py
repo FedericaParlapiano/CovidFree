@@ -7,7 +7,9 @@ class Materiale():
         self.quantita = quantita
 
     def aggiorna_quantita(self, quantita):
-        self.quantita = quantita
+        self.quantita = int(self.quantita) + int(quantita)
 
     def is_disponibile(self):
-        pass
+        if self.quantita > 0:
+            return True
+        return False

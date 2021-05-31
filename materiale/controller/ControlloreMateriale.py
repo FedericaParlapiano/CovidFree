@@ -3,10 +3,14 @@ class ControlloreMateriale():
         self.model = materiale
 
     def is_vaccino(self):
-        pass
+        if self.model.categoria == "Vaccino":
+            return True
+        return False
 
     def is_tampone(self):
-        pass
+        if self.model.categoria == "Tampone":
+            return True
+        return False
 
     def get_tipologia_materiale(self):
         return self.model.tipologia

@@ -12,7 +12,6 @@ class VistaAggiornaFornitura(QWidget):
         self.callback_aggiornamento = callback_aggiornamento
 
         v_layout = QVBoxLayout()
-
         label_fornitura = QLabel("Inserisci la quantità del vaccino da aggiungere al magazzino:")
         font_fornitura = label_fornitura.font()
         font_fornitura.setPointSize(16)
@@ -35,7 +34,6 @@ class VistaAggiornaFornitura(QWidget):
         if self.nuova_quantita.text() == "":
             QMessageBox.critical(self, 'Errore', 'Per favore, inserisci la quantita della fornitura', QMessageBox.Ok, QMessageBox.Ok)
         else:
-            print(self.nuova_quantita.text())
             self.aggiornamento(self.controller.get_tipologia_materiale(), self.nuova_quantita.text())
             self.callback_aggiornamento()
             self.close()

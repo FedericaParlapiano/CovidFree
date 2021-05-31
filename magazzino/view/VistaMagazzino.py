@@ -10,9 +10,7 @@ from materiale.view.VistaVaccino import VistaVaccino
 class VistaMagazzino(QWidget):
 
     def __init__(self, parent=None):
-
         super(VistaMagazzino, self).__init__(parent)
-
         self.controller = ControlloreMagazzino()
 
         grid_layout = QGridLayout()
@@ -21,7 +19,6 @@ class VistaMagazzino(QWidget):
 
         self.list_view_vaccini = QListView()
         self.list_view_tamponi = QListView()
-
         self.update_ui()
 
         label_vaccini = QLabel("Presidi sezione vaccini")
@@ -44,17 +41,17 @@ class VistaMagazzino(QWidget):
 
         buttons_vaccini = QVBoxLayout()
         open_vaccino = QPushButton("Visualizza")
-        aggiorna_vaccino = QPushButton("Aggiorna")
         open_vaccino.clicked.connect(self.show_selected_vaccino)
-        aggiorna_vaccino.clicked.connect(self.aggiorna_selected_vaccino)
         buttons_vaccini.addWidget(open_vaccino)
+        aggiorna_vaccino = QPushButton("Aggiorna")
+        aggiorna_vaccino.clicked.connect(self.aggiorna_selected_materiale)
         buttons_vaccini.addWidget(aggiorna_vaccino)
 
         buttons_tamponi = QVBoxLayout()
         open_tampone = QPushButton("Visualizza")
         aggiorna_tampone = QPushButton("Aggiorna")
         open_tampone.clicked.connect(self.show_selected_tampone)
-        aggiorna_tampone.clicked.connect(self.aggiorna_selected_tampone)
+        aggiorna_tampone.clicked.connect(self.aggiorna_selected_materiale)
         buttons_tamponi.addWidget(open_tampone)
         buttons_tamponi.addWidget(aggiorna_tampone)
 
@@ -92,25 +89,12 @@ class VistaMagazzino(QWidget):
             self.listview_tamponi_model.appendRow(item)
         self.list_view_tamponi.setModel(self.listview_tamponi_model)
 
-    def closeEvent(self, event):
-        self.controller.save_data()
-        event.accept()
-
     def show_selected_vaccino(self):
          if self.list_view_vaccini.selectedIndexes():
              selected = self.list_view_vaccini.selectedIndexes()[0].row()
              vaccino_selezionato = self.controller.get_presidio_by_index(selected)
              self.vista_vaccino = VistaVaccino(vaccino_selezionato)
              self.vista_vaccino.show()
-
-
-    def aggiorna_selected_vaccino(self):
-         if self.list_view_vaccini.selectedIndexes():
-             selected = self.list_view_vaccini.selectedIndexes()[0].row()
-             vaccino_selezionato = self.controller.get_presidio_by_index(selected)
-             self.vista_fornitura_vaccini = VistaAggiornaFornitura(vaccino_selezionato, self.controller.aggiorna_quantita_by_tipologia, self.update_ui)
-             self.vista_fornitura_vaccini.show()
-
 
     def show_selected_tampone(self):
          if self.list_view_tamponi.selectedIndexes():
@@ -119,4 +103,17 @@ class VistaMagazzino(QWidget):
              self.vista_tampone = VistaTampone(tampone_selezionato)
              self.vista_tampone.show()
 
+    def aggiorna_selected_materiale(self):
+         if self.list_view_vaccini.selectedIndexes():
+             selected = self.list_view_vaccini.selectedIndexes()[0].row()
+             selezionato = self.controller.get_presidio_by_index(selected)
+         elif self.list_view_tamponi.selectedIndexes():
+             selected = self.list_view_tamponi.selectedIndexes()[0].row()
+             selezionato = self.controller.get_presidio_by_index(selected + 3)
 
+         self.vista_fornitura = VistaAggiornaFornitura(selezionato, self.controller.aggiorna_quantita_by_tipologia, self.update_ui)
+         self.vista_fornitura.show()
+
+    def closeEvent(self, event):
+        self.controller.save_data()
+        event.accept()
