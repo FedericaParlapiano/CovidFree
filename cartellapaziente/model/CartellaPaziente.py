@@ -12,16 +12,14 @@ class CartellaPaziente():
         self.telefono = telefono
         self.preferenza = preferenza
         self.anamnesi = anamnesi
-        if (categoria == ' '):
+        if categoria == ' ':
             self.categoria = self.assegna_categoria()
         else:
             self.categoria = categoria
 
     def assegna_categoria(self):
-
         anno_corrente = date.today().year
         anno_di_nascita = datetime.strptime(self.data_di_nascita, '%d/%m/%Y').year
-
         differenza = anno_corrente - anno_di_nascita
 
         if differenza >= 80:
@@ -38,5 +36,3 @@ class CartellaPaziente():
             categoria = 'categoria 30-39'
         else:
             categoria = 'under 30'
-
-        return None

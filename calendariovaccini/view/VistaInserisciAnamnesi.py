@@ -6,7 +6,6 @@ from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QRadioButton, QButtonG
 class VistaInserisciAnamnesi(QWidget):
 
     def __init__(self, controller, callback):
-
         super(VistaInserisciAnamnesi, self).__init__(parent=None)
         self.controller = controller
         self.callback = callback
@@ -55,7 +54,6 @@ class VistaInserisciAnamnesi(QWidget):
         btn1 = QRadioButton('Sì')
         btn2 = QRadioButton('No')
         bg = QButtonGroup(self)
-
         bg.addButton(btn1)
         bg.addButton(btn2)
 
@@ -66,7 +64,6 @@ class VistaInserisciAnamnesi(QWidget):
 
 
     def check_anamnesi_completa(self):
-
         controllo = True
 
         for key in self.info.keys():
@@ -86,7 +83,6 @@ class VistaInserisciAnamnesi(QWidget):
             self.anamnesi['Contatto'] = self.info['Contatto'].checkedButton().text()
             self.anamnesi['Sintomi'] = self.info['Sintomi'].checkedButton().text()
             self.anamnesi['Positivo COVID-19'] = self.mesi.currentText()
-
             self.close()
         else:
             QMessageBox.critical(self, 'Errore', 'Per favore, rispondi a tutte le domande', QMessageBox.Ok, QMessageBox.Ok)

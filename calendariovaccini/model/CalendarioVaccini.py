@@ -2,6 +2,7 @@ import os
 import pickle
 
 class CalendarioVaccini():
+
     def __init__(self):
         super(CalendarioVaccini, self).__init__()
         self.elenco_appuntamenti = []
@@ -17,6 +18,11 @@ class CalendarioVaccini():
 
     def get_elenco_appuntamenti(self):
         return self.elenco_appuntamenti
+
+    def elimina_appuntamento_by_id(self, id):
+        for appuntamento in self.elenco_appuntamenti:
+            if appuntamento.id == id:
+                self.elenco_appuntamenti.remove(appuntamento)
 
     def save_data(self):
         with open('calendariovaccini/data/elenco_appuntamenti_fissati.pickle', 'wb') as handle:

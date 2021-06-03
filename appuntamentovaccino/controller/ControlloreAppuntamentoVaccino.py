@@ -1,7 +1,7 @@
 class ControlloreAppuntamentoVaccino():
 
-    def __init__(self, appuntamento_vaccino):
-        self.model = appuntamento_vaccino
+    def __init__(self, appuntamento):
+        self.model = appuntamento
 
     def get_data_appuntamento(self):
         return self.model.data

@@ -7,8 +7,8 @@ from materiale.model.Vaccino import Vaccino
 
 
 class Magazzino():
-    def __init__(self):
 
+    def __init__(self):
         super(Magazzino, self).__init__()
         self.magazzino = []
         self.vaccini = []
@@ -16,7 +16,6 @@ class Magazzino():
         if os.path.isfile('magazzino/data/lista_vaccini_salvata.pickle'):
             with open('magazzino/data/lista_vaccini_salvata.pickle', 'rb') as f:
                 self.vaccini = pickle.load(f)
-
         else:
             with open('magazzino/data/lista_vaccini.json') as f:
                 vaccini_iniziali = json.load(f)
@@ -26,7 +25,6 @@ class Magazzino():
         if os.path.isfile('magazzino/data/lista_tamponi_salvata.pickle'):
             with open('magazzino/data/lista_tamponi_salvata.pickle', 'rb') as f:
                 self.tamponi = pickle.load(f)
-
         else:
             with open('magazzino/data/lista_tamponi.json') as f:
                 tamponi_iniziali = json.load(f)

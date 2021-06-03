@@ -1,8 +1,8 @@
 class AppuntamentoVaccino():
 
-    def __init__(self, cartella_paziente, is_a_domicilio):
+    def __init__(self, id, cartella_paziente, is_a_domicilio):
         super(AppuntamentoVaccino, self).__init__()
-
+        self.id = id
         self.cartella_paziente = cartella_paziente
         self.is_a_domicilio = is_a_domicilio
 
@@ -10,21 +10,25 @@ class AppuntamentoVaccino():
         self.data_orario = self.assegna_data_orario()
 
     def assegna_vaccino(self):
-        '''
-        anamnesi = self.cartella_paziente.anamnesi()
 
-        if anamnesi['Pfizer'] == 'Sì' and anamnesi['Astrazeneca']=='Sì':
-            da_assegnare = 'Moderna'
-        if anamnesi['Moderna'] == 'Sì' and anamnesi['Astrazeneca']=='Sì':
-            da_assegnare = 'Astrazeneca'
-        if anamnesi['Pfizer'] == 'Sì' and anamnesi['Moderna']=='Sì':
-            da_assegnare = 'Astrazeneca'
-        if anamnesi['Pfizer'] == 'Sì' and anamnesi['Astrazeneca']=='Sì':
-            da_assegnare = 'Moderna'
+        preferenza = self.cartella_paziente.preferenza
+        anamnesi = self.cartella_paziente.anamnesi
 
-        return da_assegnare
-        '''
-        da_assegnare = None
+        vaccini_assegnabili = ['Moderna','Astrazeneca','Pfizer']
+
+        if anamnesi['Pfizer'] == 'Sì':
+            vaccini_assegnabili.remove('Pfizer')
+        if anamnesi['Astrazeneca'] == 'Sì' or anamnesi['Malattie'] == 'Sì':
+            vaccini_assegnabili.remove('Astrazeneca')
+        if anamnesi['Moderna'] == 'Sì':
+            vaccini_assegnabili.remove('Moderna')
+
+        if preferenza in vaccini_assegnabili:
+            da_assegnare = preferenza
+        else:
+            da_assegnare = vaccini_assegnabili[0]
+
+        #manca il controllo sulla quantità
         return da_assegnare
 
     def assegna_data_orario(self):

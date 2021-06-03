@@ -31,9 +31,18 @@ class VistaAggiornaFornitura(QWidget):
         self.setWindowTitle("Aggiornamento della fornitura di " + self.controller.get_tipologia_materiale())
 
     def aggiorna_quantita(self):
+        ok = True
         if self.nuova_quantita.text() == "":
             QMessageBox.critical(self, 'Errore', 'Per favore, inserisci la quantita della fornitura', QMessageBox.Ok, QMessageBox.Ok)
-        else:
-            self.aggiornamento(self.controller.get_tipologia_materiale(), self.nuova_quantita.text())
+            ok = False
+        if ok is True:
+            try:
+                quantita = int(self.nuova_quantita.text())
+            except:
+                QMessageBox.critical(self, 'Errore', 'Il formato inserito non è valido', QMessageBox.Ok, QMessageBox.Ok)
+                ok = False
+        if ok is True and quantita > 0:
+            self.aggiornamento(self.controller.get_tipologia_materiale(), quantita)
             self.callback_aggiornamento()
             self.close()
+

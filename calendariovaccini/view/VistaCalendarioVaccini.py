@@ -12,11 +12,9 @@ from calendariovaccini.view.VistaListaAppuntamentiVaccini import VistaListaAppun
 class VistaCalendarioVaccini(QWidget):
 
     def __init__(self, parent=None):
-
         super(VistaCalendarioVaccini, self).__init__(parent)
 
         self.controller = ControlloreCalendarioVaccini
-
         self.calendario_vaccini = self.init_calendario()
 
         h_layout = QHBoxLayout()
@@ -26,7 +24,6 @@ class VistaCalendarioVaccini(QWidget):
         self.calendario_vaccini.selectionChanged.connect(self.calendar_date)
         self.label = QLabel('')
         calendar_layout.addWidget(self.label)
-
 
         buttons_layout = QVBoxLayout()
         buttons_layout.addWidget(self.get_generic_button("Visualizza", self.show_selected_data))
@@ -44,7 +41,6 @@ class VistaCalendarioVaccini(QWidget):
         currentMonth = datetime.now().month
         currentYear = datetime.now().year
 
-
         calendario.setMinimumDate(QDate(currentYear, currentMonth, 1))
         calendario.setMaximumDate(
             QDate(currentYear + 1, currentMonth, calendar.monthrange(currentYear, currentMonth)[1]))
@@ -52,7 +48,6 @@ class VistaCalendarioVaccini(QWidget):
 
         calendario.setFont(QFont('Georgia', 10))
         calendario.setStyleSheet('background-color: lightblue')
-
         calendario.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         calendario.setGeometry(200, 200, 300, 200)
         calendario.setGridVisible(True)
@@ -66,7 +61,7 @@ class VistaCalendarioVaccini(QWidget):
         return button
 
     def show_selected_data(self):
-        self.vista_visualizza_appuntamenti = VistaListaAppuntamentiVaccini(self.controller, self.calendar_date(), self.update_ui)
+        self.vista_visualizza_appuntamenti = VistaListaAppuntamentiVaccini(self.calendar_date(), self.update_ui)
         self.vista_visualizza_appuntamenti.show()
 
     def show_add_appuntamento(self):
@@ -79,6 +74,5 @@ class VistaCalendarioVaccini(QWidget):
     def calendar_date(self):
         dateselected = self.calendario_vaccini.selectedDate()
         data_selezionata = str(dateselected.toPyDate())
-
         self.label.setText("Data selezionata : " + data_selezionata)
         return data_selezionata

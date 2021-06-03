@@ -26,4 +26,7 @@ class ControlloreCartellaaziente():
     def get_categoria_paziente(self):
         return self.model.categoria
 
+    def get_anamnesi_paziente(self):
+        return self.model.anamnesi
+
 

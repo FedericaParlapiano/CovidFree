@@ -36,6 +36,10 @@ class ControlloreMateriale():
     def aggiorna_quantita(self, quantita):
         self.model.aggiorna_quantita(quantita)
 
+    def riserva_per_appuntamento(self):
+        if self.model.is_disponibile():
+            self.model.quantita -= 1
+
 
 
 

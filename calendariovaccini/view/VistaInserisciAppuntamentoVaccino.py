@@ -9,12 +9,12 @@ from cartellapaziente.model.CartellaPaziente import CartellaPaziente
 
 
 class VistaInserisciAppuntamentoVaccino(QWidget):
+
     def __init__(self, controller, callback):
         super(VistaInserisciAppuntamentoVaccino, self).__init__()
         self.controller = controller
         self.callback = callback
         self.info = {}
-
         self.vista_inserisci_anamnesi = VistaInserisciAnamnesi(self.controller, self.update_ui)
 
         self.v_layout = QVBoxLayout()
@@ -65,11 +65,8 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
         self.v_layout.addWidget(current_text_edit)
         self.info[tipo] = current_text_edit
 
-    def get_checkbox(self):
-        pass
-
-    def onClicked(self):
-        pass
+    def go_inserisci_anamnesi(self):
+        self.vista_inserisci_anamnesi.show()
 
     def add_appuntamento(self):
         nome = self.info["Nome"].text()
@@ -115,31 +112,27 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
                 QMessageBox.critical(self, 'Errore', 'Non è stata compilato il questionario anamnestico!', QMessageBox.Ok, QMessageBox.Ok)
                 ok = False
 
-        if ok is True:
-
-            if self.vista_inserisci_anamnesi.anamnesi['Pfizer']=='Sì' and self.vista_inserisci_anamnesi.anamnesi['Moderna']=='Sì' and self.vista_inserisci_anamnesi.anamnesi['Astrazeneca']=="Sì":
-                QMessageBox.critical(self, 'Attenzione', 'Al momento non sono disponibili vaccini che non le provichino reazioni allergiche. Non è possibile procedere con la prenotazione!', QMessageBox.Ok, QMessageBox.Ok)
-                ok = False
-
-            if self.vista_inserisci_anamnesi.anamnesi['Contatto']=='Sì' or self.vista_inserisci_anamnesi.anamnesi['Sintomi']=='Sì':
-                QMessageBox.critical(self, 'Attenzione', 'Non è possibile prenotare l\'appuntamento se si presentano sintomi ricondubili ad un\'infezione da Covid19 o se si è stati a contatto con persone positive.', QMessageBox.Ok, QMessageBox.Ok)
-                ok = False
-
         if ok is True and (self.consenso1.isChecked() is False or self.consenso2.isChecked() is False):
             ok = False
-            QMessageBox.critical(self, 'Errore', 'Se non viene fornito il consenso non è possibile procedere con la prenotazione', QMessageBox.Ok, QMessageBox.Ok)
+            QMessageBox.critical(self, 'Errore', 'Se non viene fornito il consenso non è possibile procedere '
+                                                 'con la prenotazione', QMessageBox.Ok, QMessageBox.Ok)
+
+        if ok is True:
+            if self.vista_inserisci_anamnesi.anamnesi['Pfizer']=='Sì' and self.vista_inserisci_anamnesi.anamnesi['Moderna']=='Sì' and self.vista_inserisci_anamnesi.anamnesi['Astrazeneca']=="Sì":
+                QMessageBox.critical(self, 'Attenzione', 'Ci dispiace ma al momento non sono disponibili'
+                                                        ' vaccini che non le provichino reazioni allergiche. Non è possibile procedere con la prenotazione!', QMessageBox.Ok, QMessageBox.Ok)
+            elif self.vista_inserisci_anamnesi.anamnesi['Contatto']=='Sì' or self.vista_inserisci_anamnesi.anamnesi['Sintomi']=='Sì':
+                QMessageBox.critical(self, 'Attenzione', 'Ci dispiace ma non è possibile prenotare '
+                                                       'l\'appuntamento se si presentano sintomi ricondubili ad un\'infezione da Covid19 o se si è stati a contatto con persone positive.', QMessageBox.Ok, QMessageBox.Ok)
 
         if ok is True:
             is_a_domicilio = False
             if self.domicilio.isChecked():
                 is_a_domicilio = True
             cartella_paziente = CartellaPaziente(nome, cognome, data_nascita, cf, indirizzo, telefono, categoria_speciale, preferenze, self.vista_inserisci_anamnesi.anamnesi)
-            appuntamentovaccino = AppuntamentoVaccino(cartella_paziente, is_a_domicilio)
+            appuntamentovaccino = AppuntamentoVaccino('_'+cf+'_', cartella_paziente, is_a_domicilio)
             self.callback()
             self.close()
-
-    def go_inserisci_anamnesi(self):
-        self.vista_inserisci_anamnesi.show()
 
     def update_ui(self):
         pass
