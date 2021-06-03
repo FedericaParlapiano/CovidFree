@@ -2,6 +2,9 @@ from datetime import date, datetime
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QCheckBox, QSpacerItem, QSizePolicy, QLabel, QComboBox, QLineEdit, \
     QPushButton, QMessageBox
 
+from appuntamentotampone.model.AppuntamentoTampone import AppuntamentoTampone
+
+
 class VistaInserisciAppuntamentoTampone(QWidget):
     def __init__(self, controller, callback):
         super(VistaInserisciAppuntamentoTampone, self).__init__()
@@ -16,7 +19,7 @@ class VistaInserisciAppuntamentoTampone(QWidget):
         self.get_form_entry("Codice Fiscale")
         self.get_form_entry("Indirizzo")
         self.get_form_entry("Telefono")
-        self.get_form_entry("Data appuntamento")
+        self.get_form_entry("Data appuntamento (dd/mm/YYYY)")
 
         self.drive_through = QCheckBox("Presenta sintomi o ha avuto contatti con persone positive o è attualmente positivo")
         self.v_layout.addWidget(self.drive_through)
@@ -48,27 +51,32 @@ class VistaInserisciAppuntamentoTampone(QWidget):
         cf = self.info["Codice Fiscale"].text()
         indirizzo = self.info["Indirizzo"].text()
         telefono = self.info["Telefono"].text()
+        data_appuntamento = self.info["Data appuntamento (dd/mm/YYYY)"].text()
         tipo_tampone = self.tipo_tampone.currentText()
 
         ok = True
 
-        if nome == "" or cognome == "" or data_nascita == "" or cf == "" or indirizzo == "" or telefono == "" or tipo_tampone == ' ':
+        if nome == "" or cognome == "" or data_nascita == "" or cf == "" or indirizzo == "" or telefono == "" or tipo_tampone == ' ' or data_appuntamento == "":
             QMessageBox.critical(self, 'Errore', 'Per favore, completa tutti i campi', QMessageBox.Ok, QMessageBox.Ok)
             ok = False
 
         if ok is True:
             try:
                 data_inserita = datetime.strptime(self.info["Data di nascita (dd/mm/YYYY)"].text(), '%d/%m/%Y')
+                data_appuntamento = datetime.strptime(self.info["Data appuntamento (dd/mm/YYYY)"].text(), '%d/%m/%Y')
             except:
                 QMessageBox.critical(self, 'Errore', 'Inserisci la data nel formato richiesto: dd/MM/yyyy',
                                      QMessageBox.Ok, QMessageBox.Ok)
                 ok = False
+
 
         if ok is True:
             is_drive_through = False
             if self.drive_through.isChecked():
                 is_drive_through = True
 
+
+            appuntamento = AppuntamentoTampone(nome, cognome, cf, telefono, indirizzo, data_nascita, data_appuntamento, is_drive_through, tipo_tampone)
 
 
 
