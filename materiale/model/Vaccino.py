@@ -7,7 +7,6 @@ class Vaccino(Materiale):
         self.categoria = "Vaccino"
         self.is_doppia_dose = doppiadose
         self.distanza_seconda_dose = distanza
-        self.limitazioni = None
 
     def verifica_doppia_dose(self):
         pass
@@ -15,5 +14,3 @@ class Vaccino(Materiale):
     def calcola_distanza_seconda_dose(self):
         pass
 
-    def imposta_limitazioni(self):
-        pass

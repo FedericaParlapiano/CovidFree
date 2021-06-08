@@ -7,7 +7,6 @@ from materiale.model.Vaccino import Vaccino
 
 
 class Magazzino():
-
     def __init__(self):
         super(Magazzino, self).__init__()
         self.magazzino = []
@@ -62,5 +61,3 @@ class Magazzino():
 
         with open('magazzino/data/lista_tamponi_salvata.pickle', 'wb') as handle:
             pickle.dump(self.tamponi, handle, pickle.HIGHEST_PROTOCOL)
-
-

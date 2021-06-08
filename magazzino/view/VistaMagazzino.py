@@ -66,7 +66,7 @@ class VistaMagazzino(QWidget):
 
     def update_ui(self):
         self.listview_vaccini_model = QStandardItemModel(self.list_view_vaccini)
-        for vaccino in self.controller.get_vaccini():
+        for vaccino in self.controller.get_elenco_vaccini():
             item = QStandardItem()
             item.setText(vaccino.tipologia)
             item.setEditable(False)
@@ -78,7 +78,7 @@ class VistaMagazzino(QWidget):
         self.list_view_vaccini.setModel(self.listview_vaccini_model)
 
         self.listview_tamponi_model = QStandardItemModel(self.list_view_tamponi)
-        for tampone in self.controller.get_tamponi():
+        for tampone in self.controller.get_elenco_tamponi():
             item = QStandardItem()
             item.setText(tampone.tipologia)
             item.setEditable(False)
