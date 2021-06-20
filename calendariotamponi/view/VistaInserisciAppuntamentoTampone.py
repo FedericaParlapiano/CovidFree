@@ -1,6 +1,10 @@
+import calendar
 from datetime import date, datetime
+
+from PyQt5.QtCore import QDate
+from PyQt5.QtGui import QFont, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QCheckBox, QSpacerItem, QSizePolicy, QLabel, QComboBox, QLineEdit, \
-    QPushButton, QMessageBox
+    QPushButton, QMessageBox, QCalendarWidget, QListView, QGridLayout
 
 from appuntamentotampone.model.AppuntamentoTampone import AppuntamentoTampone
 
@@ -19,7 +23,24 @@ class VistaInserisciAppuntamentoTampone(QWidget):
         self.get_form_entry("Codice Fiscale")
         self.get_form_entry("Indirizzo")
         self.get_form_entry("Telefono")
-        self.get_form_entry("Data appuntamento (dd/mm/YYYY)")
+
+        self.calendar_layout = QGridLayout()
+        self.calendario_appuntamento = self.init_calendario()
+        self.calendar_layout.addWidget(QLabel("Data appuntamento"), 0, 0)
+        self.calendar_layout.addWidget(self.calendario_appuntamento, 1, 0)
+        self.calendario_appuntamento.selectionChanged.connect(self.calendar_date)
+        self.label = QLabel('')
+        self.label_orario = QLabel('')
+        #self.label_orario = QLabel(self.show_selected_orario)
+
+        self.calendar_layout.addWidget(QLabel("Fascia oraria appuntamento"), 0, 1)
+        self.list_view_orario = QListView()
+        self.update_ui()
+        self.calendar_layout.addWidget(self.list_view_orario, 1, 1)
+
+        self.calendar_layout.addWidget(self.label, 2, 0)
+        self.calendar_layout.addWidget(self.label_orario, 2, 1)
+        self.v_layout.addLayout(self.calendar_layout)
 
         self.drive_through = QCheckBox("Presenta sintomi o ha avuto contatti con persone positive o è attualmente positivo")
         self.v_layout.addWidget(self.drive_through)
@@ -80,6 +101,65 @@ class VistaInserisciAppuntamentoTampone(QWidget):
 
 
 
+    def init_calendario(self):
+        calendario = QCalendarWidget(self)
+        currentMonth = datetime.now().month
+        currentYear = datetime.now().year
+
+
+        calendario.setMinimumDate(QDate(currentYear, currentMonth, 1))
+        calendario.setMaximumDate(
+            QDate(currentYear + 1, currentMonth, calendar.monthrange(currentYear, currentMonth)[1]))
+        calendario.setSelectedDate(QDate(currentYear, currentMonth, 1))
+
+        calendario.setFont(QFont('Georgia', 10))
+        calendario.setStyleSheet('background-color: lightblue')
+
+        calendario.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        calendario.setGeometry(200, 200, 300, 200)
+        calendario.setGridVisible(True)
+        return calendario
+
+    def calendar_date(self):
+        dateselected = self.calendario_appuntamento.selectedDate()
+        data_selezionata = str(dateselected.toPyDate())
+
+        orario_selected = ""
+        if self.list_view_orario.selectedIndexes():
+            selected = self.list_view_orario.selectedIndexes()[0].row()
+            orario_selected = self.orari[selected]
+
+            self.label_orario.setText("Fascia oraria selezionata : " + orario_selected)
+
+        self.label.setText("Data selezionata : " + data_selezionata)
+        return data_selezionata
+
+
+    def update_ui(self):
+        self.list_view_orario_model = QStandardItemModel(self.list_view_orario)
+        self.orari = ["9:00-10:00","10:00-11:00","11:00-12:00","12:00-13:00","13:00-14:00","14:00-15:00","15:00-16:00","16:00-17:00","17:00-18:00","18:00-19:00",]
+        for fascia in self.orari:
+            item = QStandardItem()
+            item.setText(fascia)
+            item.setEditable(False)
+            font = item.font()
+            font.setFamily('Georgia')
+            font.setPointSize(12)
+            item.setFont(font)
+            self.list_view_orario_model.appendRow(item)
+        self.list_view_orario.setModel(self.list_view_orario_model)
+
+
+    def show_selected_orario(self):
+        orario_selected = ""
+        if self.list_view_orario.selectedIndexes():
+             selected = self.list_view_orario.selectedIndexes()[0].row()
+             #orario_selected = self.list_view_orario(selected)
+
+             self.label_orario.setText("Fascia oraria selezionata : " + orario_selected)
+        print(orario_selected + "ciao")
+
+        return orario_selected
 
 
 
