@@ -4,7 +4,7 @@ from datetime import date, datetime
 from PyQt5.QtCore import QDate
 from PyQt5.QtGui import QFont, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QCheckBox, QSpacerItem, QSizePolicy, QLabel, QComboBox, QLineEdit, \
-    QPushButton, QMessageBox, QCalendarWidget, QListView, QGridLayout
+    QPushButton, QMessageBox, QCalendarWidget, QListView, QGridLayout, QAbstractItemView
 
 from appuntamentotampone.model.AppuntamentoTampone import AppuntamentoTampone
 
@@ -31,12 +31,15 @@ class VistaInserisciAppuntamentoTampone(QWidget):
         self.calendario_appuntamento.selectionChanged.connect(self.calendar_date)
         self.label = QLabel('')
         self.label_orario = QLabel('')
-        #self.label_orario = QLabel(self.show_selected_orario)
+
 
         self.calendar_layout.addWidget(QLabel("Fascia oraria appuntamento"), 0, 1)
         self.list_view_orario = QListView()
         self.update_ui()
         self.calendar_layout.addWidget(self.list_view_orario, 1, 1)
+
+        self.list_view_orario.selectionModel().currentChanged.connect(self.show_selected_orario)
+
 
         self.calendar_layout.addWidget(self.label, 2, 0)
         self.calendar_layout.addWidget(self.label_orario, 2, 1)
@@ -124,12 +127,12 @@ class VistaInserisciAppuntamentoTampone(QWidget):
         dateselected = self.calendario_appuntamento.selectedDate()
         data_selezionata = str(dateselected.toPyDate())
 
-        orario_selected = ""
+        '''orario_selected = ""
         if self.list_view_orario.selectedIndexes():
             selected = self.list_view_orario.selectedIndexes()[0].row()
             orario_selected = self.orari[selected]
 
-            self.label_orario.setText("Fascia oraria selezionata : " + orario_selected)
+            self.label_orario.setText("Fascia oraria selezionata : " + orario_selected)'''
 
         self.label.setText("Data selezionata : " + data_selezionata)
         return data_selezionata
@@ -150,14 +153,12 @@ class VistaInserisciAppuntamentoTampone(QWidget):
         self.list_view_orario.setModel(self.list_view_orario_model)
 
 
-    def show_selected_orario(self):
+    def show_selected_orario(self, current, previous):
         orario_selected = ""
         if self.list_view_orario.selectedIndexes():
-             selected = self.list_view_orario.selectedIndexes()[0].row()
-             #orario_selected = self.list_view_orario(selected)
+            orario_selected = self.orari[current.row()]
 
-             self.label_orario.setText("Fascia oraria selezionata : " + orario_selected)
-        print(orario_selected + "ciao")
+            self.label_orario.setText("Fascia oraria selezionata : " + orario_selected)
 
         return orario_selected
 
