@@ -1,4 +1,6 @@
 import calendar
+import os
+import pickle
 from datetime import date, datetime
 
 from PyQt5.QtCore import QDate
@@ -23,6 +25,8 @@ class VistaInserisciAppuntamentoTampone(QWidget):
         self.get_form_entry("Codice Fiscale")
         self.get_form_entry("Indirizzo")
         self.get_form_entry("Telefono")
+        self.data_selezionata = " "
+        self.orario_selected = " "
 
         self.calendar_layout = QGridLayout()
         self.calendario_appuntamento = self.init_calendario()
@@ -32,14 +36,12 @@ class VistaInserisciAppuntamentoTampone(QWidget):
         self.label = QLabel('')
         self.label_orario = QLabel('')
 
-
         self.calendar_layout.addWidget(QLabel("Fascia oraria appuntamento"), 0, 1)
         self.list_view_orario = QListView()
         self.update_ui()
         self.calendar_layout.addWidget(self.list_view_orario, 1, 1)
 
         self.list_view_orario.selectionModel().currentChanged.connect(self.show_selected_orario)
-
 
         self.calendar_layout.addWidget(self.label, 2, 0)
         self.calendar_layout.addWidget(self.label_orario, 2, 1)
@@ -60,8 +62,6 @@ class VistaInserisciAppuntamentoTampone(QWidget):
         self.v_layout.addWidget(btn_ok)
         self.setWindowTitle("Nuovo Appuntamento")
 
-
-
     def get_form_entry(self, tipo):
         self.v_layout.addWidget(QLabel(tipo))
         current_text_edit = QLineEdit(self)
@@ -75,40 +75,51 @@ class VistaInserisciAppuntamentoTampone(QWidget):
         cf = self.info["Codice Fiscale"].text()
         indirizzo = self.info["Indirizzo"].text()
         telefono = self.info["Telefono"].text()
-        data_appuntamento = self.info["Data appuntamento (dd/mm/YYYY)"].text()
         tipo_tampone = self.tipo_tampone.currentText()
 
         ok = True
-
-        if nome == "" or cognome == "" or data_nascita == "" or cf == "" or indirizzo == "" or telefono == "" or tipo_tampone == ' ' or data_appuntamento == "":
+        if nome == "" or cognome == "" or data_nascita == "" or cf == "" or indirizzo == "" or telefono == "" or tipo_tampone == ' ' or self.orario_selected == " " or self.data_selezionata == " ":
             QMessageBox.critical(self, 'Errore', 'Per favore, completa tutti i campi', QMessageBox.Ok, QMessageBox.Ok)
             ok = False
 
         if ok is True:
             try:
                 data_inserita = datetime.strptime(self.info["Data di nascita (dd/mm/YYYY)"].text(), '%d/%m/%Y')
-                data_appuntamento = datetime.strptime(self.info["Data appuntamento (dd/mm/YYYY)"].text(), '%d/%m/%Y')
             except:
                 QMessageBox.critical(self, 'Errore', 'Inserisci la data nel formato richiesto: dd/MM/yyyy',
                                      QMessageBox.Ok, QMessageBox.Ok)
                 ok = False
 
+        if ok is True and not self.controllo_disponibilita():
+            QMessageBox.critical(self, 'Errore', 'Siamo spiacenti, ma attualmente non è disponibile la tipologia di tampone selezionata',
+                                 QMessageBox.Ok, QMessageBox.Ok)
+            ok = False
 
         if ok is True:
             is_drive_through = False
             if self.drive_through.isChecked():
                 is_drive_through = True
+            appuntamento = AppuntamentoTampone(nome, cognome, cf, telefono, indirizzo, data_nascita, self.data_selezionata, self.orario_selected, is_drive_through, tipo_tampone)
 
+    def controllo_disponibilita(self):
+        disponibile = False
+        if os.path.isfile('magazzino/data/lista_tamponi_salvata.pickle'):
+            with open('magazzino/data/lista_tamponi_salvata.pickle', 'rb') as f:
+                self.tamponi_presenti = pickle.load(f)
 
-            appuntamento = AppuntamentoTampone(nome, cognome, cf, telefono, indirizzo, data_nascita, data_appuntamento, is_drive_through, tipo_tampone)
+        for tampone in self.tamponi_presenti:
+            if tampone.tipologia == self.tipo_tampone.currentText() and tampone.is_disponibile():
+                disponibile = True
+                tampone.quantita = tampone.quantita - 1
+                with open('magazzino/data/lista_tamponi_salvata.pickle', 'wb') as handle:
+                    pickle.dump(self.tamponi_presenti, handle, pickle.HIGHEST_PROTOCOL)
 
-
+        return disponibile
 
     def init_calendario(self):
         calendario = QCalendarWidget(self)
         currentMonth = datetime.now().month
         currentYear = datetime.now().year
-
 
         calendario.setMinimumDate(QDate(currentYear, currentMonth, 1))
         calendario.setMaximumDate(
@@ -125,18 +136,18 @@ class VistaInserisciAppuntamentoTampone(QWidget):
 
     def calendar_date(self):
         dateselected = self.calendario_appuntamento.selectedDate()
-        data_selezionata = str(dateselected.toPyDate())
+        self.data_selezionata = str(dateselected.toPyDate())
 
-        '''orario_selected = ""
+        self.label.setText("Data selezionata : " + self.data_selezionata)
+        return self.data_selezionata
+
+    def show_selected_orario(self, current):
         if self.list_view_orario.selectedIndexes():
-            selected = self.list_view_orario.selectedIndexes()[0].row()
-            orario_selected = self.orari[selected]
+            self.orario_selected = self.orari[current.row()]
 
-            self.label_orario.setText("Fascia oraria selezionata : " + orario_selected)'''
+            self.label_orario.setText("Fascia oraria selezionata : " + self.orario_selected)
 
-        self.label.setText("Data selezionata : " + data_selezionata)
-        return data_selezionata
-
+        return self.orario_selected
 
     def update_ui(self):
         self.list_view_orario_model = QStandardItemModel(self.list_view_orario)
@@ -151,21 +162,3 @@ class VistaInserisciAppuntamentoTampone(QWidget):
             item.setFont(font)
             self.list_view_orario_model.appendRow(item)
         self.list_view_orario.setModel(self.list_view_orario_model)
-
-
-    def show_selected_orario(self, current, previous):
-        orario_selected = ""
-        if self.list_view_orario.selectedIndexes():
-            orario_selected = self.orari[current.row()]
-
-            self.label_orario.setText("Fascia oraria selezionata : " + orario_selected)
-
-        return orario_selected
-
-
-
-
-
-
-
-

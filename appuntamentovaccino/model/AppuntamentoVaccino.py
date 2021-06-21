@@ -34,6 +34,12 @@ class AppuntamentoVaccino():
         elif self.vaccini_assegnabili:
             da_assegnare = self.vaccini_assegnabili[0]
 
+        for vaccino in self.vaccini_presenti:
+            if da_assegnare.tipologia == vaccino.tipologia:
+                vaccino.quantita = vaccino.quantita - 1
+                with open('magazzino/data/lista_vaccini_salvata.pickle', 'wb') as handle:
+                    pickle.dump(self.vaccini_presenti, handle, pickle.HIGHEST_PROTOCOL)
+
         print(da_assegnare.tipologia)
         return da_assegnare
 
