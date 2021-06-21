@@ -99,7 +99,10 @@ class VistaInserisciAppuntamentoTampone(QWidget):
             is_drive_through = False
             if self.drive_through.isChecked():
                 is_drive_through = True
-            appuntamento = AppuntamentoTampone(nome, cognome, cf, telefono, indirizzo, data_nascita, self.data_selezionata, self.orario_selected, is_drive_through, tipo_tampone)
+            self.controller.aggiungi_appuntamento(AppuntamentoTampone(nome, cognome, cf, telefono, indirizzo, data_nascita, self.data_selezionata, self.orario_selected, is_drive_through, tipo_tampone))
+            self.close()
+
+
 
     def controllo_disponibilita(self):
         disponibile = False
