@@ -51,7 +51,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
 
         self.setLayout(self.grid_layout)
         self.resize(600, 300)
-        self.setWindowTitle('Lista Appuntamenti Tamponi Giorno: {}'.format(data))
+        self.setWindowTitle('Lista Appuntamenti Vaccini Giorno: {}'.format(data))
 
     def get_list(self, tipologia, colonna):
 

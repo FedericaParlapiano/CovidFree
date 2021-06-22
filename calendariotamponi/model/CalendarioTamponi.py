@@ -6,6 +6,11 @@ class CalendarioTamponi():
         super(CalendarioTamponi, self).__init__()
         self.elenco_appuntamenti = []
 
+        if os.path.isfile('calendariotamponi/data/elenco_appuntamenti_salvati.pickle'):
+            with open('calendariotamponi/data/elenco_appuntamenti_salvati.pickle', 'rb') as f:
+                elenco_appuntamenti_salvati = pickle.load(f)
+            self.elenco_appuntamenti = elenco_appuntamenti_salvati
+
     def aggiungi_appuntamento(self, appuntamento):
         self.elenco_appuntamenti.append(appuntamento)
 

@@ -1,15 +1,18 @@
+from PyQt5 import QtGui
+from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QLabel, QGridLayout
+
+from calendariotamponi.controller.ControlloreCalendarioTamponi import ControlloreCalendarioTamponi
 
 
 class VistaListaAppuntamentiTamponi(QWidget):
     def __init__(self, controller, data, callback):
 
         super(VistaListaAppuntamentiTamponi, self).__init__()
-        self.controller = controller
+        self.controller = ControlloreCalendarioTamponi()
         self.callback = callback
-        self.info = {}
-
-        self.update_ui()
+        #self.info = {}
+        self.data = data
 
         h_layout = QHBoxLayout()
         self.list_view = QListView()
@@ -20,6 +23,8 @@ class VistaListaAppuntamentiTamponi(QWidget):
         self.list_view_antigenico = QListView()
         self.list_view_molecolare = QListView()
         self.list_view_sierologico = QListView()
+
+        self.update_ui()
 
         self.get_list("Appuntamenti Antigenico", 0)
         self.get_list("Appuntamenti Molecolare", 1)
@@ -47,7 +52,7 @@ class VistaListaAppuntamentiTamponi(QWidget):
 
         self.setLayout(self.grid_layout)
         self.resize(600, 300)
-        self.setWindowTitle('Lista Appuntamenti Tamponi Giorno: {}'.format(data))
+        self.setWindowTitle('Lista Appuntamenti Tamponi Giorno: {}'.format(self.data))
 
 
     def get_list(self, tipologia, colonna):
@@ -63,10 +68,32 @@ class VistaListaAppuntamentiTamponi(QWidget):
 
         self.grid_layout.addLayout(v_layout_tipologia, 0, colonna)
 
-
-
     def show_selected_info(self):
         pass
 
     def update_ui(self):
-        pass
+        self.list_view_antigenico_model = QStandardItemModel(self.list_view_antigenico)
+        self.list_view_molecolare_model = QStandardItemModel(self.list_view_molecolare)
+        self.list_view_sierologico_model = QStandardItemModel(self.list_view_sierologico)
+        for appuntamento in self.controller.get_elenco_appuntamenti():
+            item = QStandardItem()
+            if appuntamento.data_appuntamento == self.data:
+                item.setText(appuntamento.nome + " " + appuntamento.cognome)
+                item.setEditable(False)
+                font = item.font()
+                font.setFamily('Georgia')
+                font.setPointSize(12)
+                item.setFont(font)
+                if appuntamento.is_drive_through:
+                    item.setBackground(QtGui.QColor(255,255,153))
+                if appuntamento.tipo_tampone == "Antigenico":
+                    self.list_view_antigenico_model.appendRow(item)
+                elif appuntamento.tipo_tampone == "Molecolare":
+                    self.list_view_molecolare_model.appendRow(item)
+                elif appuntamento.tipo_tampone == "Sierologico":
+                    self.list_view_sierologico_model.appendRow(item)
+
+        self.list_view_antigenico.setModel(self.list_view_antigenico_model)
+        self.list_view_molecolare.setModel(self.list_view_molecolare_model)
+        self.list_view_sierologico.setModel(self.list_view_sierologico_model)
+
