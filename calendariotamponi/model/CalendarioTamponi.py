@@ -17,5 +17,8 @@ class CalendarioTamponi():
     def get_appuntamento_by_data(self, data):
         return self.elenco_appuntamenti[data]
 
+    def get_appuntamento_by_index(self,index):
+        return self.elenco_appuntamenti[index]
+
     def get_elenco_appuntamenti(self):
         return self.elenco_appuntamenti
