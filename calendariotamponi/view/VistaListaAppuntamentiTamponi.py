@@ -42,19 +42,19 @@ class VistaListaAppuntamentiTamponi(QWidget):
         elimina_antigenico = QPushButton("Elimina")
         self.grid_layout.addWidget(visualizza_antigenico, 2, 0)
         self.grid_layout.addWidget(elimina_antigenico, 3, 0)
-        #visualizza_antigenico.clicked.connect(self.show_selected_info(self.list_view_antigenico, self.elenco_antigenico))
+        visualizza_antigenico.clicked.connect(self.show_selected_info_antigenico)
 
         visualizza_molecolare = QPushButton("Visualizza")
         elimina_molecolare = QPushButton("Elimina")
         self.grid_layout.addWidget(visualizza_molecolare, 2, 1)
         self.grid_layout.addWidget(elimina_molecolare, 3, 1)
-        visualizza_molecolare.clicked.connect(self.show_selected_info)
+        visualizza_molecolare.clicked.connect(self.show_selected_info_molecolare)
 
         visualizza_sierologico = QPushButton("Visualizza")
         elimina_sierologico = QPushButton("Elimina")
         self.grid_layout.addWidget(visualizza_sierologico, 2, 2)
         self.grid_layout.addWidget(elimina_sierologico, 3, 2)
-        #visualizza_sierologico.clicked.connect(self.show_selected_info(self.list_view_sierologico, self.elenco_sierologico))
+        visualizza_sierologico.clicked.connect(self.show_selected_info_sierologico)
 
         self.setLayout(self.grid_layout)
         self.resize(600, 300)
@@ -62,7 +62,6 @@ class VistaListaAppuntamentiTamponi(QWidget):
 
 
     def get_list(self, tipologia, colonna):
-
         v_layout_tipologia = QVBoxLayout()
         label_tipologia = QLabel(tipologia)
         font_tipologia = label_tipologia.font()
@@ -74,10 +73,24 @@ class VistaListaAppuntamentiTamponi(QWidget):
 
         self.grid_layout.addLayout(v_layout_tipologia, 0, colonna)
 
-    def show_selected_info(self):
+    def show_selected_info_molecolare(self):
         if self.list_view_molecolare.selectedIndexes():
             selected = self.list_view_molecolare.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_molecolare[selected]
+            self.vista_tampone = VistaAppuntamentoTampone(appuntamento_selezionato)
+            self.vista_tampone.show()
+
+    def show_selected_info_antigenico(self):
+        if self.list_view_antigenico.selectedIndexes():
+            selected = self.list_view_antigenico.selectedIndexes()[0].row()
+            appuntamento_selezionato = self.elenco_antigenico[selected]
+            self.vista_tampone = VistaAppuntamentoTampone(appuntamento_selezionato)
+            self.vista_tampone.show()
+
+    def show_selected_info_sierologico(self):
+        if self.list_view_sierologico.selectedIndexes():
+            selected = self.list_view_sierologico.selectedIndexes()[0].row()
+            appuntamento_selezionato = self.elenco_sierologico[selected]
             self.vista_tampone = VistaAppuntamentoTampone(appuntamento_selezionato)
             self.vista_tampone.show()
 
