@@ -54,6 +54,7 @@ class VistaTampone(QWidget):
         label_prezzo.setFont(font_prezzo)
         v_layout.addWidget(label_prezzo)
 
+        self.setWindowTitle("Tampone " + self.controller.get_tipologia_materiale())
         self.setLayout(v_layout)
         self.adjustSize()
 

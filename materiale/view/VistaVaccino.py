@@ -64,5 +64,6 @@ class VistaVaccino(QWidget):
         label_distanza.setFont(font_distanza)
         v_layout.addWidget(label_distanza)
 
+        self.setWindowTitle("Vaccino " + self.controller.get_tipologia_materiale())
         self.setLayout(v_layout)
         self.adjustSize()
