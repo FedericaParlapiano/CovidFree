@@ -24,6 +24,12 @@ class ControlloreCalendarioTamponi():
     def get_appuntamento_by_data(self, data):
         return self.model.get_appuntamento_by_data(data)
 
+    def elimina_appuntamento(self, appuntamento):
+        self.model.elimina_appuntamento(appuntamento)
+        self.save_data()
+
     def save_data(self):
         with open('calendariotamponi/data/elenco_appuntamenti_salvati.pickle', 'wb') as handle:
             pickle.dump(self.model, handle, pickle.HIGHEST_PROTOCOL)
+
+

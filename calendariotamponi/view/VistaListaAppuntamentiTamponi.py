@@ -1,6 +1,6 @@
 from PyQt5 import QtGui
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QLabel, QGridLayout
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QLabel, QGridLayout, QMessageBox
 
 from appuntamentotampone.view.VistaAppuntamentoTampone import VistaAppuntamentoTampone
 from calendariotamponi.controller.ControlloreCalendarioTamponi import ControlloreCalendarioTamponi
@@ -43,18 +43,21 @@ class VistaListaAppuntamentiTamponi(QWidget):
         self.grid_layout.addWidget(visualizza_antigenico, 2, 0)
         self.grid_layout.addWidget(elimina_antigenico, 3, 0)
         visualizza_antigenico.clicked.connect(self.show_selected_info_antigenico)
+        elimina_antigenico.clicked.connect(self.elimina_appuntamento_antigenico)
 
         visualizza_molecolare = QPushButton("Visualizza")
         elimina_molecolare = QPushButton("Elimina")
         self.grid_layout.addWidget(visualizza_molecolare, 2, 1)
         self.grid_layout.addWidget(elimina_molecolare, 3, 1)
         visualizza_molecolare.clicked.connect(self.show_selected_info_molecolare)
+        elimina_molecolare.clicked.connect(self.elimina_appuntamento_molecolare)
 
         visualizza_sierologico = QPushButton("Visualizza")
         elimina_sierologico = QPushButton("Elimina")
         self.grid_layout.addWidget(visualizza_sierologico, 2, 2)
         self.grid_layout.addWidget(elimina_sierologico, 3, 2)
         visualizza_sierologico.clicked.connect(self.show_selected_info_sierologico)
+        elimina_sierologico.clicked.connect(self.elimina_appuntamento_sierologico)
 
         self.setLayout(self.grid_layout)
         self.resize(600, 300)
@@ -123,3 +126,38 @@ class VistaListaAppuntamentiTamponi(QWidget):
         self.list_view_molecolare.setModel(self.list_view_molecolare_model)
         self.list_view_sierologico.setModel(self.list_view_sierologico_model)
 
+    def elimina_appuntamento_antigenico(self):
+        if self.list_view_antigenico.selectedIndexes():
+            selected = self.list_view_antigenico.selectedIndexes()[0].row()
+            appuntamento_selezionato = self.elenco_antigenico[selected]
+            self.controller.elimina_appuntamento(appuntamento_selezionato)
+            self.update_ui()
+
+    def elimina_appuntamento_molecolare(self):
+        if self.list_view_molecolare.selectedIndexes():
+            selected = self.list_view_molecolare.selectedIndexes()[0].row()
+            appuntamento_selezionato = self.elenco_molecolare[selected]
+
+            '''msg = QMessageBox()
+            msg.setIcon(QMessageBox.Information)
+
+            msg.setText("Sei sicuro di voler eliminare l'appuntamento?")
+            msg.setInformativeText("La decisione è irreversibile!")
+            msg.setWindowTitle("MessageBox demo")
+            msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            if msg.buttonClicked.connect(self.msgbtn).text() == "OK":
+                self.controller.elimina_appuntamento(appuntamento_selezionato)
+            msg.exec()
+            '''
+            self.controller.elimina_appuntamento(appuntamento_selezionato)
+            self.update_ui()
+
+    def elimina_appuntamento_sierologico(self):
+        if self.list_view_sierologico.selectedIndexes():
+            selected = self.list_view_sierologico.selectedIndexes()[0].row()
+            appuntamento_selezionato = self.elenco_sierologico[selected]
+            self.controller.elimina_appuntamento(appuntamento_selezionato)
+            self.update_ui()
+
+    def msgbtn(self):
+        pass

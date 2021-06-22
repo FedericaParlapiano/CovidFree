@@ -96,6 +96,23 @@ class VistaInserisciAppuntamentoTampone(QWidget):
             ok = False
 
         if ok is True:
+            contatore_data = 0
+            contatore_ora = 0
+            for appuntamento in self.controller.get_elenco_appuntamenti():
+                if appuntamento.data_appuntamento == self.data_selezionata:
+                    contatore_data = contatore_data + 1
+                    if appuntamento.fascia_oraria == self.orario_selected:
+                        contatore_ora = contatore_ora + 1
+
+            if contatore_data > 40:
+                QMessageBox.critical(self, 'Errore', 'Siamo spiacenti, il giorno selezionata è al completo.', QMessageBox.Ok, QMessageBox.Ok)
+                ok = False
+            elif contatore_ora > 4:
+                QMessageBox.critical(self, 'Errore', 'Siamo spiacenti, la fascia oraria selezionata è al completo.', QMessageBox.Ok, QMessageBox.Ok)
+                ok = False
+
+
+        if ok is True:
             is_drive_through = False
             if self.drive_through.isChecked():
                 is_drive_through = True
@@ -118,6 +135,7 @@ class VistaInserisciAppuntamentoTampone(QWidget):
                     pickle.dump(self.tamponi_presenti, handle, pickle.HIGHEST_PROTOCOL)
 
         return disponibile
+
 
     def init_calendario(self):
         calendario = QCalendarWidget(self)
@@ -154,7 +172,7 @@ class VistaInserisciAppuntamentoTampone(QWidget):
 
     def update_ui(self):
         self.list_view_orario_model = QStandardItemModel(self.list_view_orario)
-        self.orari = ["9:00-10:00","10:00-11:00","11:00-12:00","12:00-13:00","13:00-14:00","14:00-15:00","15:00-16:00","16:00-17:00","17:00-18:00","18:00-19:00",]
+        self.orari = ["9:00-10:00", "10:00-11:00", "11:00-12:00", "12:00-13:00", "13:00-14:00", "14:00-15:00", "15:00-16:00", "16:00-17:00", "17:00-18:00", "18:00-19:00"]
         for fascia in self.orari:
             item = QStandardItem()
             item.setText(fascia)
