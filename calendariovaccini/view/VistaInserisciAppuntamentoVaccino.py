@@ -18,6 +18,7 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
         self.callback = callback
         self.info = {}
         self.vista_inserisci_anamnesi = VistaInserisciAnamnesi(self.controller, self.update_ui)
+        self.vista_mostra_date = VistaDateAppuntamento()
 
         self.v_layout = QVBoxLayout()
 
@@ -144,8 +145,8 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
                                                          'l\'appuntamento a causa di una mancanza di vaccini che possono essere somministrati al paziente.',
                                      QMessageBox.Ok, QMessageBox.Ok)
 
-            scelta_data = VistaDateAppuntamento()
-            scelta_data.show()
+
+            self.vista_mostra_date.show()
 
             self.callback()
             #self.close()
