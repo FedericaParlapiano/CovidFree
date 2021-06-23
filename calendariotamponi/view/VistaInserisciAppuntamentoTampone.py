@@ -90,6 +90,17 @@ class VistaInserisciAppuntamentoTampone(QWidget):
                                      QMessageBox.Ok, QMessageBox.Ok)
                 ok = False
 
+        if ok is True and date.today().year < data_inserita.year:
+            QMessageBox.critical(self, 'Errore', 'La data di nascita inserita non è valida',
+                                 QMessageBox.Ok, QMessageBox.Ok)
+            ok = False
+
+        d = datetime.strptime(self.data_selezionata, '%Y-%m-%d')
+        if ok is True and date.today().day > d.day:
+            QMessageBox.critical(self, 'Errore', 'La data selezionata per l\' appuntamento non è valida',
+                                 QMessageBox.Ok, QMessageBox.Ok)
+            ok = False
+
         if ok is True and not self.controllo_disponibilita():
             QMessageBox.critical(self, 'Errore', 'Siamo spiacenti, ma attualmente non è disponibile la tipologia di tampone selezionata',
                                  QMessageBox.Ok, QMessageBox.Ok)

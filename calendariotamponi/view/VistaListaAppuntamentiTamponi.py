@@ -130,7 +130,16 @@ class VistaListaAppuntamentiTamponi(QWidget):
         if self.list_view_antigenico.selectedIndexes():
             selected = self.list_view_antigenico.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_antigenico[selected]
-            self.controller.elimina_appuntamento(appuntamento_selezionato)
+
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Information)
+
+            msg.setText("Sei sicuro di voler eliminare l'appuntamento?")
+            msg.setInformativeText("La decisione è irreversibile!")
+            msg.setWindowTitle("MessageBox demo")
+            msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            if msg.exec() == QMessageBox.Ok:
+                self.controller.elimina_appuntamento(appuntamento_selezionato)
             self.update_ui()
 
     def elimina_appuntamento_molecolare(self):
@@ -138,26 +147,31 @@ class VistaListaAppuntamentiTamponi(QWidget):
             selected = self.list_view_molecolare.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_molecolare[selected]
 
-            '''msg = QMessageBox()
+            msg = QMessageBox()
             msg.setIcon(QMessageBox.Information)
 
             msg.setText("Sei sicuro di voler eliminare l'appuntamento?")
             msg.setInformativeText("La decisione è irreversibile!")
             msg.setWindowTitle("MessageBox demo")
             msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-            if msg.buttonClicked.connect(self.msgbtn).text() == "OK":
+            if msg.exec() == QMessageBox.Ok:
                 self.controller.elimina_appuntamento(appuntamento_selezionato)
-            msg.exec()
-            '''
-            self.controller.elimina_appuntamento(appuntamento_selezionato)
+            #self.controller.elimina_appuntamento(appuntamento_selezionato)
             self.update_ui()
 
     def elimina_appuntamento_sierologico(self):
         if self.list_view_sierologico.selectedIndexes():
             selected = self.list_view_sierologico.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_sierologico[selected]
-            self.controller.elimina_appuntamento(appuntamento_selezionato)
-            self.update_ui()
 
-    def msgbtn(self):
-        pass
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Information)
+
+            msg.setText("Sei sicuro di voler eliminare l'appuntamento?")
+            msg.setInformativeText("La decisione è irreversibile!")
+            msg.setWindowTitle("MessageBox demo")
+            msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            if msg.exec() == QMessageBox.Ok:
+                self.controller.elimina_appuntamento(appuntamento_selezionato)
+
+            self.update_ui()
