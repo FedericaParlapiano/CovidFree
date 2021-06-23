@@ -1,6 +1,5 @@
 from calendariovaccini.model.CalendarioVaccini import CalendarioVaccini
 
-
 class ControlloreCalendarioVaccini():
     def __init__(self):
         super(ControlloreCalendarioVaccini, self).__init__()
@@ -8,6 +7,7 @@ class ControlloreCalendarioVaccini():
 
     def aggiungi_appuntamento(self, appuntamento):
         self.model.aggiungi_appuntamento(appuntamento)
+        self.save_data()
 
     def get_elenco_appuntamenti(self):
         return self.model.get_elenco_appuntamenti()
@@ -17,6 +17,7 @@ class ControlloreCalendarioVaccini():
 
     def elimina_appuntamento_by_id(self, id):
         self.model.elimina_appuntamento_by_id(id)
+        self.save_data()
 
     def save_data(self):
         self.model.save_data()

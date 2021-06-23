@@ -65,7 +65,7 @@ class VistaCalendarioVaccini(QWidget):
         self.vista_visualizza_appuntamenti.show()
 
     def show_add_appuntamento(self):
-        self.vista_inserisci_appuntamento = VistaInserisciAppuntamentoVaccino(self.controller, self.update_ui)
+        self.vista_inserisci_appuntamento = VistaInserisciAppuntamentoVaccino(self.update_ui)
         self.vista_inserisci_appuntamento.show()
 
     def update_ui(self):

@@ -122,14 +122,12 @@ class VistaInserisciAppuntamentoTampone(QWidget):
                 QMessageBox.critical(self, 'Errore', 'Siamo spiacenti, la fascia oraria selezionata è al completo.', QMessageBox.Ok, QMessageBox.Ok)
                 ok = False
 
-
         if ok is True:
             is_drive_through = False
             if self.drive_through.isChecked():
                 is_drive_through = True
             self.controller.aggiungi_appuntamento(AppuntamentoTampone(nome, cognome, cf, telefono, indirizzo, data_nascita, self.data_selezionata, self.orario_selected, is_drive_through, tipo_tampone))
             self.close()
-
 
 
     def controllo_disponibilita(self):
@@ -144,9 +142,7 @@ class VistaInserisciAppuntamentoTampone(QWidget):
                 tampone.quantita = tampone.quantita - 1
                 with open('magazzino/data/lista_tamponi_salvata.pickle', 'wb') as handle:
                     pickle.dump(self.tamponi_presenti, handle, pickle.HIGHEST_PROTOCOL)
-
         return disponibile
-
 
     def init_calendario(self):
         calendario = QCalendarWidget(self)
@@ -178,7 +174,6 @@ class VistaInserisciAppuntamentoTampone(QWidget):
             self.orario_selected = self.orari[current.row()]
 
             self.label_orario.setText("Fascia oraria selezionata : " + self.orario_selected)
-
         return self.orario_selected
 
     def update_ui(self):

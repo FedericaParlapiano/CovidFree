@@ -4,15 +4,17 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QSpacerItem, QSizePolicy, QPus
     QGridLayout, QCheckBox, QRadioButton, QComboBox
 
 from appuntamentovaccino.model.AppuntamentoVaccino import AppuntamentoVaccino
+from calendariovaccini.controller.ControlloreCalendarioVaccini import ControlloreCalendarioVaccini
+from calendariovaccini.view.VistaDateAppuntamento import VistaDateAppuntamento
 from calendariovaccini.view.VistaInserisciAnamnesi import VistaInserisciAnamnesi
 from cartellapaziente.model.CartellaPaziente import CartellaPaziente
 
 
 class VistaInserisciAppuntamentoVaccino(QWidget):
 
-    def __init__(self, controller, callback):
+    def __init__(self, callback):
         super(VistaInserisciAppuntamentoVaccino, self).__init__()
-        self.controller = controller
+        self.controller = ControlloreCalendarioVaccini()
         self.callback = callback
         self.info = {}
         self.vista_inserisci_anamnesi = VistaInserisciAnamnesi(self.controller, self.update_ui)
@@ -129,10 +131,24 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
             is_a_domicilio = False
             if self.domicilio.isChecked():
                 is_a_domicilio = True
+
+            data = "24-06-2021"
+            orario = "17.00"
             cartella_paziente = CartellaPaziente(nome, cognome, data_nascita, cf, indirizzo, telefono, categoria_speciale, preferenze, self.vista_inserisci_anamnesi.anamnesi)
-            appuntamentovaccino = AppuntamentoVaccino('_'+cf+'_', cartella_paziente, is_a_domicilio)
+            appuntamento_vaccino = AppuntamentoVaccino('_'+cf+'_', cartella_paziente, data, orario, is_a_domicilio)
+
+            if appuntamento_vaccino.vaccino is not None:
+                self.controller.aggiungi_appuntamento(appuntamento_vaccino)
+            else:
+                QMessageBox.critical(self, 'Errore', 'Ci dispiace ma non è possibile prenotare '
+                                                         'l\'appuntamento a causa di una mancanza di vaccini che possono essere somministrati al paziente.',
+                                     QMessageBox.Ok, QMessageBox.Ok)
+
+            scelta_data = VistaDateAppuntamento()
+            scelta_data.show()
+
             self.callback()
-            self.close()
+            #self.close()
 
     def update_ui(self):
         pass

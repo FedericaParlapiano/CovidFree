@@ -156,7 +156,6 @@ class VistaListaAppuntamentiTamponi(QWidget):
             msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             if msg.exec() == QMessageBox.Ok:
                 self.controller.elimina_appuntamento(appuntamento_selezionato)
-            #self.controller.elimina_appuntamento(appuntamento_selezionato)
             self.update_ui()
 
     def elimina_appuntamento_sierologico(self):

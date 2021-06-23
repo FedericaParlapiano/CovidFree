@@ -76,12 +76,13 @@ class VistaListaAppuntamentiVaccini(QWidget):
     def update_ui(self):
         self.listview_appuntamenti_model = QStandardItemModel(self.list_view_appuntamenti)
         if self.controller.get_elenco_appuntamenti():
-            for appuntamento in self.controller.get_elenco_appuntamenti():item = QStandardItem()
-            item.setText(appuntamento.cartella_paziente.nome + " " + appuntamento.cartella_paziente.cognome)
-            item.setEditable(False)
-            font = item.font()
-            font.setFamily('Georgia')
-            font.setPointSize(12)
-            item.setFont(font)
-            self.listview_appuntamenti_model.appendRow(item)
+            for appuntamento in self.controller.get_elenco_appuntamenti():
+                item = QStandardItem()
+                item.setText(appuntamento.cartella_paziente.nome + " " + appuntamento.cartella_paziente.cognome)
+                item.setEditable(False)
+                font = item.font()
+                font.setFamily('Georgia')
+                font.setPointSize(12)
+                item.setFont(font)
+                self.listview_appuntamenti_model.appendRow(item)
         self.list_view_appuntamenti.setModel(self.listview_appuntamenti_model)
