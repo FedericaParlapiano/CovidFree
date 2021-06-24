@@ -10,6 +10,7 @@ class AppuntamentoVaccino():
         self.is_a_domicilio = is_a_domicilio
 
         self.vaccino = self.assegna_vaccino()
+        self.distanza_richiamo = 0
         self.fascia_oraria = fascia_oraria
         self.data_appuntamento = data_appuntamento
 

@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QSpacerItem, QSizePolicy, QPushButton, QLabel, QLineEdit, QMessageBox, \
     QGridLayout, QCheckBox, QRadioButton, QComboBox
@@ -50,6 +50,11 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
         self.v_layout.addWidget(self.preferenza)
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
+        button_data = QPushButton("Scegli data e orario")
+        button_data.clicked.connect(self.go_scelta_data)
+        self.v_layout.addWidget(button_data)
+        self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
         self.consenso1 = QCheckBox("Consenso al trattamento dei dati personali")
         self.v_layout.addWidget(self.consenso1)
         self.consenso2 = QCheckBox("Consenso al trattamento sanitario")
@@ -70,6 +75,10 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
 
     def go_inserisci_anamnesi(self):
         self.vista_inserisci_anamnesi.show()
+
+    def go_scelta_data(self):
+        self.vista_mostra_date.show()
+
 
     def add_appuntamento(self):
         nome = self.info["Nome"].text()
@@ -128,15 +137,21 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
                 QMessageBox.critical(self, 'Attenzione', 'Ci dispiace ma non è possibile prenotare '
                                                        'l\'appuntamento se si presentano sintomi ricondubili ad un\'infezione da Covid19 o se si è stati a contatto con persone positive.', QMessageBox.Ok, QMessageBox.Ok)
 
+        if ok is True and self.vista_mostra_date.data_scelta == "" or  self.vista_mostra_date.orario_selezionato == "":
+            QMessageBox.critical(self, 'Errore', 'Non è stata scelta una data per l\'appuntamento!', QMessageBox.Ok,
+                                 QMessageBox.Ok)
+            ok = False
+
         if ok is True:
             is_a_domicilio = False
             if self.domicilio.isChecked():
                 is_a_domicilio = True
 
-            data = "24-06-2021"
-            orario = "17.00"
+            print(self.vista_mostra_date.data_scelta)
+            print(self.vista_mostra_date.orario_selezionato)
+
             cartella_paziente = CartellaPaziente(nome, cognome, data_nascita, cf, indirizzo, telefono, categoria_speciale, preferenze, self.vista_inserisci_anamnesi.anamnesi)
-            appuntamento_vaccino = AppuntamentoVaccino('_'+cf+'_', cartella_paziente, data, orario, is_a_domicilio)
+            appuntamento_vaccino = AppuntamentoVaccino('_'+cf+'_', cartella_paziente, self.vista_mostra_date.data_scelta, self.vista_mostra_date.orario_selezionato, is_a_domicilio)
 
             if appuntamento_vaccino.vaccino is not None:
                 self.controller.aggiungi_appuntamento(appuntamento_vaccino)
@@ -146,10 +161,8 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
                                      QMessageBox.Ok, QMessageBox.Ok)
 
 
-            self.vista_mostra_date.show()
-
             self.callback()
-            #self.close()
+            self.close()
 
     def update_ui(self):
         pass

@@ -115,10 +115,10 @@ class VistaInserisciAppuntamentoTampone(QWidget):
                     if appuntamento.fascia_oraria == self.orario_selected:
                         contatore_ora = contatore_ora + 1
 
-            if contatore_data > 40:
+            if contatore_data > 39:
                 QMessageBox.critical(self, 'Errore', 'Siamo spiacenti, il giorno selezionata è al completo.', QMessageBox.Ok, QMessageBox.Ok)
                 ok = False
-            elif contatore_ora > 4:
+            elif contatore_ora > 3:
                 QMessageBox.critical(self, 'Errore', 'Siamo spiacenti, la fascia oraria selezionata è al completo.', QMessageBox.Ok, QMessageBox.Ok)
                 ok = False
 
