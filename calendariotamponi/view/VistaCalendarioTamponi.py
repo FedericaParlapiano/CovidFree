@@ -16,7 +16,6 @@ class VistaCalendarioTamponi(QWidget):
         super(VistaCalendarioTamponi, self).__init__(parent)
 
         self.controller = ControlloreCalendarioTamponi()
-
         self.calendario_tamponi = self.init_calendario()
 
         h_layout = QHBoxLayout()

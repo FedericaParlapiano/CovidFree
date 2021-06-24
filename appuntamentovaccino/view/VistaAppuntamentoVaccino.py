@@ -5,16 +5,13 @@ from appuntamentovaccino.controller.ControlloreAppuntamentoVaccino import Contro
 
 class VistaAppuntamentoVaccino(QWidget):
 
-    def __init__(self, appuntamento, callback_eliminazione, elimina_appuntamento, parent=None):
+    def __init__(self, appuntamento, parent=None):
         super(VistaAppuntamentoVaccino, self).__init__()
         self.controller = ControlloreAppuntamentoVaccino(appuntamento)
-        self.elimina_appuntamento = elimina_appuntamento
-        self.callback_eliminazione = callback_eliminazione
 
         v_layout = QVBoxLayout()
 
-        label_nome = QLabel("Paziente: {} {}".format(self.controller.self.controller.get_cartella_paziente_appuntamento().nome,
-                                                       self.controller.self.controller.get_cartella_paziente_appuntamento().cognome))
+        label_nome = QLabel("Paziente: {} {}".format(appuntamento.cartella_paziente.nome, appuntamento.cartella_paziente.cognome))
         font_nome = label_nome.font()
         font_nome.setPointSize(30)
         label_nome.setFont(font_nome)
@@ -22,7 +19,7 @@ class VistaAppuntamentoVaccino(QWidget):
 
         v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
-        label_data = QLabel("Data e ora: {} {}".format(self.controller.get_data_appuntamento(), self.controller.get_orario_appuntamento()))
+        label_data = QLabel("Data e ora: {} {}".format(appuntamento.data_appuntamento, appuntamento.fascia_oraria))
         font_data = label_data.font()
         font_data.setPointSize(20)
         label_data.setFont(font_data)

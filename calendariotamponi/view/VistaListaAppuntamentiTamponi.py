@@ -101,6 +101,7 @@ class VistaListaAppuntamentiTamponi(QWidget):
         self.list_view_antigenico_model = QStandardItemModel(self.list_view_antigenico)
         self.list_view_molecolare_model = QStandardItemModel(self.list_view_molecolare)
         self.list_view_sierologico_model = QStandardItemModel(self.list_view_sierologico)
+
         for appuntamento in self.controller.get_elenco_appuntamenti():
             item = QStandardItem()
             if appuntamento.data_appuntamento == self.data:

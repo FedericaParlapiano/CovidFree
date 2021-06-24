@@ -4,7 +4,7 @@ from PyQt5.QtGui import QFont, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QCalendarWidget, QSizePolicy, QVBoxLayout, QPushButton, QHBoxLayout, QLabel
 from PyQt5.QtCore import QDate
 
-from calendariovaccini.controller import ControlloreCalendarioVaccini
+from calendariovaccini.controller.ControlloreCalendarioVaccini import ControlloreCalendarioVaccini
 from calendariovaccini.view.VistaInserisciAppuntamentoVaccino import VistaInserisciAppuntamentoVaccino
 from calendariovaccini.view.VistaListaAppuntamentiVaccini import VistaListaAppuntamentiVaccini
 
@@ -14,7 +14,7 @@ class VistaCalendarioVaccini(QWidget):
     def __init__(self, parent=None):
         super(VistaCalendarioVaccini, self).__init__(parent)
 
-        self.controller = ControlloreCalendarioVaccini
+        self.controller = ControlloreCalendarioVaccini()
         self.calendario_vaccini = self.init_calendario()
 
         h_layout = QHBoxLayout()
