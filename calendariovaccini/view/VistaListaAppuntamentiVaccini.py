@@ -15,6 +15,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
         self.controller = ControlloreCalendarioVaccini()
         self.callback = callback
 
+
         appuntamento = datetime.strptime(data, '%Y-%m-%d')
         d = str(appuntamento.strftime('%d-%m-%Y'))
         self.data = d
@@ -85,22 +86,22 @@ class VistaListaAppuntamentiVaccini(QWidget):
         if self.list_view_astrazeneca.selectedIndexes():
             selected = self.list_view_astrazeneca.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_astrazeneca[selected]
-            #self.vista_appuntamento = VistaAppuntamentoVaccino(appuntamento_selezionato)
-            #self.vista_vaccino.show()
+            self.vista_vaccino = VistaAppuntamentoVaccino(appuntamento_selezionato)
+            self.vista_vaccino.show()
 
     def show_selected_info_moderna(self):
         if self.list_view_moderna.selectedIndexes():
             selected = self.list_view_moderna.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_moderna[selected]
-            #self.vista_appuntamento = VistaAppuntamentoVaccino(appuntamento_selezionato)
-            #self.vista_vaccino.show()
+            self.vista_vaccino = VistaAppuntamentoVaccino(appuntamento_selezionato)
+            self.vista_vaccino.show()
 
     def show_selected_info_pfizer(self):
         if self.list_view_pfizer.selectedIndexes():
             selected = self.list_view_pfizer.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_pfizer[selected]
-            #self.vista_appuntamento = VistaAppuntamentoVaccino(appuntamento_selezionato)
-            #self.vista_vaccino.show()
+            self.vista_vaccino = VistaAppuntamentoVaccino(appuntamento_selezionato)
+            self.vista_vaccino.show()
 
     def update_ui(self):
         self.list_view_astrazeneca_model = QStandardItemModel(self.list_view_astrazeneca)
@@ -108,8 +109,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
         self.list_view_pfizer_model = QStandardItemModel(self.list_view_pfizer)
 
         for appuntamento in self.controller.get_elenco_appuntamenti():
-            print(appuntamento.data_appuntamento)
-            print(self.data)
+
             item = QStandardItem()
             if appuntamento.data_appuntamento == self.data:
                 item.setText(appuntamento.cartella_paziente.nome + " " + appuntamento.cartella_paziente.cognome)

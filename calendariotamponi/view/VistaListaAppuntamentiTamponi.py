@@ -82,6 +82,7 @@ class VistaListaAppuntamentiTamponi(QWidget):
             appuntamento_selezionato = self.elenco_molecolare[selected]
             self.vista_tampone = VistaAppuntamentoTampone(appuntamento_selezionato)
             self.vista_tampone.show()
+            self.update_ui()
 
     def show_selected_info_antigenico(self):
         if self.list_view_antigenico.selectedIndexes():
@@ -89,6 +90,7 @@ class VistaListaAppuntamentiTamponi(QWidget):
             appuntamento_selezionato = self.elenco_antigenico[selected]
             self.vista_tampone = VistaAppuntamentoTampone(appuntamento_selezionato)
             self.vista_tampone.show()
+            self.update_ui()
 
     def show_selected_info_sierologico(self):
         if self.list_view_sierologico.selectedIndexes():
@@ -96,6 +98,7 @@ class VistaListaAppuntamentiTamponi(QWidget):
             appuntamento_selezionato = self.elenco_sierologico[selected]
             self.vista_tampone = VistaAppuntamentoTampone(appuntamento_selezionato)
             self.vista_tampone.show()
+            self.update_ui()
 
     def update_ui(self):
         self.list_view_antigenico_model = QStandardItemModel(self.list_view_antigenico)
