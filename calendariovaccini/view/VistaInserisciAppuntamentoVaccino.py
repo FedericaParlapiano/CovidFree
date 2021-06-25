@@ -136,10 +136,12 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
 
         if ok is True:
             if self.vista_inserisci_anamnesi.anamnesi['Pfizer']=='Sì' and self.vista_inserisci_anamnesi.anamnesi['Moderna']=='Sì' and self.vista_inserisci_anamnesi.anamnesi['Astrazeneca']=="Sì":
+                ok = False
                 QMessageBox.critical(self, 'Attenzione', 'Ci dispiace ma al momento non sono disponibili'
                                                         ' vaccini che non le provichino reazioni allergiche. Non è possibile procedere con la prenotazione!', QMessageBox.Ok, QMessageBox.Ok)
                 ok = False
             elif self.vista_inserisci_anamnesi.anamnesi['Contatto']=='Sì' or self.vista_inserisci_anamnesi.anamnesi['Sintomi']=='Sì':
+                ok = False
                 QMessageBox.critical(self, 'Attenzione', 'Ci dispiace ma non è possibile prenotare '
                                                        'l\'appuntamento se si presentano sintomi ricondubili ad un\'infezione da Covid19 o se si è stati a contatto con persone positive.', QMessageBox.Ok, QMessageBox.Ok)
                 ok = False
@@ -157,6 +159,8 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
 
             if appuntamento_vaccino.vaccino is not None:
                 self.controller.aggiungi_appuntamento(appuntamento_vaccino)
+                self.vista_riepilogo = VistaAppuntamentoVaccino(appuntamento_vaccino)
+                self.vista_riepilogo.show()
             else:
                 QMessageBox.critical(self, 'Errore', 'Ci dispiace ma non è possibile prenotare '
                                                          'l\'appuntamento a causa di una mancanza di vaccini che possono essere somministrati al paziente.',
@@ -164,9 +168,6 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
 
             self.callback()
             self.close()
-
-            self.vista_riepilogo = VistaAppuntamentoVaccino(appuntamento_vaccino)
-            self.vista_riepilogo.show()
 
     def update_ui(self):
         pass

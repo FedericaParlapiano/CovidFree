@@ -10,7 +10,6 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QCheckBox, QSpacerItem, QSizeP
 
 from appuntamentotampone.model.AppuntamentoTampone import AppuntamentoTampone
 
-
 class VistaInserisciAppuntamentoTampone(QWidget):
     def __init__(self, controller, callback):
         super(VistaInserisciAppuntamentoTampone, self).__init__()
@@ -96,7 +95,7 @@ class VistaInserisciAppuntamentoTampone(QWidget):
             ok = False
 
         d = datetime.strptime(self.data_selezionata, '%Y-%m-%d')
-        if ok is True and date.today().day > d.day:
+        if ok is True and date.today().day > d.day and date.today().month == d.month:
             QMessageBox.critical(self, 'Errore', 'La data selezionata per l\' appuntamento non è valida',
                                  QMessageBox.Ok, QMessageBox.Ok)
             ok = False
@@ -128,7 +127,6 @@ class VistaInserisciAppuntamentoTampone(QWidget):
                 is_drive_through = True
             self.controller.aggiungi_appuntamento(AppuntamentoTampone(nome, cognome, cf, telefono, indirizzo, data_nascita, self.data_selezionata, self.orario_selected, is_drive_through, tipo_tampone))
             self.close()
-
 
     def controllo_disponibilita(self):
         disponibile = False

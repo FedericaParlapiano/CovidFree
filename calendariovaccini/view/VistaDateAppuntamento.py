@@ -13,7 +13,6 @@ class VistaDateAppuntamento(QWidget):
         self.date_da_mostrare = []
         self.orari_disponibili = ["9:00-10:00", "10:00-11:00", "11:00-12:00", "12:00-13:00", "13:00-14:00", "14:00-15:00", "15:00-16:00", "16:00-17:00", "17:00-18:00", "18:00-19:00"]
         self.orari_appuntamenti = {}
-        self.orari_settati = False
 
         self.v_layout = QVBoxLayout()
         self.grid_layout = QGridLayout()

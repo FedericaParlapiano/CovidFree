@@ -12,7 +12,7 @@ class VistaAggiornaFornitura(QWidget):
         self.callback_aggiornamento = callback_aggiornamento
 
         v_layout = QVBoxLayout()
-        label_fornitura = QLabel("Inserisci la quantità del vaccino da aggiungere al magazzino:")
+        label_fornitura = QLabel("Inserisci la quantità del materiale da aggiungere al magazzino:")
         font_fornitura = label_fornitura.font()
         font_fornitura.setPointSize(16)
         font_fornitura.setFamily('Georgia')

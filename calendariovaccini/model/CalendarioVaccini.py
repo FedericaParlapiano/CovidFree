@@ -7,6 +7,7 @@ class CalendarioVaccini():
         super(CalendarioVaccini, self).__init__()
         self.elenco_appuntamenti = []
         self.vaccini_presenti = []
+
         if os.path.isfile('calendariovaccini/data/elenco_appuntamenti_fissati.pickle'):
             with open('calendariovaccini/data/elenco_appuntamenti_fissati.pickle', 'rb') as file:
                 self.elenco_appuntamenti = pickle.load(file)

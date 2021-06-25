@@ -1,3 +1,5 @@
+import os
+import pickle
 from datetime import datetime, date
 
 from PyQt5 import QtGui
@@ -112,7 +114,6 @@ class VistaListaAppuntamentiVaccini(QWidget):
         self.list_view_pfizer_model = QStandardItemModel(self.list_view_pfizer)
 
         for appuntamento in self.controller.get_elenco_appuntamenti():
-
             item = QStandardItem()
             if appuntamento.data_appuntamento == self.data:
                 item.setText(appuntamento.cartella_paziente.nome + " " + appuntamento.cartella_paziente.cognome)
