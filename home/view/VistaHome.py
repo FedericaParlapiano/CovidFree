@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy, QLab
 from calendariotamponi.view.VistaCalendarioTamponi import VistaCalendarioTamponi
 from calendariovaccini.view.VistaCalendarioVaccini import VistaCalendarioVaccini
 from magazzino.view.VistaMagazzino import VistaMagazzino
+from statistiche.view.VistaStatistiche import VistaStatistiche
 
 
 class VistaHome(QWidget):
@@ -44,4 +45,5 @@ class VistaHome(QWidget):
         self.vista_magazzino.show()
 
     def go_statistiche(self):
-        pass
+        self.vista_statistiche = VistaStatistiche()
+        self.vista_statistiche.show()
