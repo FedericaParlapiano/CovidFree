@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QSpacerItem, QSizePolicy, QPus
     QGridLayout, QCheckBox, QRadioButton, QComboBox
 
 from appuntamentovaccino.model.AppuntamentoVaccino import AppuntamentoVaccino
+from appuntamentovaccino.view.VistaAppuntamentoVaccino import VistaAppuntamentoVaccino
 from calendariovaccini.controller.ControlloreCalendarioVaccini import ControlloreCalendarioVaccini
 from calendariovaccini.view.VistaDateAppuntamento import VistaDateAppuntamento
 from calendariovaccini.view.VistaInserisciAnamnesi import VistaInserisciAnamnesi
@@ -160,9 +161,11 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
                                                          'l\'appuntamento a causa di una mancanza di vaccini che possono essere somministrati al paziente.',
                                      QMessageBox.Ok, QMessageBox.Ok)
 
-
             self.callback()
             self.close()
+
+            self.vista_riepilogo = VistaAppuntamentoVaccino(appuntamento_vaccino)
+            self.vista_riepilogo.show()
 
     def update_ui(self):
         pass

@@ -88,6 +88,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
             appuntamento_selezionato = self.elenco_astrazeneca[selected]
             self.vista_vaccino = VistaAppuntamentoVaccino(appuntamento_selezionato)
             self.vista_vaccino.show()
+            self.update_ui()
 
     def show_selected_info_moderna(self):
         if self.list_view_moderna.selectedIndexes():
@@ -95,6 +96,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
             appuntamento_selezionato = self.elenco_moderna[selected]
             self.vista_vaccino = VistaAppuntamentoVaccino(appuntamento_selezionato)
             self.vista_vaccino.show()
+            self.update_ui()
 
     def show_selected_info_pfizer(self):
         if self.list_view_pfizer.selectedIndexes():
@@ -102,6 +104,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
             appuntamento_selezionato = self.elenco_pfizer[selected]
             self.vista_vaccino = VistaAppuntamentoVaccino(appuntamento_selezionato)
             self.vista_vaccino.show()
+            self.update_ui()
 
     def update_ui(self):
         self.list_view_astrazeneca_model = QStandardItemModel(self.list_view_astrazeneca)
@@ -145,7 +148,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
             msg.setIcon(QMessageBox.Information)
             msg.setText("Sei sicuro di voler eliminare l'appuntamento?")
             msg.setInformativeText("La decisione è irreversibile!")
-            msg.setWindowTitle("MessageBox demo")
+            msg.setWindowTitle("Conferma eliminazione")
             msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
 
             if msg.exec() == QMessageBox.Ok:
@@ -161,7 +164,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
             msg.setIcon(QMessageBox.Information)
             msg.setText("Sei sicuro di voler eliminare l'appuntamento?")
             msg.setInformativeText("La decisione è irreversibile!")
-            msg.setWindowTitle("MessageBox demo")
+            msg.setWindowTitle("Conferma eliminazione")
             msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
 
             if msg.exec() == QMessageBox.Ok:
@@ -177,7 +180,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
             msg.setIcon(QMessageBox.Information)
             msg.setText("Sei sicuro di voler eliminare l'appuntamento?")
             msg.setInformativeText("La decisione è irreversibile!")
-            msg.setWindowTitle("MessageBox demo")
+            msg.setWindowTitle("Conferma eliminazione")
             msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
 
             if msg.exec() == QMessageBox.Ok:

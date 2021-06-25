@@ -96,4 +96,4 @@ class VistaAppuntamentoTampone(QWidget):
         v_layout.addWidget(label_drive_through)
 
         self.setLayout(v_layout)
-        self.setWindowTitle("Appuntamento Tampone")
+        self.setWindowTitle("Appuntamento Tampone " + self.controller.get_nome() + " " + self.controller.get_cognome())

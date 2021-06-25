@@ -106,8 +106,6 @@ class VistaDateAppuntamento(QWidget):
                     else:
                         self.orari_appuntamenti[appuntamento.fascia_oraria] = 1
 
-            print(self.orari_appuntamenti)
-
             for key in self.orari_appuntamenti:
                 if self.orari_appuntamenti[key] > 3:
                     if key in self.orari_disponibili:

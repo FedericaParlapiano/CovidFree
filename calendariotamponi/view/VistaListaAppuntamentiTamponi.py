@@ -140,7 +140,7 @@ class VistaListaAppuntamentiTamponi(QWidget):
 
             msg.setText("Sei sicuro di voler eliminare l'appuntamento?")
             msg.setInformativeText("La decisione è irreversibile!")
-            msg.setWindowTitle("MessageBox demo")
+            msg.setWindowTitle("Conferma eliminazione")
             msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             if msg.exec() == QMessageBox.Ok:
                 self.controller.elimina_appuntamento(appuntamento_selezionato)
@@ -156,7 +156,7 @@ class VistaListaAppuntamentiTamponi(QWidget):
 
             msg.setText("Sei sicuro di voler eliminare l'appuntamento?")
             msg.setInformativeText("La decisione è irreversibile!")
-            msg.setWindowTitle("MessageBox demo")
+            msg.setWindowTitle("Conferma eliminazione")
             msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             if msg.exec() == QMessageBox.Ok:
                 self.controller.elimina_appuntamento(appuntamento_selezionato)
@@ -172,7 +172,7 @@ class VistaListaAppuntamentiTamponi(QWidget):
 
             msg.setText("Sei sicuro di voler eliminare l'appuntamento?")
             msg.setInformativeText("La decisione è irreversibile!")
-            msg.setWindowTitle("MessageBox demo")
+            msg.setWindowTitle("Conferma eliminazione")
             msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             if msg.exec() == QMessageBox.Ok:
                 self.controller.elimina_appuntamento(appuntamento_selezionato)
