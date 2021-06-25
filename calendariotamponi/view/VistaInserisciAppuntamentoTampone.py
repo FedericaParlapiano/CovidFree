@@ -52,7 +52,7 @@ class VistaInserisciAppuntamentoTampone(QWidget):
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
         self.v_layout.addWidget(QLabel("Tipologia di tampone da effettuare"))
         self.tipo_tampone = QComboBox()
-        self.tipo_tampone.addItems([" ", "Antigenico rapido", "Molecolare", "Sierologico"])
+        self.tipo_tampone.addItems([" ", "Antigenico Rapido", "Molecolare", "Sierologico"])
         self.v_layout.addWidget(self.tipo_tampone)
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
         self.setLayout(self.v_layout)

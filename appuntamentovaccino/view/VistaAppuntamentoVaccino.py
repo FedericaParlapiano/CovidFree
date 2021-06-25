@@ -11,11 +11,9 @@ class VistaAppuntamentoVaccino(QWidget):
         self.controller = ControlloreAppuntamentoVaccino(appuntamento)
         self.grid_layout = QGridLayout()
 
-        self.app = appuntamento
-
         v_layout = QVBoxLayout()
 
-        label_data = QLabel("Data: {} ".format(appuntamento.data_appuntamento))
+        label_data = QLabel("Data: {} ".format(self.controller.get_data_appuntamento()))
         font_data = label_data.font()
         font_data.setPointSize(20)
         font_data.setFamily('Georgia')
@@ -24,7 +22,7 @@ class VistaAppuntamentoVaccino(QWidget):
         label_data.setAlignment(Qt.AlignCenter)
         v_layout.addWidget(label_data)
 
-        label_ora = QLabel("Orario: {} ".format(appuntamento.fascia_oraria))
+        label_ora = QLabel("Orario: {} ".format(self.controller.get_orario_appuntamento()))
         font_ora = label_ora.font()
         font_ora.setPointSize(20)
         font_ora.setFamily('Georgia')
@@ -34,7 +32,7 @@ class VistaAppuntamentoVaccino(QWidget):
 
         v_layout.addItem(QSpacerItem(10, 10, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
-        label_tipo = QLabel("Tipo vaccino: {}".format(appuntamento.vaccino))
+        label_tipo = QLabel("Tipo vaccino: {}".format(self.controller.get_vaccino_appuntamento()))
         font_tipo = label_tipo.font()
         font_tipo.setPointSize(18)
         font_tipo.setFamily('Georgia')
@@ -44,7 +42,7 @@ class VistaAppuntamentoVaccino(QWidget):
 
         v_layout.addItem(QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
-        label_nome = QLabel("Nome e cognome: {} {}".format(appuntamento.cartella_paziente.nome, appuntamento.cartella_paziente.cognome))
+        label_nome = QLabel("Nome e cognome: {} {}".format(self.controller.get_cartella_paziente_appuntamento().nome, self.controller.get_cartella_paziente_appuntamento().cognome))
         font_nome = label_nome.font()
         font_nome.setPointSize(20)
         font_nome.setFamily('Georgia')
@@ -60,28 +58,28 @@ class VistaAppuntamentoVaccino(QWidget):
         label.setFont(font)
         v_layout.addWidget(label)
 
-        label_cf = QLabel("Codice fiscale: {}".format(appuntamento.cartella_paziente.cf))
+        label_cf = QLabel("Codice fiscale: {}".format(self.controller.get_cartella_paziente_appuntamento().cf))
         font_cf = label_cf.font()
         font_cf.setPointSize(12)
         font_cf.setFamily('Georgia')
         label_cf.setFont(font_cf)
         v_layout.addWidget(label_cf)
 
-        label_telefono = QLabel("Telefono: {}".format(appuntamento.cartella_paziente.telefono))
+        label_telefono = QLabel("Telefono: {}".format(self.controller.get_cartella_paziente_appuntamento().telefono))
         font_telefono = label_telefono.font()
         font_telefono.setPointSize(12)
         font_telefono.setFamily('Georgia')
         label_telefono.setFont(font_telefono)
         v_layout.addWidget(label_telefono)
 
-        label_indirizzo = QLabel("Indirizzo: {}".format(appuntamento.cartella_paziente.indirizzo))
+        label_indirizzo = QLabel("Indirizzo: {}".format(self.controller.get_cartella_paziente_appuntamento().indirizzo))
         font_indirizzo = label_indirizzo.font()
         font_indirizzo.setPointSize(12)
         font_indirizzo.setFamily('Georgia')
         label_indirizzo.setFont(font_indirizzo)
         v_layout.addWidget(label_indirizzo)
 
-        label_data_nascita = QLabel("Data di nascita: {}".format(appuntamento.cartella_paziente.data_di_nascita))
+        label_data_nascita = QLabel("Data di nascita: {}".format(self.controller.get_cartella_paziente_appuntamento().data_di_nascita))
         font_data_nascita = label_data_nascita.font()
         font_data_nascita.setPointSize(12)
         font_data_nascita.setFamily('Georgia')
@@ -123,11 +121,11 @@ class VistaAppuntamentoVaccino(QWidget):
 
         self.setLayout(v_layout)
 
-        self.setWindowTitle("Appuntamento Vaccino " + appuntamento.cartella_paziente.nome + " " + appuntamento.cartella_paziente.cognome)
+        self.setWindowTitle("Appuntamento Vaccino " + self.controller.get_cartella_paziente_appuntamento().nome + " " + self.controller.get_cartella_paziente_appuntamento().cognome)
 
 
     def get_label_anamnesi(self, domanda, chiave, posizione):
-        label_domanda = QLabel(domanda + " " + self.app.cartella_paziente.anamnesi[chiave])
+        label_domanda = QLabel(domanda + " " + self.controller.get_cartella_paziente_appuntamento().anamnesi[chiave])
         font_domanda = label_domanda.font()
         font_domanda.setPointSize(12)
         font_domanda.setFamily('Georgia')

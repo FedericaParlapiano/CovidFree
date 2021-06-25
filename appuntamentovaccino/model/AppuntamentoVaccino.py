@@ -4,8 +4,8 @@ import pickle
 class AppuntamentoVaccino():
 
     def __init__(self, id, cartella_paziente, data_appuntamento, fascia_oraria, is_a_domicilio):
+
         super(AppuntamentoVaccino, self).__init__()
-        self.id = id
         self.cartella_paziente = cartella_paziente
         self.is_a_domicilio = is_a_domicilio
 

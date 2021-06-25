@@ -21,3 +21,9 @@ class ControlloreCalendarioVaccini():
 
     def save_data(self):
         self.model.save_data()
+
+    def lettura_magazzino(self):
+        self.model.lettura_magazzino()
+
+    def aggiorna_magazzino(self, tipologia):
+        self.model.aggiorna_magazzino(tipologia)

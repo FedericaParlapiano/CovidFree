@@ -32,4 +32,10 @@ class ControlloreCalendarioTamponi():
         with open('calendariotamponi/data/elenco_appuntamenti_salvati.pickle', 'wb') as handle:
             pickle.dump(self.model, handle, pickle.HIGHEST_PROTOCOL)
 
+    def lettura_magazzino(self):
+        self.model.lettura_magazzino()
+
+    def aggiorna_magazzino(self, tipologia):
+        self.model.aggiorna_magazzino(tipologia)
+
 

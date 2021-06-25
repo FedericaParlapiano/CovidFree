@@ -4,10 +4,10 @@ class ControlloreAppuntamentoVaccino():
         self.model = appuntamento
 
     def get_data_appuntamento(self):
-        return self.model.data
+        return self.model.data_appuntamento
 
     def get_orario_appuntamento(self):
-        return self.model.orario
+        return self.model.fascia_oraria
 
     def get_cartella_paziente_appuntamento(self):
         return self.model.cartella_paziente

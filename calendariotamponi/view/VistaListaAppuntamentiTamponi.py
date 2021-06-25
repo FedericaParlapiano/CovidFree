@@ -116,7 +116,7 @@ class VistaListaAppuntamentiTamponi(QWidget):
                 item.setFont(font)
                 if appuntamento.is_drive_through:
                     item.setBackground(QtGui.QColor(255,255,153))
-                if appuntamento.tipo_tampone == "Antigenico":
+                if appuntamento.tipo_tampone == "Antigenico Rapido":
                     self.list_view_antigenico_model.appendRow(item)
                     self.elenco_antigenico.append(appuntamento)
                 elif appuntamento.tipo_tampone == "Molecolare":
@@ -143,7 +143,10 @@ class VistaListaAppuntamentiTamponi(QWidget):
             msg.setWindowTitle("Conferma eliminazione")
             msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             if msg.exec() == QMessageBox.Ok:
+                self.controller.lettura_magazzino()
+                self.controller.aggiorna_magazzino(appuntamento_selezionato.tipo_tampone)
                 self.controller.elimina_appuntamento(appuntamento_selezionato)
+                self.elenco_antigenico.remove(appuntamento_selezionato)
             self.update_ui()
 
     def elimina_appuntamento_molecolare(self):
@@ -159,7 +162,10 @@ class VistaListaAppuntamentiTamponi(QWidget):
             msg.setWindowTitle("Conferma eliminazione")
             msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             if msg.exec() == QMessageBox.Ok:
+                self.controller.lettura_magazzino()
+                self.controller.aggiorna_magazzino(appuntamento_selezionato.tipo_tampone)
                 self.controller.elimina_appuntamento(appuntamento_selezionato)
+                self.elenco_molecolare.remove(appuntamento_selezionato)
             self.update_ui()
 
     def elimina_appuntamento_sierologico(self):
@@ -175,6 +181,8 @@ class VistaListaAppuntamentiTamponi(QWidget):
             msg.setWindowTitle("Conferma eliminazione")
             msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             if msg.exec() == QMessageBox.Ok:
+                self.controller.lettura_magazzino()
+                self.controller.aggiorna_magazzino(appuntamento_selezionato.tipo_tampone)
                 self.controller.elimina_appuntamento(appuntamento_selezionato)
-
+                self.elenco_sierologico.remove(appuntamento_selezionato)
             self.update_ui()

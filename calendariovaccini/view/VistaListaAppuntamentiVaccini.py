@@ -152,7 +152,10 @@ class VistaListaAppuntamentiVaccini(QWidget):
             msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
 
             if msg.exec() == QMessageBox.Ok:
+                self.controller.lettura_magazzino()
+                self.controller.aggiorna_magazzino(appuntamento_selezionato.vaccino)
                 self.controller.elimina_appuntamento(appuntamento_selezionato)
+                self.elenco_astrazeneca.remove(appuntamento_selezionato)
             self.update_ui()
 
     def elimina_appuntamento_moderna(self):
@@ -168,7 +171,10 @@ class VistaListaAppuntamentiVaccini(QWidget):
             msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
 
             if msg.exec() == QMessageBox.Ok:
+                self.controller.lettura_magazzino()
+                self.controller.aggiorna_magazzino(appuntamento_selezionato.vaccino)
                 self.controller.elimina_appuntamento(appuntamento_selezionato)
+                self.elenco_moderna.remove(appuntamento_selezionato)
             self.update_ui()
 
     def elimina_appuntamento_pfizer(self):
@@ -184,5 +190,8 @@ class VistaListaAppuntamentiVaccini(QWidget):
             msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
 
             if msg.exec() == QMessageBox.Ok:
+                self.controller.lettura_magazzino()
+                self.controller.aggiorna_magazzino(appuntamento_selezionato.vaccino)
                 self.controller.elimina_appuntamento(appuntamento_selezionato)
+                self.elenco_pfizer.remove(appuntamento_selezionato)
             self.update_ui()

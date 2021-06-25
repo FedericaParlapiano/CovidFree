@@ -90,6 +90,10 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
         telefono = self.info["Telefono"].text()
         preferenze = self.preferenza.currentText()
         categoria_speciale = self.categorie_speciali.currentText()
+        is_a_domicilio = False
+        if self.domicilio.isChecked():
+            is_a_domicilio = True
+
         ok = True
 
         if nome == "" or cognome == "" or data_nascita == "" or cf == "" or indirizzo == "" or telefono == "":
@@ -134,23 +138,20 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
             if self.vista_inserisci_anamnesi.anamnesi['Pfizer']=='Sì' and self.vista_inserisci_anamnesi.anamnesi['Moderna']=='Sì' and self.vista_inserisci_anamnesi.anamnesi['Astrazeneca']=="Sì":
                 QMessageBox.critical(self, 'Attenzione', 'Ci dispiace ma al momento non sono disponibili'
                                                         ' vaccini che non le provichino reazioni allergiche. Non è possibile procedere con la prenotazione!', QMessageBox.Ok, QMessageBox.Ok)
+                ok = False
             elif self.vista_inserisci_anamnesi.anamnesi['Contatto']=='Sì' or self.vista_inserisci_anamnesi.anamnesi['Sintomi']=='Sì':
                 QMessageBox.critical(self, 'Attenzione', 'Ci dispiace ma non è possibile prenotare '
                                                        'l\'appuntamento se si presentano sintomi ricondubili ad un\'infezione da Covid19 o se si è stati a contatto con persone positive.', QMessageBox.Ok, QMessageBox.Ok)
+                ok = False
 
-        if ok is True and self.vista_mostra_date.data_scelta == "" or  self.vista_mostra_date.orario_selezionato == "":
-            QMessageBox.critical(self, 'Errore', 'Non è stata scelta una data per l\'appuntamento!', QMessageBox.Ok,
-                                 QMessageBox.Ok)
-            ok = False
 
         if ok is True:
-            is_a_domicilio = False
-            if self.domicilio.isChecked():
-                is_a_domicilio = True
+            if self.vista_mostra_date.data_scelta == "" or  self.vista_mostra_date.orario_selezionato == "":
+                QMessageBox.critical(self, 'Errore', 'Non è stata scelta una data per l\'appuntamento!', QMessageBox.Ok,
+                                 QMessageBox.Ok)
+                ok = False
 
-            print(self.vista_mostra_date.data_scelta)
-            print(self.vista_mostra_date.orario_selezionato)
-
+        if ok is True:
             cartella_paziente = CartellaPaziente(nome, cognome, data_nascita, cf, indirizzo, telefono, categoria_speciale, preferenze, self.vista_inserisci_anamnesi.anamnesi)
             appuntamento_vaccino = AppuntamentoVaccino('_'+cf+'_', cartella_paziente, self.vista_mostra_date.data_scelta, self.vista_mostra_date.orario_selezionato, is_a_domicilio)
 
