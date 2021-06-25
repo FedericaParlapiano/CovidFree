@@ -9,8 +9,7 @@ class CalendarioTamponi():
 
         if os.path.isfile('calendariotamponi/data/elenco_appuntamenti_salvati.pickle'):
             with open('calendariotamponi/data/elenco_appuntamenti_salvati.pickle', 'rb') as f:
-                elenco_appuntamenti_salvati = pickle.load(f)
-            self.elenco_appuntamenti = elenco_appuntamenti_salvati
+                self.elenco_appuntamenti = pickle.load(f)
 
     def aggiungi_appuntamento(self, appuntamento):
         self.elenco_appuntamenti.append(appuntamento)
@@ -29,7 +28,9 @@ class CalendarioTamponi():
             if prenotazione == appuntamento:
                 self.elenco_appuntamenti.remove(prenotazione)
 
-
+    def save_data(self):
+        with open('calendariotamponi/data/elenco_appuntamenti_salvati.pickle', 'wb') as handle:
+            pickle.dump(self.elenco_appuntamenti, handle, pickle.HIGHEST_PROTOCOL)
 
     def lettura_magazzino(self):
         if os.path.isfile('magazzino/data/lista_tamponi_salvata.pickle'):
