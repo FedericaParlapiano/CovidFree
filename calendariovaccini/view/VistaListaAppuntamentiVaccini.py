@@ -1,6 +1,6 @@
 import os
 import pickle
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 
 from PyQt5 import QtGui
 from PyQt5.QtGui import QStandardItem, QStandardItemModel
@@ -145,54 +145,73 @@ class VistaListaAppuntamentiVaccini(QWidget):
             selected = self.list_view_astrazeneca.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_astrazeneca[selected]
 
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Information)
-            msg.setText("Sei sicuro di voler eliminare l'appuntamento?")
-            msg.setInformativeText("La decisione è irreversibile!")
-            msg.setWindowTitle("Conferma eliminazione")
-            msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            data_appuntamento_selezionato = datetime.strptime(appuntamento_selezionato.data_appuntamento, '%d-%m-%Y')
+            selezionato = str(data_appuntamento_selezionato.strftime('%Y-%m-%d'))
+            if selezionato == str(date.today()):
+                QMessageBox.critical(self, 'Errore', 'Non è possibile eliminare appuntamenti passati',
+                                     QMessageBox.Ok, QMessageBox.Ok)
+            else:
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Information)
+                msg.setText("Sei sicuro di voler eliminare l'appuntamento?")
+                msg.setInformativeText("La decisione è irreversibile!")
+                msg.setWindowTitle("Conferma eliminazione")
+                msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
 
-            if msg.exec() == QMessageBox.Ok:
-                self.controller.lettura_magazzino()
-                self.controller.aggiorna_magazzino(appuntamento_selezionato.vaccino)
-                self.controller.elimina_appuntamento(appuntamento_selezionato)
-                self.elenco_astrazeneca.remove(appuntamento_selezionato)
-            self.update_ui()
+                if msg.exec() == QMessageBox.Ok:
+                    self.controller.lettura_magazzino()
+                    self.controller.aggiorna_magazzino(appuntamento_selezionato.vaccino)
+                    self.controller.elimina_appuntamento(appuntamento_selezionato)
+                    self.elenco_astrazeneca.remove(appuntamento_selezionato)
+                self.update_ui()
 
     def elimina_appuntamento_moderna(self):
         if self.list_view_moderna.selectedIndexes():
             selected = self.list_view_moderna.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_moderna[selected]
 
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Information)
-            msg.setText("Sei sicuro di voler eliminare l'appuntamento?")
-            msg.setInformativeText("La decisione è irreversibile!")
-            msg.setWindowTitle("Conferma eliminazione")
-            msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            data_appuntamento_selezionato = datetime.strptime(appuntamento_selezionato.data_appuntamento, '%d-%m-%Y')
+            selezionato = str(data_appuntamento_selezionato.strftime('%Y-%m-%d'))
+            if selezionato == str(date.today()):
+                QMessageBox.critical(self, 'Errore', 'Non è possibile eliminare appuntamenti passati',
+                                     QMessageBox.Ok, QMessageBox.Ok)
+            else:
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Information)
+                msg.setText("Sei sicuro di voler eliminare l'appuntamento?")
+                msg.setInformativeText("La decisione è irreversibile!")
+                msg.setWindowTitle("Conferma eliminazione")
+                msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
 
-            if msg.exec() == QMessageBox.Ok:
-                self.controller.lettura_magazzino()
-                self.controller.aggiorna_magazzino(appuntamento_selezionato.vaccino)
-                self.controller.elimina_appuntamento(appuntamento_selezionato)
-                self.elenco_moderna.remove(appuntamento_selezionato)
-            self.update_ui()
+                if msg.exec() == QMessageBox.Ok:
+                    self.controller.lettura_magazzino()
+                    self.controller.aggiorna_magazzino(appuntamento_selezionato.vaccino)
+                    self.controller.elimina_appuntamento(appuntamento_selezionato)
+                    self.elenco_moderna.remove(appuntamento_selezionato)
+                self.update_ui()
+
 
     def elimina_appuntamento_pfizer(self):
         if self.list_view_pfizer.selectedIndexes():
             selected = self.list_view_pfizer.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_pfizer[selected]
 
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Information)
-            msg.setText("Sei sicuro di voler eliminare l'appuntamento?")
-            msg.setInformativeText("La decisione è irreversibile!")
-            msg.setWindowTitle("Conferma eliminazione")
-            msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            data_appuntamento_selezionato = datetime.strptime(appuntamento_selezionato.data_appuntamento, '%d-%m-%Y')
+            selezionato = str(data_appuntamento_selezionato.strftime('%Y-%m-%d'))
+            if selezionato == str(date.today()):
+                QMessageBox.critical(self, 'Errore', 'Non è possibile eliminare appuntamenti passati',
+                                     QMessageBox.Ok, QMessageBox.Ok)
+            else:
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Information)
+                msg.setText("Sei sicuro di voler eliminare l'appuntamento?")
+                msg.setInformativeText("La decisione è irreversibile!")
+                msg.setWindowTitle("Conferma eliminazione")
+                msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
 
-            if msg.exec() == QMessageBox.Ok:
-                self.controller.lettura_magazzino()
-                self.controller.aggiorna_magazzino(appuntamento_selezionato.vaccino)
-                self.controller.elimina_appuntamento(appuntamento_selezionato)
-                self.elenco_pfizer.remove(appuntamento_selezionato)
-            self.update_ui()
+                if msg.exec() == QMessageBox.Ok:
+                    self.controller.lettura_magazzino()
+                    self.controller.aggiorna_magazzino(appuntamento_selezionato.vaccino)
+                    self.controller.elimina_appuntamento(appuntamento_selezionato)
+                    self.elenco_pfizer.remove(appuntamento_selezionato)
+                self.update_ui()

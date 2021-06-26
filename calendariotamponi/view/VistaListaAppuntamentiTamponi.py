@@ -1,3 +1,5 @@
+from datetime import datetime, date
+
 from PyQt5 import QtGui
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QLabel, QGridLayout, QMessageBox
@@ -135,54 +137,66 @@ class VistaListaAppuntamentiTamponi(QWidget):
             selected = self.list_view_antigenico.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_antigenico[selected]
 
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Information)
+            if appuntamento_selezionato.data_appuntamento == str(date.today()):
+                QMessageBox.critical(self, 'Errore', 'Non è possibile eliminare appuntamenti passati',
+                                     QMessageBox.Ok, QMessageBox.Ok)
+            else:
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Information)
 
-            msg.setText("Sei sicuro di voler eliminare l'appuntamento?")
-            msg.setInformativeText("La decisione è irreversibile!")
-            msg.setWindowTitle("Conferma eliminazione")
-            msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-            if msg.exec() == QMessageBox.Ok:
-                self.controller.lettura_magazzino()
-                self.controller.aggiorna_magazzino(appuntamento_selezionato.tipo_tampone)
-                self.controller.elimina_appuntamento(appuntamento_selezionato)
-                self.elenco_antigenico.remove(appuntamento_selezionato)
-            self.update_ui()
+                msg.setText("Sei sicuro di voler eliminare l'appuntamento?")
+                msg.setInformativeText("La decisione è irreversibile!")
+                msg.setWindowTitle("Conferma eliminazione")
+                msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                if msg.exec() == QMessageBox.Ok:
+                    self.controller.lettura_magazzino()
+                    self.controller.aggiorna_magazzino(appuntamento_selezionato.tipo_tampone)
+                    self.controller.elimina_appuntamento(appuntamento_selezionato)
+                    self.elenco_antigenico.remove(appuntamento_selezionato)
+                self.update_ui()
 
     def elimina_appuntamento_molecolare(self):
         if self.list_view_molecolare.selectedIndexes():
             selected = self.list_view_molecolare.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_molecolare[selected]
 
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Information)
+            if appuntamento_selezionato.data_appuntamento == str(date.today()):
+                QMessageBox.critical(self, 'Errore', 'Non è possibile eliminare appuntamenti passati',
+                                     QMessageBox.Ok, QMessageBox.Ok)
+            else:
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Information)
 
-            msg.setText("Sei sicuro di voler eliminare l'appuntamento?")
-            msg.setInformativeText("La decisione è irreversibile!")
-            msg.setWindowTitle("Conferma eliminazione")
-            msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-            if msg.exec() == QMessageBox.Ok:
-                self.controller.lettura_magazzino()
-                self.controller.aggiorna_magazzino(appuntamento_selezionato.tipo_tampone)
-                self.controller.elimina_appuntamento(appuntamento_selezionato)
-                self.elenco_molecolare.remove(appuntamento_selezionato)
-            self.update_ui()
+                msg.setText("Sei sicuro di voler eliminare l'appuntamento?")
+                msg.setInformativeText("La decisione è irreversibile!")
+                msg.setWindowTitle("Conferma eliminazione")
+                msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                if msg.exec() == QMessageBox.Ok:
+                    self.controller.lettura_magazzino()
+                    self.controller.aggiorna_magazzino(appuntamento_selezionato.tipo_tampone)
+                    self.controller.elimina_appuntamento(appuntamento_selezionato)
+                    self.elenco_molecolare.remove(appuntamento_selezionato)
+                self.update_ui()
 
     def elimina_appuntamento_sierologico(self):
         if self.list_view_sierologico.selectedIndexes():
             selected = self.list_view_sierologico.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_sierologico[selected]
 
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Information)
+            if appuntamento_selezionato.data_appuntamento == str(date.today()):
+                QMessageBox.critical(self, 'Errore', 'Non è possibile eliminare appuntamenti passati',
+                                     QMessageBox.Ok, QMessageBox.Ok)
+            else:
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Information)
 
-            msg.setText("Sei sicuro di voler eliminare l'appuntamento?")
-            msg.setInformativeText("La decisione è irreversibile!")
-            msg.setWindowTitle("Conferma eliminazione")
-            msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-            if msg.exec() == QMessageBox.Ok:
-                self.controller.lettura_magazzino()
-                self.controller.aggiorna_magazzino(appuntamento_selezionato.tipo_tampone)
-                self.controller.elimina_appuntamento(appuntamento_selezionato)
-                self.elenco_sierologico.remove(appuntamento_selezionato)
-            self.update_ui()
+                msg.setText("Sei sicuro di voler eliminare l'appuntamento?")
+                msg.setInformativeText("La decisione è irreversibile!")
+                msg.setWindowTitle("Conferma eliminazione")
+                msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                if msg.exec() == QMessageBox.Ok:
+                    self.controller.lettura_magazzino()
+                    self.controller.aggiorna_magazzino(appuntamento_selezionato.tipo_tampone)
+                    self.controller.elimina_appuntamento(appuntamento_selezionato)
+                    self.elenco_sierologico.remove(appuntamento_selezionato)
+                self.update_ui()
