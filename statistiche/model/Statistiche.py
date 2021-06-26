@@ -20,3 +20,7 @@ class Statistiche():
             with open('statistiche/data/effetti_collaterali_{}.pickle'.format(effetti_collaterali[0]), 'wb') as handle:
                 effetti_collaterali.pop(0)
                 pickle.dump(effetti_collaterali, handle, pickle.HIGHEST_PROTOCOL)
+
+    def salva_dati_tamponi(self,dati_tamponi):
+            with open('statistiche/data/dati_tamponi.pickle', 'wb') as handle:
+                pickle.dump(dati_tamponi, handle, pickle.HIGHEST_PROTOCOL)

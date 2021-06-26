@@ -16,3 +16,6 @@ class ControlloreStatistiche():
     def salva_effetti_collaterali(self, effetti_collaterali):
         self.model.salva_effetti_collaterali(effetti_collaterali)
 
+    def salva_dati_tamponi(self, dati_tamponi):
+        self.model.salva_dati_tamponi(dati_tamponi)
+
