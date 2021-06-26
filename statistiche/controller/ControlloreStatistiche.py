@@ -13,3 +13,6 @@ class ControlloreStatistiche():
     def get_elenco_appuntamenti_tamponi(self):
         return self.model.elenco_appuntamenti_tamponi
 
+    def salva_effetti_collaterali(self, effetti_collaterali):
+        self.model.salva_effetti_collaterali(effetti_collaterali)
+

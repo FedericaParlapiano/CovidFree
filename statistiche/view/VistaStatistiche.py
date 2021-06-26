@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QWidget, QHBoxLayout, QPushButton, QSizePolicy, QLab
     QSpacerItem
 
 from statistiche.controller.ControlloreStatistiche import ControlloreStatistiche
+from statistiche.view.VistaInserisciEffettiCollaterali import VistaInserisciEffettiCollaterali
 from statistiche.view.VistaStatisticheVaccini import VistaStatisticheVaccini
 
 
@@ -61,7 +62,6 @@ class VistaStatistiche(QWidget):
         button_tamponi_i.setStyleSheet("background-color: rgb(152,255,152)")
         button_tamponi_i.clicked.connect(self.go_inserisci_tamponi)
 
-
         grid_layout_vaccini.addWidget(button_vaccini_v, 1, 0)
         grid_layout_vaccini.addWidget(button_vaccini_i, 0, 0)
         grid_layout_tamponi.addWidget(button_tamponi_v, 1, 0)
@@ -82,7 +82,8 @@ class VistaStatistiche(QWidget):
         self.vista_statistiche_vaccini.show()
 
     def go_inserisci_vaccini(self):
-        pass
+        self.inserisci_effetti_collaterali = VistaInserisciEffettiCollaterali()
+        self.inserisci_effetti_collaterali.show()
 
     def go_visualizza_tamponi(self):
         pass

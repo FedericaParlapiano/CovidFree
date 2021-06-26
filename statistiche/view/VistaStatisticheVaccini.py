@@ -1,7 +1,7 @@
 from PyQt5 import Qt
 from PyQt5.QtChart import QPieSeries, QChart, QChartView, QPieSlice
 from PyQt5.QtGui import QFont, QPen, QPainter, QColor
-from PyQt5.QtWidgets import QWidget, QPushButton, QSizePolicy, QVBoxLayout, QHBoxLayout, QListView, QGridLayout
+from PyQt5.QtWidgets import QWidget, QPushButton, QVBoxLayout, QHBoxLayout, QGridLayout
 from PyQt5.QtCore import Qt
 
 from statistiche.controller.ControlloreStatistiche import ControlloreStatistiche
@@ -14,8 +14,6 @@ class VistaStatisticheVaccini(QWidget):
         super(VistaStatisticheVaccini, self).__init__(parent)
 
         self.controller = ControlloreStatistiche()
-        self.visualizzate = False
-
         self.vaccino_per_tipologia = {"Astrazeneca": 0, "Moderna": 0, "Pfizer": 0}
 
         self.grid_layout = QGridLayout()
@@ -40,7 +38,6 @@ class VistaStatisticheVaccini(QWidget):
         button_vaccini_somministrati.setStyleSheet("background-color: rgb(250,200,100)")
         button_vaccini_somministrati.clicked.connect(self.go_vaccini_somministrati)
         self.grid_layout.addWidget(button_vaccini_somministrati,1,0)
-        #self.h_layout.addWidget(button_vaccini_somministrati)
 
         button_eff_collaterali = QPushButton("Statistiche sugli effetti collaterali")
         button_eff_collaterali.setFont(QFont('Georgia', 12))
@@ -48,13 +45,11 @@ class VistaStatisticheVaccini(QWidget):
         button_eff_collaterali.setStyleSheet("background-color: rgb(250,200,100)")
         button_eff_collaterali.clicked.connect(self.go_eff_collaterali)
         self.grid_layout.addWidget(button_eff_collaterali, 1, 1)
-        #self.h_layout.addWidget(button_eff_collaterali)
 
         self.v_layout.addLayout(self.grid_layout)
 
     def go_vaccini_somministrati(self):
             torta = QPieSeries()
-
             for vaccino in self.vaccino_per_tipologia:
                 torta.append(vaccino, self.vaccino_per_tipologia[vaccino])
 
@@ -62,7 +57,6 @@ class VistaStatisticheVaccini(QWidget):
             torta.setLabelsPosition(QPieSlice.LabelInsideHorizontal)
 
             colore = 100
-
             for slice in torta.slices():
                 slice.setLabel("{:.1f}%".format(100 * slice.percentage()))
                 slice.setBrush(QColor(255,220,colore))
@@ -80,8 +74,6 @@ class VistaStatisticheVaccini(QWidget):
             self.chartview = QChartView(chart)
             self.chartview.setRenderHint(QPainter.Antialiasing)
             self.grid_layout.addWidget(self.chartview,0,0)
-            #self.v_layout.addWidget(self.chartview)
-
 
     def go_eff_collaterali(self):
         pass

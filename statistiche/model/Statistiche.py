@@ -8,8 +8,6 @@ class Statistiche():
         self.elenco_appuntamenti_vaccini = []
         self.elenco_appuntamenti_tamponi = []
 
-        #self.tampone_per_tipologia = {"Antigenico Rapido": 0, "Molecolare": 0, "Sierologico": 0}
-
         if os.path.isfile('calendariovaccini/data/elenco_appuntamenti_fissati.pickle'):
             with open('calendariovaccini/data/elenco_appuntamenti_fissati.pickle', 'rb') as f:
                 self.elenco_appuntamenti_vaccini = pickle.load(f)
@@ -18,6 +16,7 @@ class Statistiche():
             with open('calendariotamponi/data/elenco_appuntamenti_salvati.pickle', 'rb') as f:
                 self.elenco_appuntamenti_tamponi = pickle.load(f)
 
-
-
-
+    def salva_effetti_collaterali(self,effetti_collaterali):
+            with open('statistiche/data/effetti_collaterali_{}.pickle'.format(effetti_collaterali[0]), 'wb') as handle:
+                effetti_collaterali.pop(0)
+                pickle.dump(effetti_collaterali, handle, pickle.HIGHEST_PROTOCOL)
