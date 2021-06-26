@@ -24,11 +24,11 @@ class VistaStatistiche(QWidget):
         v_layout = QVBoxLayout()
 
         self.get_label("Vaccini", v_layout_vaccini)
-        self.get_button("Inserisci dati", grid_layout_vaccini, 0, 0, "rgb(255,255,153)", self.go_visulizza_vaccini)
-        self.get_button("Visualizza statistiche", grid_layout_vaccini, 1, 0, "rgb(255,255,153)", self.go_inserisci_vaccini)
+        self.get_button("Inserisci dati", grid_layout_vaccini, 0, 0, "rgb(255,255,153)", self.go_inserisci_vaccini)
+        self.get_button("Visualizza statistiche", grid_layout_vaccini, 1, 0, "rgb(255,255,153)", self.go_visulizza_vaccini)
         self.get_label("Tamponi", v_layout_tamponi)
-        self.get_button("Inserisci dati", grid_layout_tamponi, 0, 0, "rgb(152,255,152)", self.go_visualizza_tamponi)
-        self.get_button("Visualizza statistiche", grid_layout_tamponi, 1, 0, "rgb(152,255,152)", self.go_inserisci_tamponi)
+        self.get_button("Inserisci dati", grid_layout_tamponi, 0, 0, "rgb(152,255,152)", self.go_inserisci_tamponi)
+        self.get_button("Visualizza statistiche", grid_layout_tamponi, 1, 0, "rgb(152,255,152)", self.go_visualizza_tamponi)
 
         v_layout_vaccini.addLayout(grid_layout_vaccini)
         v_layout_tamponi.addLayout(grid_layout_tamponi)
