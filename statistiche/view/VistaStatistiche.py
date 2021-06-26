@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QWidget, QHBoxLayout, QPushButton, QSizePolicy, QLab
 
 from statistiche.controller.ControlloreStatistiche import ControlloreStatistiche
 from statistiche.view.VistaInserisciEffettiCollaterali import VistaInserisciEffettiCollaterali
+from statistiche.view.VistaStatisticheTamponi import VistaStatisticheTamponi
 from statistiche.view.VistaStatisticheVaccini import VistaStatisticheVaccini
 
 
@@ -86,7 +87,8 @@ class VistaStatistiche(QWidget):
         self.inserisci_effetti_collaterali.show()
 
     def go_visualizza_tamponi(self):
-        pass
+        self.vista_statistiche_tamponi = VistaStatisticheTamponi()
+        self.vista_statistiche_tamponi.show()
 
     def go_inserisci_tamponi(self):
         pass
