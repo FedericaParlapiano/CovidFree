@@ -32,12 +32,12 @@ class VistaStatistiche(QWidget):
 
         button_vaccini_v = QPushButton("Visualizza statistiche")
         button_vaccini_v.setFont(QFont('Georgia', 10))
-        button_vaccini_v.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        button_vaccini_v.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
         button_vaccini_v.setStyleSheet("background-color: rgb(255,255,153)")
         button_vaccini_v.clicked.connect(self.go_visulizza_vaccini)
         button_vaccini_i = QPushButton("Inserisci dati")
         button_vaccini_i.setFont(QFont('Georgia', 10))
-        button_vaccini_i.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        button_vaccini_i.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
         button_vaccini_i.setStyleSheet("background-color: rgb(255,255,153)")
         button_vaccini_i.clicked.connect(self.go_inserisci_vaccini)
 
@@ -52,12 +52,12 @@ class VistaStatistiche(QWidget):
 
         button_tamponi_v = QPushButton("Visualizza statistiche")
         button_tamponi_v.setFont(QFont('Georgia', 10))
-        button_tamponi_v.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        button_tamponi_v.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
         button_tamponi_v.setStyleSheet("background-color: rgb(152,255,152)")
         button_tamponi_v.clicked.connect(self.go_visualizza_tamponi)
         button_tamponi_i = QPushButton("Inserisci dati")
         button_tamponi_i.setFont(QFont('Georgia', 10))
-        button_tamponi_i.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        button_tamponi_i.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
         button_tamponi_i.setStyleSheet("background-color: rgb(152,255,152)")
         button_tamponi_i.clicked.connect(self.go_inserisci_tamponi)
 
