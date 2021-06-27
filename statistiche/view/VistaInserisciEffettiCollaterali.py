@@ -100,5 +100,4 @@ class VistaInserisciEffettiCollaterali(QWidget):
                     self.effetti_riscontrati.append(key)
 
             self.controller.salva_effetti_collaterali(self.effetti_riscontrati)
-            print(self.effetti_riscontrati)
             self.close()

@@ -18,24 +18,24 @@ class VistaInserisciAppuntamentoTampone(QWidget):
         self.info = {}
         self.v_layout = QVBoxLayout()
 
-        self.get_form_entry("Nome")
-        self.get_form_entry("Cognome")
-        self.get_form_entry("Data di nascita (dd/mm/YYYY)")
-        self.get_form_entry("Codice Fiscale")
-        self.get_form_entry("Indirizzo")
-        self.get_form_entry("Telefono")
+        self.get_form_entry("Nome*")
+        self.get_form_entry("Cognome*")
+        self.get_form_entry("Data di nascita (dd/mm/YYYY)*")
+        self.get_form_entry("Codice Fiscale*")
+        self.get_form_entry("Indirizzo*")
+        self.get_form_entry("Telefono*")
         self.data_selezionata = " "
         self.orario_selected = " "
 
         self.calendar_layout = QGridLayout()
         self.calendario_appuntamento = self.init_calendario()
-        self.calendar_layout.addWidget(QLabel("Data appuntamento"), 0, 0)
+        self.calendar_layout.addWidget(QLabel("Data appuntamento*"), 0, 0)
         self.calendar_layout.addWidget(self.calendario_appuntamento, 1, 0)
         self.calendario_appuntamento.selectionChanged.connect(self.calendar_date)
         self.label = QLabel('')
         self.label_orario = QLabel('')
 
-        self.calendar_layout.addWidget(QLabel("Fascia oraria appuntamento"), 0, 1)
+        self.calendar_layout.addWidget(QLabel("Fascia oraria appuntamento*"), 0, 1)
         self.list_view_orario = QListView()
         self.update_ui()
         self.calendar_layout.addWidget(self.list_view_orario, 1, 1)
@@ -49,12 +49,13 @@ class VistaInserisciAppuntamentoTampone(QWidget):
         self.drive_through = QCheckBox("Presenta sintomi o ha avuto contatti con persone positive o è attualmente positivo")
         self.v_layout.addWidget(self.drive_through)
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
-        self.v_layout.addWidget(QLabel("Tipologia di tampone da effettuare"))
+        self.v_layout.addWidget(QLabel("Tipologia di tampone da effettuare*"))
         self.tipo_tampone = QComboBox()
         self.tipo_tampone.addItems([" ", "Antigenico Rapido", "Molecolare", "Sierologico"])
         self.v_layout.addWidget(self.tipo_tampone)
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
         self.setLayout(self.v_layout)
+        self.v_layout.addWidget(QLabel("* Campi Obbligatori"))
 
         btn_ok = QPushButton("OK")
         btn_ok.clicked.connect(self.add_appuntamento)
@@ -68,12 +69,12 @@ class VistaInserisciAppuntamentoTampone(QWidget):
         self.info[tipo] = current_text_edit
 
     def add_appuntamento(self):
-        nome = self.info["Nome"].text()
-        cognome = self.info["Cognome"].text()
-        data_nascita = self.info["Data di nascita (dd/mm/YYYY)"].text()
-        cf = self.info["Codice Fiscale"].text()
-        indirizzo = self.info["Indirizzo"].text()
-        telefono = self.info["Telefono"].text()
+        nome = self.info["Nome*"].text()
+        cognome = self.info["Cognome*"].text()
+        data_nascita = self.info["Data di nascita (dd/mm/YYYY)*"].text()
+        cf = self.info["Codice Fiscale*"].text()
+        indirizzo = self.info["Indirizzo*"].text()
+        telefono = self.info["Telefono*"].text()
         tipo_tampone = self.tipo_tampone.currentText()
 
         ok = True
@@ -83,7 +84,7 @@ class VistaInserisciAppuntamentoTampone(QWidget):
 
         if ok is True:
             try:
-                data_inserita = datetime.strptime(self.info["Data di nascita (dd/mm/YYYY)"].text(), '%d/%m/%Y')
+                data_inserita = datetime.strptime(self.info["Data di nascita (dd/mm/YYYY)*"].text(), '%d/%m/%Y')
             except:
                 QMessageBox.critical(self, 'Errore', 'Inserisci la data nel formato richiesto: dd/MM/yyyy',
                                      QMessageBox.Ok, QMessageBox.Ok)
