@@ -1,7 +1,6 @@
 import os
 import pickle
 
-
 class Statistiche():
     def __init__(self):
         super(Statistiche, self).__init__()
@@ -10,6 +9,7 @@ class Statistiche():
         self.elenco_effetti_astrazeneca = []
         self.elenco_effetti_moderna = []
         self.elenco_effetti_pfizer = []
+        self.elenco_dati_tamponi = []
 
         if os.path.isfile('calendariovaccini/data/elenco_appuntamenti_fissati.pickle'):
             with open('calendariovaccini/data/elenco_appuntamenti_fissati.pickle', 'rb') as f:
@@ -22,14 +22,16 @@ class Statistiche():
         if os.path.isfile('statistiche/data/effetti_collaterali_astrazeneca.pickle'):
             with open('statistiche/data/effetti_collaterali_astrazeneca.pickle', 'rb') as f:
                 self.elenco_effetti_astrazeneca = pickle.load(f)
-
         if os.path.isfile('statistiche/data/effetti_collaterali_moderna.pickle'):
             with open('statistiche/data/effetti_collaterali_moderna.pickle', 'rb') as f:
                 self.elenco_effetti_moderna = pickle.load(f)
-
         if os.path.isfile('statistiche/data/effetti_collaterali_pfizer.pickle'):
             with open('statistiche/data/effetti_collaterali_pfizer.pickle', 'rb') as f:
                 self.elenco_effetti_pfizer = pickle.load(f)
+
+        if os.path.isfile('statistiche/data/dati_tamponi.pickle'):
+            with open('statistiche/data/dati_tamponi.pickle', 'rb') as f:
+                self.elenco_dati_tamponi = pickle.load(f)
 
     def salva_effetti_collaterali(self, effetti_collaterali):
         with open('statistiche/data/effetti_collaterali_{}.pickle'.format(effetti_collaterali[0]), 'wb') as handle:
@@ -43,9 +45,10 @@ class Statistiche():
                 self.aggiungi_effetti_pfizer(effetti_collaterali)
                 pickle.dump(self.elenco_effetti_pfizer, handle, pickle.HIGHEST_PROTOCOL)
 
-    def salva_dati_tamponi(self,dati_tamponi):
+    def salva_dati_tamponi(self, dati_tamponi):
+        self.elenco_dati_tamponi.append(dati_tamponi)
         with open('statistiche/data/dati_tamponi.pickle', 'wb') as handle:
-            pickle.dump(dati_tamponi, handle, pickle.HIGHEST_PROTOCOL)
+            pickle.dump(self.elenco_dati_tamponi, handle, pickle.HIGHEST_PROTOCOL)
 
     def aggiungi_effetti_astrazeneca(self, effetti):
         effetti.pop(0)
@@ -60,7 +63,11 @@ class Statistiche():
         self.elenco_effetti_pfizer.append(effetti)
 
     def get_effetti_collaterali(self, vaccino):
+        self.elenco_effetti = []
         if os.path.isfile('statistiche/data/effetti_collaterali_{}.pickle'.format(vaccino)):
             with open('statistiche/data/effetti_collaterali_{}.pickle'.format(vaccino), 'rb') as f:
                 self.elenco_effetti = pickle.load(f)
         return self.elenco_effetti
+
+    def get_dati_tamponi(self):
+        return self.elenco_dati_tamponi

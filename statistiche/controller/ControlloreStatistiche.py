@@ -22,4 +22,7 @@ class ControlloreStatistiche():
     def get_effetti_collaterali(self, vaccino):
         return self.model.get_effetti_collaterali(vaccino)
 
+    def get_dati_tamponi(self):
+        return self.model.get_dati_tamponi()
+
 
