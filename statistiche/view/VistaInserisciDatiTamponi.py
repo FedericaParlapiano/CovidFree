@@ -38,7 +38,7 @@ class VistaInserisciDatiTamponi(QWidget):
         #self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         #if self.positivo.isChecked():
-        self.sintomi = QLabel("Presenta Sintomi?")
+        self.sintomi = QLabel("Se positivo, presenta Sintomi?")
         self.sintomi.setFont(font)
         self.v_layout.addWidget(self.sintomi)
 
@@ -65,15 +65,31 @@ class VistaInserisciDatiTamponi(QWidget):
 
 
     def salva_dati(self):
-        if self.bg.checkedButton() is None or self.bg1.checkedButton() is None:
-            QMessageBox.critical(self, 'Errore', 'E\' necessario compilare entrambi i campi!', QMessageBox.Ok,
+        if self.positivo.isChecked() and self.bg1.checkedButton() is None:
+                QMessageBox.critical(self, 'Errore', 'E\' necessario compilare entrambi i campi!', QMessageBox.Ok,
                                  QMessageBox.Ok)
-        else:
+        elif self.negativo.isChecked():
             self.dati_tamponi.append(self.bg.checkedButton().text())
-            self.dati_tamponi.append(self.bg1.checkedButton().text())
             for key in self.info.keys():
                 if self.info[key].isChecked():
                     self.dati_tamponi.append(key)
-
             self.controller.salva_dati_tamponi(self.dati_tamponi)
             self.close()
+        elif self.positivo.isChecked():
+            if self.bg1.checkedButton() is not None:
+                self.dati_tamponi.append(self.bg.checkedButton().text())
+                self.dati_tamponi.append(self.bg1.checkedButton().text())
+                for key in self.info.keys():
+                    if self.info[key].isChecked():
+                        self.dati_tamponi.append(key)
+                self.controller.salva_dati_tamponi(self.dati_tamponi)
+                self.close()
+        else:
+            QMessageBox.critical(self, 'Errore', 'E\' necessario compilare entrambi i campi!', QMessageBox.Ok,
+                                 QMessageBox.Ok)
+
+
+
+
+
+

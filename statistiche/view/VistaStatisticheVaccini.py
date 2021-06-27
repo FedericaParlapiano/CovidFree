@@ -66,7 +66,7 @@ class VistaStatisticheVaccini(QWidget):
             blue = 0
             for slice in torta.slices():
                 slice.setLabel("{:.1f}%".format(100 * slice.percentage()))
-                slice.setBrush(QColor(250, 250, blue))
+                slice.setBrush(QColor(240, 240, blue))
                 blue += 15
             chart = QChart()
             chart.addSeries(torta)
