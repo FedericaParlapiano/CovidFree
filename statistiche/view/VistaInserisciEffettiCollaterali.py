@@ -74,6 +74,8 @@ class VistaInserisciEffettiCollaterali(QWidget):
         self.definisci_effetto_collaterale("Trombosi","Trombosi artriosa")
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
+        self.definisci_effetto_collaterale("Nessun effetto", "Nessun effetto collaterale")
+
         conferma = QPushButton("Conferma")
         conferma.clicked.connect(self.salva_dati)
         self.v_layout.addWidget(conferma)
