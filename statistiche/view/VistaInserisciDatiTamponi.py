@@ -37,11 +37,12 @@ class VistaInserisciDatiTamponi(QWidget):
 
         #self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
+        #if self.positivo.isChecked():
         self.sintomi = QLabel("Presenta Sintomi?")
         self.sintomi.setFont(font)
         self.v_layout.addWidget(self.sintomi)
 
-        self.sintomatico = QRadioButton('Si')
+        self.sintomatico = QRadioButton('Sì')
         self.asintomatico = QRadioButton('No')
 
         self.bg1 = QButtonGroup(self)
