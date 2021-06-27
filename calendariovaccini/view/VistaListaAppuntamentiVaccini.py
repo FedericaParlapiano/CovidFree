@@ -126,6 +126,9 @@ class VistaListaAppuntamentiVaccini(QWidget):
                 if appuntamento.is_a_domicilio:
                     item.setBackground(QtGui.QColor(255,255,153))
 
+                if appuntamento.id == 'Seconda Dose':
+                    item.setBackground(QtGui.QColor(200, 255, 153))
+
                 if appuntamento.vaccino == "Astrazeneca":
                     self.list_view_astrazeneca_model.appendRow(item)
                     self.elenco_astrazeneca.append(appuntamento)
@@ -147,7 +150,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
 
             data_appuntamento_selezionato = datetime.strptime(appuntamento_selezionato.data_appuntamento, '%d-%m-%Y')
             selezionato = str(data_appuntamento_selezionato.strftime('%Y-%m-%d'))
-            if selezionato == str(date.today()):
+            if selezionato < str(date.today()):
                 QMessageBox.critical(self, 'Errore', 'Non è possibile eliminare appuntamenti passati',
                                      QMessageBox.Ok, QMessageBox.Ok)
             else:
@@ -172,7 +175,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
 
             data_appuntamento_selezionato = datetime.strptime(appuntamento_selezionato.data_appuntamento, '%d-%m-%Y')
             selezionato = str(data_appuntamento_selezionato.strftime('%Y-%m-%d'))
-            if selezionato == str(date.today()):
+            if selezionato < str(date.today()):
                 QMessageBox.critical(self, 'Errore', 'Non è possibile eliminare appuntamenti passati',
                                      QMessageBox.Ok, QMessageBox.Ok)
             else:
@@ -198,7 +201,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
 
             data_appuntamento_selezionato = datetime.strptime(appuntamento_selezionato.data_appuntamento, '%d-%m-%Y')
             selezionato = str(data_appuntamento_selezionato.strftime('%Y-%m-%d'))
-            if selezionato == str(date.today()):
+            if selezionato < str(date.today()):
                 QMessageBox.critical(self, 'Errore', 'Non è possibile eliminare appuntamenti passati',
                                      QMessageBox.Ok, QMessageBox.Ok)
             else:

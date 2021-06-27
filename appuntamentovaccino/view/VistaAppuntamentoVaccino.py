@@ -42,6 +42,16 @@ class VistaAppuntamentoVaccino(QWidget):
 
         v_layout.addItem(QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
+        label_id = QLabel("{}".format(self.controller.get_id_appuntamento()))
+        font_id = label_id.font()
+        font_id.setPointSize(15)
+        font_id.setFamily('Georgia')
+        label_id.setFont(font_id)
+        label_id.setAlignment(Qt.AlignCenter)
+        v_layout.addWidget(label_id)
+
+        v_layout.addItem(QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
         label_nome = QLabel("Nome e cognome: {} {}".format(self.controller.get_cartella_paziente_appuntamento().nome, self.controller.get_cartella_paziente_appuntamento().cognome))
         font_nome = label_nome.font()
         font_nome.setPointSize(20)

@@ -17,3 +17,6 @@ class ControlloreAppuntamentoVaccino():
 
     def get_is_a_domicilio_appuntamento(self):
             return self.model.is_a_domicilio
+
+    def get_id_appuntamento(self):
+        return self.model.id

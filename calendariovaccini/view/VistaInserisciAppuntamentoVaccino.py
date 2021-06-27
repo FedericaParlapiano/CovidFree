@@ -146,6 +146,12 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
                                                        'l\'appuntamento se si presentano sintomi ricondubili ad un\'infezione da Covid19 o se si è stati a contatto con persone positive.', QMessageBox.Ok, QMessageBox.Ok)
                 ok = False
 
+        if ok is True:
+            if self.vista_inserisci_anamnesi.anamnesi['Positivo COVID-19'] == 'meno di 3 mesi':
+                QMessageBox.critical(self, 'Attenzione', 'Ci dispiace ma non è possibile prenotare '
+                                                         'l\'appuntamento se non è passato un periodo superiore ai 3 mesi dall\'infezione.',
+                                     QMessageBox.Ok, QMessageBox.Ok)
+                ok = False
 
         if ok is True:
             if self.vista_mostra_date.data_scelta == "" or  self.vista_mostra_date.orario_selezionato == "":
@@ -154,11 +160,32 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
                 ok = False
 
         if ok is True:
-            cartella_paziente = CartellaPaziente(nome, cognome, data_nascita, cf, indirizzo, telefono, categoria_speciale, preferenze, self.vista_inserisci_anamnesi.anamnesi)
-            appuntamento_vaccino = AppuntamentoVaccino('_'+cf+'_', cartella_paziente, self.vista_mostra_date.data_scelta, self.vista_mostra_date.orario_selezionato, is_a_domicilio)
+            cartella_paziente = CartellaPaziente(nome, cognome, data_nascita, cf, indirizzo, telefono,
+                                                 categoria_speciale, preferenze, self.vista_inserisci_anamnesi.anamnesi)
+            appuntamento_vaccino = AppuntamentoVaccino('Prima Dose', cartella_paziente,
+                                                       self.vista_mostra_date.data_scelta,
+                                                       self.vista_mostra_date.orario_selezionato, is_a_domicilio)
 
             if appuntamento_vaccino.vaccino is not None:
                 self.controller.aggiungi_appuntamento(appuntamento_vaccino)
+
+                if self.vista_inserisci_anamnesi.anamnesi['Positivo COVID-19'] != 'tra i 3 e i 6 mesi':
+                    data_prima_dose = datetime.strptime(self.vista_mostra_date.data_scelta, '%d-%m-%Y')
+                    if appuntamento_vaccino.vaccino == "Pfizer":
+                        data_seconda_dose = str((data_prima_dose + timedelta(days=28)).strftime('%d-%m-%Y'))
+                    elif appuntamento_vaccino.vaccino == "Moderna":
+                        data_seconda_dose = str((data_prima_dose + timedelta(days=21)).strftime('%d-%m-%Y'))
+                    elif appuntamento_vaccino.vaccino == "Astrazeneca":
+                        data_seconda_dose = str((data_prima_dose + timedelta(days=60)).strftime('%d-%m-%Y'))
+
+                    appuntamento_seconda_dose = AppuntamentoVaccino('Seconda Dose', cartella_paziente,
+                                                                    data_seconda_dose,
+                                                                    self.vista_mostra_date.orario_selezionato,
+                                                                    is_a_domicilio)
+                    self.controller.aggiungi_appuntamento(appuntamento_seconda_dose)
+                    self.vista_riepilogo_2 = VistaAppuntamentoVaccino(appuntamento_seconda_dose)
+                    self.vista_riepilogo_2.show()
+
                 self.vista_riepilogo = VistaAppuntamentoVaccino(appuntamento_vaccino)
                 self.vista_riepilogo.show()
             else:

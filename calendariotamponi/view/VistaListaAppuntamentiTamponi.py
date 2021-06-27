@@ -137,7 +137,7 @@ class VistaListaAppuntamentiTamponi(QWidget):
             selected = self.list_view_antigenico.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_antigenico[selected]
 
-            if appuntamento_selezionato.data_appuntamento == str(date.today()):
+            if appuntamento_selezionato.data_appuntamento < str(date.today()):
                 QMessageBox.critical(self, 'Errore', 'Non è possibile eliminare appuntamenti passati',
                                      QMessageBox.Ok, QMessageBox.Ok)
             else:
@@ -160,7 +160,7 @@ class VistaListaAppuntamentiTamponi(QWidget):
             selected = self.list_view_molecolare.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_molecolare[selected]
 
-            if appuntamento_selezionato.data_appuntamento == str(date.today()):
+            if appuntamento_selezionato.data_appuntamento < str(date.today()):
                 QMessageBox.critical(self, 'Errore', 'Non è possibile eliminare appuntamenti passati',
                                      QMessageBox.Ok, QMessageBox.Ok)
             else:
@@ -183,7 +183,7 @@ class VistaListaAppuntamentiTamponi(QWidget):
             selected = self.list_view_sierologico.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_sierologico[selected]
 
-            if appuntamento_selezionato.data_appuntamento == str(date.today()):
+            if appuntamento_selezionato.data_appuntamento < str(date.today()):
                 QMessageBox.critical(self, 'Errore', 'Non è possibile eliminare appuntamenti passati',
                                      QMessageBox.Ok, QMessageBox.Ok)
             else:
