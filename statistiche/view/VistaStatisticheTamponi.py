@@ -18,7 +18,8 @@ class VistaStatisticheTamponi(QWidget):
 
 
         self.tampone_per_tipologia = {"Antigenico Rapido": 0, "Molecolare": 0, "Sierologico": 0}
-        self.dati = {}
+        self.dati_positivi = {}
+        self.dati_sintomi = {}
 
         self.grid_layout = QGridLayout()
         self.h_layout = QHBoxLayout()
@@ -28,39 +29,55 @@ class VistaStatisticheTamponi(QWidget):
 
         self.setLayout(self.v_layout)
         self.setWindowTitle("Statistiche Tamponi")
-        self.resize(450, 600)
+        self.resize(1000, 800)
 
         for appuntamento in self.controller.get_elenco_appuntamenti_tamponi():
             for key in self.tampone_per_tipologia:
                 if appuntamento.tipo_tampone == key:
                     self.tampone_per_tipologia[appuntamento.tipo_tampone] += 1
 
-        '''for lista_dati in self.controller.get_dati_tamponi():
+        for lista_dati in self.controller.get_dati_tamponi():
             for dato in lista_dati:
-                if dato in self.dati:
-                    self.dati += 1
-                else:
-                    self.dati = 1'''
+                if dato == "Positivo":
+                    if dato in self.dati_positivi:
+                        self.dati_positivi[dato] += 1
+                    else:
+                        self.dati_positivi[dato] = 1
+                elif dato == "Negativo":
+                    if dato in self.dati_positivi:
+                        self.dati_positivi[dato] += 1
+                    else:
+                        self.dati_positivi[dato] = 1
+                elif dato == "Sì":
+                    if dato in self.dati_sintomi:
+                        self.dati_sintomi["Sintomatico"] += 1
+                    else:
+                        self.dati_sintomi["Sintomatico"] = 1
+                elif dato == "No":
+                    if dato in self.dati_sintomi:
+                        self.dati_sintomi["Asintomatico"] += 1
+                    else:
+                        self.dati_sintomi["Asintomatico"] = 1
 
 
     def bottoni(self):
         button_tamponi_somministrati = QPushButton("Statistiche sui tamponi effettuati")
         button_tamponi_somministrati.setFont(QFont('Georgia', 10))
-        button_tamponi_somministrati.setFixedSize(300, 70)
+        button_tamponi_somministrati.setFixedSize(480, 70)
         button_tamponi_somministrati.setStyleSheet("background-color: rgb(140,230,180)")
         button_tamponi_somministrati.clicked.connect(self.go_tamponi_somministrati)
         self.grid_layout.addWidget(button_tamponi_somministrati, 1, 0)
 
         button_positivi = QPushButton("Statistiche sui casi risultati positivi")
         button_positivi.setFont(QFont('Georgia', 10))
-        button_positivi.setFixedSize(300, 70)
+        button_positivi.setFixedSize(480, 70)
         button_positivi.setStyleSheet("background-color: rgb(140,230,180)")
         button_positivi.clicked.connect(self.go_positivi)
         self.grid_layout.addWidget(button_positivi, 1, 1)
 
         button_sintomi = QPushButton("Statistiche sulla sintomatologia")
         button_sintomi.setFont(QFont('Georgia', 10))
-        button_sintomi.setFixedSize(300, 70)
+        button_sintomi.setFixedSize(480, 70)
         button_sintomi.setStyleSheet("background-color: rgb(140,230,180)")
         button_sintomi.clicked.connect(self.go_sintomi)
         self.grid_layout.addWidget(button_sintomi, 1, 2)
@@ -68,19 +85,19 @@ class VistaStatisticheTamponi(QWidget):
         self.v_layout.addLayout(self.grid_layout)
 
     def go_tamponi_somministrati(self):
-        self.get_torta(self.tampone_per_tipologia, "Tipologia Tamponi somministrati", 0, 0)
+        self.get_torta(self.tampone_per_tipologia, "Tipologia Tamponi \n effettuati", 0, 0)
 
     def go_positivi(self):
-        self.get_torta(self.dati, "Statistiche sui casi \n risultati positivi", 0, 1)
+        self.get_torta(self.dati_positivi, "Statistiche sui casi \n risultati positivi", 0, 1)
 
     def go_sintomi(self):
-        self.get_torta(self.dati, "Statistiche sulla \n sintomatologia", 0, 2)
+        self.get_torta(self.dati_sintomi, "Statistiche sulla \n sintomatologia", 0, 2)
 
     def get_torta(self, elenco, titolo, riga, colonna):
         if elenco:
             torta = QPieSeries()
-            for tampone in self.tampone_per_tipologia:
-                torta.append(tampone, self.tampone_per_tipologia[tampone])
+            for elemento in elenco:
+                torta.append(elemento, elenco[elemento])
 
             torta.setLabelsVisible()
             torta.setLabelsPosition(QPieSlice.LabelInsideHorizontal)
@@ -96,7 +113,7 @@ class VistaStatisticheTamponi(QWidget):
             chart.addSeries(torta)
             chart.setAnimationOptions(QChart.SeriesAnimations)
             chart.setTitle(titolo)
-            chart.setTitleFont(QFont('Georgia', 15, weight=QtGui.QFont.Bold))
+            chart.setTitleFont(QFont('Georgia', 13, weight=QtGui.QFont.Bold))
             chart.setTitleBrush(QColor(140, 230, 180))
             chart.legend().setAlignment(Qt.AlignRight)
 
