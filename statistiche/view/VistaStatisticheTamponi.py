@@ -49,16 +49,15 @@ class VistaStatisticheTamponi(QWidget):
                     else:
                         self.dati_positivi[dato] = 1
                 elif dato == "Sì":
-                    if dato in self.dati_sintomi:
+                    if "Sintomatico" in self.dati_sintomi:
                         self.dati_sintomi["Sintomatico"] += 1
                     else:
                         self.dati_sintomi["Sintomatico"] = 1
-                elif dato == "No":
-                    if dato in self.dati_sintomi:
+                else:
+                    if "Asintomatico" in self.dati_sintomi:
                         self.dati_sintomi["Asintomatico"] += 1
                     else:
                         self.dati_sintomi["Asintomatico"] = 1
-
 
     def bottoni(self):
         button_tamponi_somministrati = QPushButton("Statistiche sui tamponi effettuati")

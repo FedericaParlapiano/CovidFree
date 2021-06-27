@@ -65,6 +65,7 @@ class VistaInserisciDatiTamponi(QWidget):
 
 
     def salva_dati(self):
+
         if self.positivo.isChecked() and self.bg1.checkedButton() is None:
                 QMessageBox.critical(self, 'Errore', 'E\' necessario compilare entrambi i campi!', QMessageBox.Ok,
                                  QMessageBox.Ok)
