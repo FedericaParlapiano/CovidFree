@@ -23,12 +23,12 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
 
         self.v_layout = QVBoxLayout()
 
-        self.get_form_entry("Nome")
-        self.get_form_entry("Cognome")
-        self.get_form_entry("Data di nascita (dd/mm/YYYY)")
-        self.get_form_entry("Codice Fiscale")
-        self.get_form_entry("Indirizzo")
-        self.get_form_entry("Telefono")
+        self.get_form_entry("Nome*")
+        self.get_form_entry("Cognome*")
+        self.get_form_entry("Data di nascita (dd/mm/YYYY)*")
+        self.get_form_entry("Codice Fiscale*")
+        self.get_form_entry("Indirizzo*")
+        self.get_form_entry("Telefono*")
         self.domicilio = QCheckBox("L'appuntamento è a domicilio")
         self.v_layout.addWidget(self.domicilio)
 
@@ -40,7 +40,7 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
         self.v_layout.addWidget(self.categorie_speciali)
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
-        button = QPushButton("Anamnesi")
+        button = QPushButton("Anamnesi*")
         button.clicked.connect(self.go_inserisci_anamnesi)
         self.v_layout.addWidget(button)
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
@@ -51,22 +51,24 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
         self.v_layout.addWidget(self.preferenza)
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
-        button_data = QPushButton("Scegli data e orario")
+        button_data = QPushButton("Scegli data e orario*")
         button_data.clicked.connect(self.go_scelta_data)
         self.v_layout.addWidget(button_data)
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
-        self.consenso1 = QCheckBox("Consenso al trattamento dei dati personali")
+        self.consenso1 = QCheckBox("Consenso al trattamento dei dati personali*")
         self.v_layout.addWidget(self.consenso1)
-        self.consenso2 = QCheckBox("Consenso al trattamento sanitario")
+        self.consenso2 = QCheckBox("Consenso al trattamento sanitario*")
         self.v_layout.addWidget(self.consenso2)
-        self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
+        self.v_layout.addItem(QSpacerItem(40, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
+        self.v_layout.addWidget(QLabel("* Campi Obbligatori"))
 
         btn_ok = QPushButton("OK")
         btn_ok.clicked.connect(self.add_appuntamento)
         self.v_layout.addWidget(btn_ok)
         self.setLayout(self.v_layout)
         self.setWindowTitle("Nuovo Appuntamento")
+        self.resize(300,600)
 
     def get_form_entry(self, tipo):
         self.v_layout.addWidget(QLabel(tipo))
@@ -82,12 +84,12 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
 
 
     def add_appuntamento(self):
-        nome = self.info["Nome"].text()
-        cognome = self.info["Cognome"].text()
-        data_nascita = self.info["Data di nascita (dd/mm/YYYY)"].text()
-        cf = self.info["Codice Fiscale"].text()
-        indirizzo = self.info["Indirizzo"].text()
-        telefono = self.info["Telefono"].text()
+        nome = self.info["Nome*"].text()
+        cognome = self.info["Cognome*"].text()
+        data_nascita = self.info["Data di nascita (dd/mm/YYYY)*"].text()
+        cf = self.info["Codice Fiscale*"].text()
+        indirizzo = self.info["Indirizzo*"].text()
+        telefono = self.info["Telefono*"].text()
         preferenze = self.preferenza.currentText()
         categoria_speciale = self.categorie_speciali.currentText()
         is_a_domicilio = False
@@ -102,7 +104,7 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
 
         if ok is True:
             try:
-                data_inserita = datetime.strptime(self.info["Data di nascita (dd/mm/YYYY)"].text(),'%d/%m/%Y')
+                data_inserita = datetime.strptime(self.info["Data di nascita (dd/mm/YYYY)*"].text(),'%d/%m/%Y')
             except:
                 QMessageBox.critical(self, 'Errore', 'Inserisci la data nel formato richiesto: dd/MM/yyyy',
                                      QMessageBox.Ok, QMessageBox.Ok)
