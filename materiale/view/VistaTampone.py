@@ -1,3 +1,4 @@
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QVBoxLayout, QSpacerItem, QSizePolicy
 from PyQt5.QtCore import Qt
 
@@ -55,6 +56,7 @@ class VistaTampone(QWidget):
         v_layout.addWidget(label_prezzo)
 
         self.setWindowTitle("Tampone " + self.controller.get_tipologia_materiale())
+        self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
         self.setLayout(v_layout)
         self.adjustSize()
 

@@ -3,7 +3,7 @@ import os
 import pickle
 from datetime import date, datetime
 from PyQt5.QtCore import QDate
-from PyQt5.QtGui import QFont, QStandardItemModel, QStandardItem
+from PyQt5.QtGui import QFont, QStandardItemModel, QStandardItem, QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QCheckBox, QSpacerItem, QSizePolicy, QLabel, QComboBox, QLineEdit, \
     QPushButton, QMessageBox, QCalendarWidget, QListView, QGridLayout, QAbstractItemView
 from appuntamentotampone.model.AppuntamentoTampone import AppuntamentoTampone
@@ -68,6 +68,7 @@ class VistaInserisciAppuntamentoTampone(QWidget):
 
         self.setLayout(self.v_layout)
         self.setWindowTitle("Nuovo Appuntamento")
+        self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
     def get_form_entry(self, tipo):
         self.v_layout.addWidget(QLabel(tipo))

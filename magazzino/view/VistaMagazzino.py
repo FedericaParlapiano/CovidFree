@@ -1,4 +1,4 @@
-from PyQt5.QtGui import QStandardItemModel, QStandardItem
+from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QPushButton, QListView, QVBoxLayout, QGridLayout, QLabel, QSizePolicy
 
 from magazzino.controller.ControlloreMagazzino import ControlloreMagazzino
@@ -63,6 +63,7 @@ class VistaMagazzino(QWidget):
         self.setLayout(grid_layout)
         self.resize(600, 300)
         self.setWindowTitle("Lista Presidi")
+        self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
     def update_ui(self):
         self.listview_vaccini_model = QStandardItemModel(self.list_view_vaccini)

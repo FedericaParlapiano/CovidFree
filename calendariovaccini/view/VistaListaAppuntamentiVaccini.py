@@ -3,7 +3,7 @@ import pickle
 from datetime import datetime, date, timedelta
 
 from PyQt5 import QtGui
-from PyQt5.QtGui import QStandardItem, QStandardItemModel
+from PyQt5.QtGui import QStandardItem, QStandardItemModel, QIcon
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QGridLayout, QLabel, QMessageBox
 
 from appuntamentovaccino.view.VistaAppuntamentoVaccino import VistaAppuntamentoVaccino
@@ -74,6 +74,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
         self.setLayout(self.grid_layout)
         self.resize(600, 300)
         self.setWindowTitle('Lista Appuntamenti Vaccini Giorno: {}'.format(self.data))
+        self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
     def get_list(self, tipologia, colonna):
 
@@ -161,6 +162,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
                 msg = QMessageBox()
                 msg.setIcon(QMessageBox.Information)
                 msg.setText("Sei sicuro di voler eliminare l'appuntamento?")
+                msg.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
                 msg.setInformativeText("La decisione è irreversibile!")
                 msg.setWindowTitle("Conferma eliminazione")
                 msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)

@@ -1,4 +1,5 @@
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton
 
 from appuntamentotampone.controller.ControlloreAppuntamentoTampone import ControlloreAppuntamentoTampone
@@ -97,3 +98,4 @@ class VistaAppuntamentoTampone(QWidget):
 
         self.setLayout(v_layout)
         self.setWindowTitle("Appuntamento Tampone " + self.controller.get_nome() + " " + self.controller.get_cognome())
+        self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))

@@ -1,5 +1,5 @@
 from datetime import date, datetime, timedelta
-from PyQt5.QtGui import QStandardItemModel, QStandardItem
+from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon
 from PyQt5.QtWidgets import QWidget, QListView, QVBoxLayout, QLabel, QPushButton, QMessageBox, QGridLayout
 from calendariovaccini.controller.ControlloreCalendarioVaccini import ControlloreCalendarioVaccini
 
@@ -58,6 +58,7 @@ class VistaDateAppuntamento(QWidget):
 
         self.setLayout(self.v_layout)
         self.setWindowTitle("Scelta della data")
+        self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
 
     def determina_date(self):

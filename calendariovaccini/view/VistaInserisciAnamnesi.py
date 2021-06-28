@@ -1,4 +1,4 @@
-from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QFont, QIcon
 from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QRadioButton, QButtonGroup, QPushButton, QSpacerItem, \
     QSizePolicy, QMessageBox, QComboBox
 
@@ -46,6 +46,7 @@ class VistaInserisciAnamnesi(QWidget):
 
         self.setLayout(self.grid_layout)
         self.setWindowTitle("Questionario anamnestico")
+        self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
     def get_domanda(self, chiave, domanda, riga):
 

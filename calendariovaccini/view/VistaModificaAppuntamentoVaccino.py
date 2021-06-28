@@ -1,5 +1,6 @@
 from datetime import date, datetime, timedelta
 
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QSpacerItem, QSizePolicy, QPushButton, QLabel, QLineEdit, QMessageBox, \
     QGridLayout, QCheckBox, QRadioButton, QComboBox
 
@@ -70,6 +71,7 @@ class VistaModificaAppuntamentoVaccino(QWidget):
         self.setLayout(self.v_layout)
         self.setWindowTitle("Modifica Appuntamento")
         self.resize(300,600)
+        self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
     def get_form_entry(self, tipo, campo):
         self.v_layout.addWidget(QLabel(tipo))

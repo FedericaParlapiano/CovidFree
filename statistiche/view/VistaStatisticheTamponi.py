@@ -1,6 +1,6 @@
 from PyQt5 import Qt, QtGui
 from PyQt5.QtChart import QPieSeries, QPieSlice, QChart, QChartView
-from PyQt5.QtGui import QFont, QColor, QPainter
+from PyQt5.QtGui import QFont, QColor, QPainter, QIcon
 from PyQt5.QtWidgets import QWidget, QGridLayout, QHBoxLayout, QVBoxLayout, QPushButton, QLabel
 from PyQt5.QtCore import Qt
 
@@ -30,6 +30,7 @@ class VistaStatisticheTamponi(QWidget):
         self.setLayout(self.v_layout)
         self.setWindowTitle("Statistiche Tamponi")
         self.resize(1000, 800)
+        self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
         for appuntamento in self.controller.get_elenco_appuntamenti_tamponi():
             for key in self.tampone_per_tipologia:
@@ -63,21 +64,21 @@ class VistaStatisticheTamponi(QWidget):
         button_tamponi_somministrati = QPushButton("Statistiche sui tamponi effettuati")
         button_tamponi_somministrati.setFont(QFont('Georgia', 10))
         button_tamponi_somministrati.setFixedSize(480, 70)
-        button_tamponi_somministrati.setStyleSheet("background-color: rgb(140,230,180)")
+        button_tamponi_somministrati.setStyleSheet("background-color: rgb(150,180,255)")
         button_tamponi_somministrati.clicked.connect(self.go_tamponi_somministrati)
         self.grid_layout.addWidget(button_tamponi_somministrati, 1, 0)
 
         button_positivi = QPushButton("Statistiche sui casi risultati positivi")
         button_positivi.setFont(QFont('Georgia', 10))
         button_positivi.setFixedSize(480, 70)
-        button_positivi.setStyleSheet("background-color: rgb(140,230,180)")
+        button_positivi.setStyleSheet("background-color: rgb(150,180,255)")
         button_positivi.clicked.connect(self.go_positivi)
         self.grid_layout.addWidget(button_positivi, 1, 1)
 
         button_sintomi = QPushButton("Statistiche sulla sintomatologia")
         button_sintomi.setFont(QFont('Georgia', 10))
         button_sintomi.setFixedSize(480, 70)
-        button_sintomi.setStyleSheet("background-color: rgb(140,230,180)")
+        button_sintomi.setStyleSheet("background-color: rgb(150,180,255)")
         button_sintomi.clicked.connect(self.go_sintomi)
         self.grid_layout.addWidget(button_sintomi, 1, 2)
 
@@ -101,19 +102,19 @@ class VistaStatisticheTamponi(QWidget):
             torta.setLabelsVisible()
             torta.setLabelsPosition(QPieSlice.LabelInsideHorizontal)
 
-            colore = 152
+            red=120
 
             for slice in torta.slices():
                 slice.setLabel("{:.1f}%".format(100 * slice.percentage()))
-                slice.setBrush(QColor(152, 255, colore))
-                colore += 35
+                slice.setBrush(QColor(red, 160, 254))
+                red += 20
 
             chart = QChart()
             chart.addSeries(torta)
             chart.setAnimationOptions(QChart.SeriesAnimations)
             chart.setTitle(titolo)
             chart.setTitleFont(QFont('Georgia', 13, weight=QtGui.QFont.Bold))
-            chart.setTitleBrush(QColor(140, 230, 180))
+            chart.setTitleBrush(QColor(120,160, 254))
             chart.legend().setAlignment(Qt.AlignRight)
 
             i = 0

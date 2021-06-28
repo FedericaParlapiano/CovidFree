@@ -1,6 +1,6 @@
 from datetime import datetime
 import calendar
-from PyQt5.QtGui import QFont, QStandardItemModel, QStandardItem
+from PyQt5.QtGui import QFont, QStandardItemModel, QStandardItem, QIcon
 from PyQt5.QtWidgets import QWidget, QCalendarWidget, QSizePolicy, QVBoxLayout, QPushButton, QHBoxLayout, QLabel
 from PyQt5.QtCore import QDate
 
@@ -35,6 +35,7 @@ class VistaCalendarioVaccini(QWidget):
         self.setLayout(h_layout)
         self.setWindowTitle("Calendario Appuntamenti Vaccini")
         self.resize(500, 300)
+        self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
     def init_calendario(self):
         calendario = QCalendarWidget(self)

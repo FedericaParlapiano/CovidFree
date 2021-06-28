@@ -1,3 +1,4 @@
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox
 
 from materiale.controller.ControlloreMateriale import ControlloreMateriale
@@ -28,7 +29,8 @@ class VistaAggiornaFornitura(QWidget):
         v_layout.addWidget(btn_ok)
 
         self.setLayout(v_layout)
-        self.setWindowTitle("Aggiornamento della fornitura di " + self.controller.get_tipologia_materiale())
+        self.setWindowTitle("Aggiornamento della fornitura di " + materiale.tipologia)
+        self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
     def aggiorna_quantita(self):
         ok = True

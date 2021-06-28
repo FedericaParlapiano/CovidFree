@@ -12,11 +12,11 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     app.setStyle('Fusion')
 
-    splash = QSplashScreen(QPixmap('appuntamentovaccino/data/Girasoli.jpeg').scaled(200, 300))
+    splash = QSplashScreen(QPixmap('appuntamentovaccino/data/CovidFree_Clinica.png').scaled(507, 605))
     splash.show()
-    QTimer.singleShot(4000, splash.close)
+    QTimer.singleShot(3000, splash.close)
 
-    time.sleep(4)
+    time.sleep(3)
 
     vista_home = VistaHome()
     vista_home.show()

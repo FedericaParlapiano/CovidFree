@@ -1,6 +1,6 @@
 from PyQt5 import Qt, QtGui
 from PyQt5.QtChart import QPieSeries, QChart, QChartView, QPieSlice, QPercentBarSeries
-from PyQt5.QtGui import QFont, QPen, QPainter, QColor
+from PyQt5.QtGui import QFont, QPen, QPainter, QColor, QIcon
 from PyQt5.QtWidgets import QWidget, QPushButton, QVBoxLayout, QHBoxLayout, QGridLayout, QSizePolicy, QLabel
 from PyQt5.QtCore import Qt
 
@@ -22,6 +22,7 @@ class VistaStatisticheVaccini(QWidget):
         self.v_layout = QVBoxLayout()
         self.v_layout_effetti = QHBoxLayout()
         self.setWindowTitle("Statistiche Vaccini")
+        self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
         self.resize(1000, 1000)
 
         for appuntamento in self.controller.get_elenco_appuntamenti_vaccini():
@@ -63,17 +64,19 @@ class VistaStatisticheVaccini(QWidget):
                 torta.append(elemento, elenco[elemento])
             torta.setLabelsVisible()
             torta.setLabelsPosition(QPieSlice.LabelInsideHorizontal)
-            blue = 0
+            red = 100
+            green =230
             for slice in torta.slices():
                 slice.setLabel("{:.1f}%".format(100 * slice.percentage()))
-                slice.setBrush(QColor(240, 240, blue))
-                blue += 15
+                slice.setBrush(QColor(red, green, 254))
+                red += 10
+                green -= 5
             chart = QChart()
             chart.addSeries(torta)
             chart.setAnimationOptions(QChart.SeriesAnimations)
             chart.setTitle(titolo)
             chart.setTitleFont(QFont('Georgia', 15, weight=QtGui.QFont.Bold))
-            chart.setTitleBrush(QColor(250, 200, 0))
+            chart.setTitleBrush(QColor(160, 200, 254))
             chart.legend().setAlignment(Qt.AlignRight)
             i = 0
             for key in elenco:

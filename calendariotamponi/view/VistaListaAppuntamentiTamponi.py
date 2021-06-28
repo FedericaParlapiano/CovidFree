@@ -1,7 +1,7 @@
 from datetime import datetime, date
 
 from PyQt5 import QtGui
-from PyQt5.QtGui import QStandardItemModel, QStandardItem
+from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QLabel, QGridLayout, QMessageBox
 
 from appuntamentotampone.view.VistaAppuntamentoTampone import VistaAppuntamentoTampone
@@ -64,6 +64,7 @@ class VistaListaAppuntamentiTamponi(QWidget):
         self.setLayout(self.grid_layout)
         self.resize(600, 300)
         self.setWindowTitle('Lista Appuntamenti Tamponi Giorno: {}'.format(self.data))
+        self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
 
     def get_list(self, tipologia, colonna):

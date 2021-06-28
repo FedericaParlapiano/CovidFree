@@ -1,4 +1,4 @@
-from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QFont, QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QRadioButton, QButtonGroup, QGridLayout, QSpacerItem, \
     QSizePolicy, QPushButton, QCheckBox, QMessageBox
 
@@ -61,6 +61,7 @@ class VistaInserisciDatiTamponi(QWidget):
         self.setLayout(self.v_layout)
         self.resize(360, 200)
         self.setWindowTitle("Inserisci Dati Tamponi")
+        self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
 
 

@@ -1,6 +1,9 @@
-from PyQt5.QtCore import QTimer
-from PyQt5.QtGui import QFont, QPixmap
-from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy, QLabel, QSplashScreen
+import os
+
+from PyQt5 import QtGui, QtWidgets, QtCore
+from PyQt5.QtCore import QTimer, Qt
+from PyQt5.QtGui import QFont, QPixmap, QIcon
+from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy, QLabel, QSplashScreen, QVBoxLayout
 
 from calendariotamponi.view.VistaCalendarioTamponi import VistaCalendarioTamponi
 from calendariovaccini.view.VistaCalendarioVaccini import VistaCalendarioVaccini
@@ -14,11 +17,23 @@ class VistaHome(QWidget):
         super(VistaHome, self).__init__(parent)
 
         grid_layout = QGridLayout()
+        v_layout =QVBoxLayout()
 
-        grid_layout.addWidget(self.get_generic_button("Calendario Vaccini", "rgb(255,255,153)", self.go_calendario_vaccini), 0, 0)
-        grid_layout.addWidget(self.get_generic_button("Calendario Tamponi", "rgb(152,255,152)", self.go_calendario_tamponi), 1, 0)
-        grid_layout.addWidget(self.get_generic_button("Magazzino", "rgb(255,160,122)", self.go_magazzino), 2, 0)
-        grid_layout.addWidget(self.get_generic_button("Statistiche", "rgb(176,224,230)", self.go_statistiche), 3, 0)
+        v_layout.addWidget(self.get_generic_button("Calendario Vaccini", "rgb(60,123,174)", self.go_calendario_vaccini))
+        v_layout.addWidget(self.get_generic_button("Calendario Tamponi", "rgb(73,160,216)", self.go_calendario_tamponi))
+        v_layout.addWidget(self.get_generic_button("Magazzino", "rgb(117,185,204)", self.go_magazzino))
+        v_layout.addWidget(self.get_generic_button("Statistiche", "rgb(152,231,221)", self.go_statistiche))
+
+        label = QLabel()
+        pixmap = QPixmap('appuntamentovaccino/data/CovidFree_Clinica.png')
+        #pixmap1 = pixmap.scaled(253, 302)
+        pixmap.size()
+        label.setPixmap(pixmap)
+        label.setAlignment(Qt.AlignCenter)
+
+        grid_layout.addWidget(label, 0, 0)
+        grid_layout.addLayout(v_layout, 0, 1)
+
 
 
         self.setLayout(grid_layout)
@@ -30,6 +45,7 @@ class VistaHome(QWidget):
 
 
         self.setWindowTitle("Clinica COVID FREE")
+        self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
     def get_generic_button(self, titolo, colore, on_click):
         button = QPushButton(titolo)

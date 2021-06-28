@@ -1,4 +1,4 @@
-from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QFont, QIcon
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QPushButton, QSizePolicy, QLabel, QGridLayout, QVBoxLayout, \
     QSpacerItem
@@ -25,11 +25,11 @@ class VistaStatistiche(QWidget):
         v_layout = QVBoxLayout()
 
         self.get_label("Vaccini", v_layout_vaccini)
-        self.get_button("Inserisci dati", grid_layout_vaccini, 0, 0, "rgb(255,255,153)", self.go_inserisci_vaccini)
-        self.get_button("Visualizza statistiche", grid_layout_vaccini, 1, 0, "rgb(255,255,153)", self.go_visulizza_vaccini)
+        self.get_button("Inserisci dati", grid_layout_vaccini, 0, 0, "rgb(152,231,221)", self.go_inserisci_vaccini)
+        self.get_button("Visualizza statistiche", grid_layout_vaccini, 1, 0, "rgb(152,231,221)", self.go_visulizza_vaccini)
         self.get_label("Tamponi", v_layout_tamponi)
-        self.get_button("Inserisci dati", grid_layout_tamponi, 0, 0, "rgb(152,255,152)", self.go_inserisci_tamponi)
-        self.get_button("Visualizza statistiche", grid_layout_tamponi, 1, 0, "rgb(152,255,152)", self.go_visualizza_tamponi)
+        self.get_button("Inserisci dati", grid_layout_tamponi, 0, 0, "rgb(152,231,221)", self.go_inserisci_tamponi)
+        self.get_button("Visualizza statistiche", grid_layout_tamponi, 1, 0, "rgb(152,231,221)", self.go_visualizza_tamponi)
 
         v_layout_vaccini.addLayout(grid_layout_vaccini)
         v_layout_tamponi.addLayout(grid_layout_tamponi)
@@ -40,6 +40,7 @@ class VistaStatistiche(QWidget):
         self.setLayout(v_layout)
         self.setWindowTitle("Statistiche")
         self.resize(450, 350)
+        self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
     def get_label(self, testo, layout):
         label = QLabel(testo)

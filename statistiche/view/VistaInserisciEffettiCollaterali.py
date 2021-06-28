@@ -1,4 +1,4 @@
-from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QFont, QIcon
 from PyQt5.QtWidgets import QWidget, QCheckBox, QLabel, QSpacerItem, QSizePolicy, QVBoxLayout, QRadioButton, \
     QButtonGroup, QGridLayout, QPushButton, QMessageBox
 
@@ -83,6 +83,7 @@ class VistaInserisciEffettiCollaterali(QWidget):
         self.setLayout(self.v_layout)
         self.resize(300,600)
         self.setWindowTitle("Inserisci Effetti Collaterali")
+        self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
     def definisci_effetto_collaterale(self, effetto, descrizione):
         checkbox = QCheckBox(descrizione)
