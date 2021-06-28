@@ -15,13 +15,17 @@ class CalendarioVaccini():
     def aggiungi_appuntamento(self, appuntamento):
         self.elenco_appuntamenti.append(appuntamento)
 
-    def get_appuntamento_by_id(self, id):
-        return self.elenco_appuntamenti[id]
+    def get_appuntamento(self, nome, cognome, id):
+        for appuntamento in self.elenco_appuntamenti:
+            if appuntamento.cartella_paziente.nome == nome and appuntamento.cartella_paziente.cognome == cognome and appuntamento.id == id:
+                return appuntamento
+        return None
 
     def get_elenco_appuntamenti(self):
         return self.elenco_appuntamenti
 
     def elimina_appuntamento(self, appuntamento):
+
         for prenotazione in self.elenco_appuntamenti:
             if prenotazione == appuntamento:
                 self.elenco_appuntamenti.remove(prenotazione)

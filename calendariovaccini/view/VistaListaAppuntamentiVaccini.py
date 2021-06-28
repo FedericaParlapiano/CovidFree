@@ -8,7 +8,8 @@ from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushB
 
 from appuntamentovaccino.view.VistaAppuntamentoVaccino import VistaAppuntamentoVaccino
 from calendariovaccini.controller.ControlloreCalendarioVaccini import ControlloreCalendarioVaccini
-#from calendariovaccini.view.ModificaAppuntamentoVaccino import ModificaAppuntamentoVaccino
+from calendariovaccini.view.VistaModificaAppuntamentoVaccino import VistaModificaAppuntamentoVaccino
+
 
 class VistaListaAppuntamentiVaccini(QWidget):
 
@@ -226,6 +227,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
         if self.list_view_astrazeneca.selectedIndexes():
             selected = self.list_view_astrazeneca.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_astrazeneca[selected]
-            #vista_modifica = ModificaAppuntamentoVaccino(appuntamento_selezionato)
-            #vista_modifica.show()
+            vista_modifica = VistaModificaAppuntamentoVaccino(appuntamento_selezionato)
+            vista_modifica.show()
+            self.close()
 
