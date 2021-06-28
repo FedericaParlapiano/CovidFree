@@ -1,8 +1,7 @@
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPixmap, QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton, QGridLayout
-
 from appuntamentovaccino.controller.ControlloreAppuntamentoVaccino import ControlloreAppuntamentoVaccino
-
 
 class VistaAppuntamentoVaccino(QWidget):
 
@@ -10,7 +9,6 @@ class VistaAppuntamentoVaccino(QWidget):
         super(VistaAppuntamentoVaccino, self).__init__()
         self.controller = ControlloreAppuntamentoVaccino(appuntamento)
         self.grid_layout = QGridLayout()
-
         v_layout = QVBoxLayout()
 
         label_data = QLabel("Data: {} ".format(self.controller.get_data_appuntamento()))
@@ -41,6 +39,13 @@ class VistaAppuntamentoVaccino(QWidget):
         v_layout.addWidget(label_tipo)
 
         v_layout.addItem(QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Expanding))
+        pixmap = QPixmap('appuntamentovaccino/data/{}.png'.format(self.controller.get_vaccino_appuntamento()))
+        pixmap5 = pixmap.scaled(100, 30)
+        pixmap.size()
+        label_im = QLabel()
+        label_im.setPixmap(pixmap5)
+        label_im.setAlignment(Qt.AlignCenter)
+        v_layout.addWidget(label_im)
 
         label_id = QLabel("{}".format(self.controller.get_id_appuntamento()))
         font_id = label_id.font()
@@ -49,7 +54,6 @@ class VistaAppuntamentoVaccino(QWidget):
         label_id.setFont(font_id)
         label_id.setAlignment(Qt.AlignCenter)
         v_layout.addWidget(label_id)
-
         v_layout.addItem(QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         label_nome = QLabel("Nome e cognome: {} {}".format(self.controller.get_cartella_paziente_appuntamento().nome, self.controller.get_cartella_paziente_appuntamento().cognome))
@@ -100,12 +104,12 @@ class VistaAppuntamentoVaccino(QWidget):
             label_is_a_domicilio = QLabel("Appuntamento a domicilio: Richiesto")
         else:
             label_is_a_domicilio = QLabel("Appuntamento a domicilio: Non richiesto")
+
         font_is_a_domicilio = label_is_a_domicilio.font()
         font_is_a_domicilio.setPointSize(12)
         font_is_a_domicilio.setFamily('Georgia')
         label_is_a_domicilio.setFont(font_is_a_domicilio)
         v_layout.addWidget(label_is_a_domicilio)
-
         v_layout.addItem(QSpacerItem(30, 50, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         label_anamnesi = QLabel("Anamnesi")
@@ -128,10 +132,9 @@ class VistaAppuntamentoVaccino(QWidget):
         self.get_label_anamnesi("Se è stato precedentemente affetto da COVID-19, indicare quanti mesi sono trascorsi dall\'infezione:", "Positivo COVID-19", 9)
 
         v_layout.addLayout(self.grid_layout)
-
         self.setLayout(v_layout)
-
         self.setWindowTitle("Appuntamento Vaccino " + self.controller.get_cartella_paziente_appuntamento().nome + " " + self.controller.get_cartella_paziente_appuntamento().cognome)
+        self.setWindowIcon(QIcon('appuntamentovaccino/data/Girasoli.jpeg'))
 
 
     def get_label_anamnesi(self, domanda, chiave, posizione):

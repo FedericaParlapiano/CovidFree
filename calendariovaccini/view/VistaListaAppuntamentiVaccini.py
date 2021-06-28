@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushB
 
 from appuntamentovaccino.view.VistaAppuntamentoVaccino import VistaAppuntamentoVaccino
 from calendariovaccini.controller.ControlloreCalendarioVaccini import ControlloreCalendarioVaccini
+from calendariovaccini.view.ModificaAppuntamentoVaccino import ModificaAppuntamentoVaccino
 
 
 class VistaListaAppuntamentiVaccini(QWidget):
@@ -47,11 +48,14 @@ class VistaListaAppuntamentiVaccini(QWidget):
         self.grid_layout.addWidget(self.list_view_pfizer, 1, 2)
 
         visualizza_astrazeneca = QPushButton("Visualizza")
+        modifica_astrazeneca = QPushButton("Modifica")
         elimina_astrazeneca = QPushButton("Elimina")
         self.grid_layout.addWidget(visualizza_astrazeneca, 2, 0)
         self.grid_layout.addWidget(elimina_astrazeneca, 3, 0)
+        self.grid_layout.addWidget(modifica_astrazeneca, 4, 0)
         visualizza_astrazeneca.clicked.connect(self.show_selected_info_astrazeneca)
         elimina_astrazeneca.clicked.connect(self.elimina_appuntamento_astrazeneca)
+        modifica_astrazeneca.clicked.connect(self.modifica_appuntamento_astrazeneca)
 
         visualizza_moderna = QPushButton("Visualizza")
         elimina_moderna = QPushButton("Elimina")
@@ -218,3 +222,11 @@ class VistaListaAppuntamentiVaccini(QWidget):
                     self.controller.elimina_appuntamento(appuntamento_selezionato)
                     self.elenco_pfizer.remove(appuntamento_selezionato)
                 self.update_ui()
+
+    def modifica_appuntamento_astrazeneca(self):
+        if self.list_view_astrazeneca.selectedIndexes():
+            selected = self.list_view_astrazeneca.selectedIndexes()[0].row()
+            appuntamento_selezionato = self.elenco_astrazeneca[selected]
+            vista_modifica = ModificaAppuntamentoVaccino(appuntamento_selezionato)
+            vista_modifica.show()
+

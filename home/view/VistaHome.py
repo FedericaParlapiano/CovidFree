@@ -1,5 +1,6 @@
+from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import QFont, QPixmap
-from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy, QLabel
+from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy, QLabel, QSplashScreen
 
 from calendariotamponi.view.VistaCalendarioTamponi import VistaCalendarioTamponi
 from calendariovaccini.view.VistaCalendarioVaccini import VistaCalendarioVaccini
@@ -11,6 +12,7 @@ class VistaHome(QWidget):
 
     def __init__(self, parent=None):
         super(VistaHome, self).__init__(parent)
+
         grid_layout = QGridLayout()
 
         grid_layout.addWidget(self.get_generic_button("Calendario Vaccini", "rgb(255,255,153)", self.go_calendario_vaccini), 0, 0)
