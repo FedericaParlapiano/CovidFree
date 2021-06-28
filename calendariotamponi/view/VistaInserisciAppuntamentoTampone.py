@@ -17,26 +17,26 @@ class VistaInserisciAppuntamentoTampone(QWidget):
         self.info = {}
 
         self.v_layout = QVBoxLayout()
-        self.get_form_entry("Nome")
-        self.get_form_entry("Cognome")
-        self.get_form_entry("Data di nascita (dd/mm/YYYY)")
-        self.get_form_entry("Codice Fiscale")
-        self.get_form_entry("Indirizzo")
-        self.get_form_entry("Telefono")
+        self.get_form_entry("Nome*")
+        self.get_form_entry("Cognome*")
+        self.get_form_entry("Data di nascita (dd/mm/YYYY)*")
+        self.get_form_entry("Codice Fiscale*")
+        self.get_form_entry("Indirizzo*")
+        self.get_form_entry("Telefono*")
 
         self.data_selezionata = " "
         self.orario_selected = " "
         self.calendar_layout = QGridLayout()
         self.calendario_appuntamento = self.init_calendario()
 
-        self.calendar_layout.addWidget(QLabel("Data appuntamento"), 0, 0)
+        self.calendar_layout.addWidget(QLabel("Data appuntamento*"), 0, 0)
         self.calendar_layout.addWidget(self.calendario_appuntamento, 1, 0)
 
         self.calendario_appuntamento.selectionChanged.connect(self.calendar_date)
 
         self.label = QLabel('')
         self.label_orario = QLabel('')
-        self.calendar_layout.addWidget(QLabel("Fascia oraria appuntamento"), 0, 1)
+        self.calendar_layout.addWidget(QLabel("Fascia oraria appuntamento*"), 0, 1)
 
         self.list_view_orario = QListView()
 
@@ -55,7 +55,7 @@ class VistaInserisciAppuntamentoTampone(QWidget):
         self.v_layout.addWidget(self.drive_through)
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
-        self.v_layout.addWidget(QLabel("Tipologia di tampone da effettuare"))
+        self.v_layout.addWidget(QLabel("Tipologia di tampone da effettuare*"))
         self.tipo_tampone = QComboBox()
         self.tipo_tampone.addItems([" ", "Antigenico Rapido", "Molecolare", "Sierologico"])
 
@@ -76,12 +76,12 @@ class VistaInserisciAppuntamentoTampone(QWidget):
         self.info[tipo] = current_text_edit
 
     def add_appuntamento(self):
-        nome = self.info["Nome"].text()
-        cognome = self.info["Cognome"].text()
-        data_nascita = self.info["Data di nascita (dd/mm/YYYY)"].text()
-        cf = self.info["Codice Fiscale"].text()
-        indirizzo = self.info["Indirizzo"].text()
-        telefono = self.info["Telefono"].text()
+        nome = self.info["Nome*"].text()
+        cognome = self.info["Cognome*"].text()
+        data_nascita = self.info["Data di nascita (dd/mm/YYYY)*"].text()
+        cf = self.info["Codice Fiscale*"].text()
+        indirizzo = self.info["Indirizzo*"].text()
+        telefono = self.info["Telefono*"].text()
         tipo_tampone = self.tipo_tampone.currentText()
         ok = True
         if nome == "" or cognome == "" or data_nascita == "" or cf == "" or indirizzo == "" or telefono == "" or tipo_tampone == ' ' or self.orario_selected == " " or self.data_selezionata == " ":
@@ -89,7 +89,7 @@ class VistaInserisciAppuntamentoTampone(QWidget):
             ok = False
         if ok is True:
             try:
-                data_inserita = datetime.strptime(self.info["Data di nascita (dd/mm/YYYY)"].text(), '%d/%m/%Y')
+                data_inserita = datetime.strptime(self.info["Data di nascita (dd/mm/YYYY)*"].text(), '%d/%m/%Y')
             except:
                 QMessageBox.critical(self, 'Errore', 'Inserisci la data nel formato richiesto: dd/MM/yyyy',
                                      QMessageBox.Ok, QMessageBox.Ok)
@@ -162,13 +162,13 @@ class VistaInserisciAppuntamentoTampone(QWidget):
     def calendar_date(self):
         dateselected = self.calendario_appuntamento.selectedDate()
         self.data_selezionata = str(dateselected.toPyDate())
-        self.label.setText("Data selezionata : " + self.data_selezionata)
+        self.label.setText("Data selezionata* : " + self.data_selezionata)
         return self.data_selezionata
 
     def show_selected_orario(self, current):
         if self.list_view_orario.selectedIndexes():
             self.orario_selected = self.orari[current.row()]
-            self.label_orario.setText("Fascia oraria selezionata : " + self.orario_selected)
+            self.label_orario.setText("Fascia oraria selezionata* : " + self.orario_selected)
         return self.orario_selected
 
     def update_ui(self):
