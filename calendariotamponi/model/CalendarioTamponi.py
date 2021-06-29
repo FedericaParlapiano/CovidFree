@@ -43,3 +43,9 @@ class CalendarioTamponi():
                 tampone.quantita = tampone.quantita + 1
                 with open('magazzino/data/lista_tamponi_salvata.pickle', 'wb') as handle:
                     pickle.dump(self.tamponi_presenti, handle, pickle.HIGHEST_PROTOCOL)
+
+    def get_appuntamento(self, nome, cognome, data_nascita):
+        for appuntamento in self.elenco_appuntamenti:
+            if appuntamento.nome == nome and appuntamento.cognome == cognome and appuntamento.data_nascita == data_nascita:
+                return appuntamento
+        return None

@@ -1,9 +1,7 @@
-import os
-
-from PyQt5 import QtGui, QtWidgets, QtCore
-from PyQt5.QtCore import QTimer, Qt
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont, QPixmap, QIcon
-from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy, QLabel, QSplashScreen, QVBoxLayout
+from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy, QLabel, QVBoxLayout, \
+    QDesktopWidget
 
 from calendariotamponi.view.VistaCalendarioTamponi import VistaCalendarioTamponi
 from calendariovaccini.view.VistaCalendarioVaccini import VistaCalendarioVaccini
@@ -26,7 +24,6 @@ class VistaHome(QWidget):
 
         label = QLabel()
         pixmap = QPixmap('appuntamentovaccino/data/CovidFree_Clinica.png')
-        #pixmap1 = pixmap.scaled(253, 302)
         pixmap.size()
         label.setPixmap(pixmap)
         label.setAlignment(Qt.AlignCenter)
@@ -34,15 +31,10 @@ class VistaHome(QWidget):
         grid_layout.addWidget(label, 0, 0)
         grid_layout.addLayout(v_layout, 0, 1)
 
-
-
         self.setLayout(grid_layout)
-        self.resize(400, 300)
-        #self.setFixedSize(400, 300)
-        #self.setMaximumSize(500,400)
-        #self.setMinimumSize(400,300)
-        #self.move(0, 0)
-
+        self.setMaximumSize(1000, 600)
+        self.resize(1000, 600)
+        self.center()
 
         self.setWindowTitle("Clinica COVID FREE")
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
@@ -70,3 +62,9 @@ class VistaHome(QWidget):
     def go_statistiche(self):
         self.vista_statistiche = VistaStatistiche()
         self.vista_statistiche.show()
+
+    def center(self):
+        qr = self.frameGeometry()
+        cp = QDesktopWidget().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())

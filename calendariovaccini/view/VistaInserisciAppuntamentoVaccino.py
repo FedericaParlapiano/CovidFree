@@ -46,7 +46,7 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
         self.v_layout.addWidget(button)
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
-        self.v_layout.addWidget(QLabel("Preferenza (opzionale)"))
+        self.v_layout.addWidget(QLabel("Preferenza"))
         self.preferenza = QComboBox()
         self.preferenza.addItems([" ", "Pfizer", "Moderna", "Astrazeneca"])
         self.v_layout.addWidget(self.preferenza)

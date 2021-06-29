@@ -44,14 +44,14 @@ class VistaMagazzino(QWidget):
         open_vaccino.clicked.connect(self.show_selected_vaccino)
         buttons_vaccini.addWidget(open_vaccino)
         aggiorna_vaccino = QPushButton("Aggiorna")
-        aggiorna_vaccino.clicked.connect(self.aggiorna_selected_materiale)
+        aggiorna_vaccino.clicked.connect(self.aggiorna_selected_vaccino)
         buttons_vaccini.addWidget(aggiorna_vaccino)
 
         buttons_tamponi = QVBoxLayout()
         open_tampone = QPushButton("Visualizza")
         aggiorna_tampone = QPushButton("Aggiorna")
         open_tampone.clicked.connect(self.show_selected_tampone)
-        aggiorna_tampone.clicked.connect(self.aggiorna_selected_materiale)
+        aggiorna_tampone.clicked.connect(self.aggiorna_selected_tampone)
         buttons_tamponi.addWidget(open_tampone)
         buttons_tamponi.addWidget(aggiorna_tampone)
 
@@ -104,16 +104,21 @@ class VistaMagazzino(QWidget):
              self.vista_tampone = VistaTampone(tampone_selezionato)
              self.vista_tampone.show()
 
-    def aggiorna_selected_materiale(self):
+    def aggiorna_selected_vaccino(self):
          if self.list_view_vaccini.selectedIndexes():
              selected = self.list_view_vaccini.selectedIndexes()[0].row()
              selezionato = self.controller.get_presidio_by_index(selected)
-         elif self.list_view_tamponi.selectedIndexes():
+             self.vista_fornitura = VistaAggiornaFornitura(selezionato, self.controller.aggiorna_quantita_by_tipologia,
+                                                           self.update_ui)
+             self.vista_fornitura.show()
+
+    def aggiorna_selected_tampone(self):
+         if self.list_view_tamponi.selectedIndexes():
              selected = self.list_view_tamponi.selectedIndexes()[0].row()
              selezionato = self.controller.get_presidio_by_index(selected + 3)
-
-         self.vista_fornitura = VistaAggiornaFornitura(selezionato, self.controller.aggiorna_quantita_by_tipologia, self.update_ui)
-         self.vista_fornitura.show()
+             self.vista_fornitura = VistaAggiornaFornitura(selezionato, self.controller.aggiorna_quantita_by_tipologia,
+                                                           self.update_ui)
+             self.vista_fornitura.show()
 
     def closeEvent(self, event):
         self.controller.save_data()

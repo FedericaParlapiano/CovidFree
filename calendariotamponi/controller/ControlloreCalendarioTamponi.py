@@ -16,7 +16,7 @@ class ControlloreCalendarioTamponi():
     def get_elenco_appuntamenti(self):
         return self.model.get_elenco_appuntamenti()
 
-    def get_appuntamento_by_data(self, data):
+    def get_appuntamento_by_data(self, data): #da eliminare
         return self.model.get_appuntamento_by_data(data)
 
     def elimina_appuntamento(self, appuntamento):
@@ -31,3 +31,6 @@ class ControlloreCalendarioTamponi():
 
     def aggiorna_magazzino(self, tipologia):
         self.model.aggiorna_magazzino(tipologia)
+
+    def get_appuntamento(self, nome, cognome, id):
+        return self.model.get_appuntamento(nome, cognome, id)

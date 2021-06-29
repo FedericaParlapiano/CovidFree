@@ -2,29 +2,33 @@ import calendar
 import os
 import pickle
 from datetime import date, datetime
+
 from PyQt5.QtCore import QDate
-from PyQt5.QtGui import QFont, QStandardItemModel, QStandardItem, QIcon
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QCheckBox, QSpacerItem, QSizePolicy, QLabel, QComboBox, QLineEdit, \
-    QPushButton, QMessageBox, QCalendarWidget, QListView, QGridLayout, QAbstractItemView
+from PyQt5.QtGui import QIcon, QFont, QStandardItemModel, QStandardItem
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGridLayout, QLabel, QListView, QCheckBox, QSpacerItem, QSizePolicy, \
+    QComboBox, QPushButton, QLineEdit, QMessageBox, QCalendarWidget
+
 from appuntamentotampone.model.AppuntamentoTampone import AppuntamentoTampone
 from appuntamentotampone.view.VistaAppuntamentoTampone import VistaAppuntamentoTampone
+from calendariotamponi.controller.ControlloreCalendarioTamponi import ControlloreCalendarioTamponi
 
 
-class VistaInserisciAppuntamentoTampone(QWidget):
+class VistaModificaAppuntamentoTampone(QWidget):
 
-    def __init__(self, controller, callback):
-        super(VistaInserisciAppuntamentoTampone, self).__init__()
-        self.controller = controller
-        self.callback = callback
+    def __init__(self, appuntamento):
+        super(VistaModificaAppuntamentoTampone, self).__init__()
+        self.controller = ControlloreCalendarioTamponi()
+
+        self.appuntamento = appuntamento
         self.info = {}
 
         self.v_layout = QVBoxLayout()
-        self.get_form_entry("Nome*")
-        self.get_form_entry("Cognome*")
-        self.get_form_entry("Data di nascita (dd/mm/YYYY)*")
-        self.get_form_entry("Codice Fiscale*")
-        self.get_form_entry("Indirizzo*")
-        self.get_form_entry("Telefono*")
+        self.get_form_entry("Nome*", self.appuntamento.nome)
+        self.get_form_entry("Cognome*", self.appuntamento.cognome)
+        self.get_form_entry("Data di nascita (dd/mm/YYYY)*", self.appuntamento.data_nascita)
+        self.get_form_entry("Codice Fiscale*", self.appuntamento.cf)
+        self.get_form_entry("Indirizzo*", self.appuntamento.indirizzo)
+        self.get_form_entry("Telefono*", self.appuntamento.telefono)
 
         self.data_selezionata = " "
         self.orario_selected = " "
@@ -52,7 +56,8 @@ class VistaInserisciAppuntamentoTampone(QWidget):
         self.calendar_layout.addWidget(self.label_orario, 2, 1)
         self.v_layout.addLayout(self.calendar_layout)
 
-        self.drive_through = QCheckBox("Presenta sintomi o ha avuto contatti con persone positive o è attualmente positivo")
+        self.drive_through = QCheckBox(
+            "Presenta sintomi o ha avuto contatti con persone positive o è attualmente positivo")
 
         self.v_layout.addWidget(self.drive_through)
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
@@ -72,9 +77,10 @@ class VistaInserisciAppuntamentoTampone(QWidget):
         self.setWindowTitle("Nuovo Appuntamento")
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
-    def get_form_entry(self, tipo):
+    def get_form_entry(self, tipo, campo):
         self.v_layout.addWidget(QLabel(tipo))
         current_text_edit = QLineEdit(self)
+        current_text_edit.setText(campo)
         self.v_layout.addWidget(current_text_edit)
         self.info[tipo] = current_text_edit
 
@@ -86,10 +92,15 @@ class VistaInserisciAppuntamentoTampone(QWidget):
         indirizzo = self.info["Indirizzo*"].text()
         telefono = self.info["Telefono*"].text()
         tipo_tampone = self.tipo_tampone.currentText()
+        is_drive_through = False
+        if self.drive_through.isChecked():
+            is_drive_through = True
         ok = True
+
         if nome == "" or cognome == "" or data_nascita == "" or cf == "" or indirizzo == "" or telefono == "" or tipo_tampone == ' ' or self.orario_selected == " " or self.data_selezionata == " ":
             QMessageBox.critical(self, 'Errore', 'Per favore, completa tutti i campi', QMessageBox.Ok, QMessageBox.Ok)
             ok = False
+
         if ok is True:
             try:
                 data_inserita = datetime.strptime(self.info["Data di nascita (dd/mm/YYYY)*"].text(), '%d/%m/%Y')
@@ -97,21 +108,25 @@ class VistaInserisciAppuntamentoTampone(QWidget):
                 QMessageBox.critical(self, 'Errore', 'Inserisci la data nel formato richiesto: dd/MM/yyyy',
                                      QMessageBox.Ok, QMessageBox.Ok)
                 ok = False
+
         if ok is True and date.today().year < data_inserita.year:
             QMessageBox.critical(self, 'Errore', 'La data di nascita inserita non è valida',
                                  QMessageBox.Ok, QMessageBox.Ok)
             ok = False
-        #d = datetime.strptime(self.data_selezionata, '%Y-%m-%d')
+
         if ok is True:
             d = datetime.strptime(self.data_selezionata, '%Y-%m-%d')
             if date.today().day > d.day and date.today().month == d.month:
                 QMessageBox.critical(self, 'Errore', 'La data selezionata per l\' appuntamento non è valida',
                                      QMessageBox.Ok, QMessageBox.Ok)
                 ok = False
+
         if ok is True and not self.controllo_disponibilita():
-            QMessageBox.critical(self, 'Errore', 'Siamo spiacenti, ma attualmente non è disponibile la tipologia di tampone selezionata',
+            QMessageBox.critical(self, 'Errore',
+                                 'Siamo spiacenti, ma attualmente non è disponibile la tipologia di tampone selezionata',
                                  QMessageBox.Ok, QMessageBox.Ok)
             ok = False
+
         if ok is True:
             contatore_data = 0
             contatore_ora = 0
@@ -121,20 +136,32 @@ class VistaInserisciAppuntamentoTampone(QWidget):
                     if appuntamento.fascia_oraria == self.orario_selected:
                         contatore_ora = contatore_ora + 1
             if contatore_data > 39:
-                QMessageBox.critical(self, 'Errore', 'Siamo spiacenti, il giorno selezionata è al completo.', QMessageBox.Ok, QMessageBox.Ok)
+                QMessageBox.critical(self, 'Errore', 'Siamo spiacenti, il giorno selezionata è al completo.',
+                                     QMessageBox.Ok, QMessageBox.Ok)
                 ok = False
             elif contatore_ora > 3:
-                QMessageBox.critical(self, 'Errore', 'Siamo spiacenti, la fascia oraria selezionata è al completo.', QMessageBox.Ok, QMessageBox.Ok)
+                QMessageBox.critical(self, 'Errore', 'Siamo spiacenti, la fascia oraria selezionata è al completo.',
+                                     QMessageBox.Ok, QMessageBox.Ok)
                 ok = False
+
         if ok is True:
-            d = datetime.strptime(self.data_selezionata, '%Y-%m-%d')
-            is_drive_through = False
-            if self.drive_through.isChecked():
-                is_drive_through = True
-            self.controller.aggiungi_appuntamento(AppuntamentoTampone(nome, cognome, cf, telefono, indirizzo, data_nascita, self.data_selezionata, self.orario_selected, is_drive_through, tipo_tampone))
-            self.vista_riepilogo = VistaAppuntamentoTampone(AppuntamentoTampone(nome, cognome, cf, telefono, indirizzo, data_nascita, self.data_selezionata, self.orario_selected, is_drive_through, tipo_tampone))
+            print("numero 1")
+            self.controller.elimina_appuntamento(self.controller.get_appuntamento(self.appuntamento.nome,
+                                                 self.appuntamento.cognome, self.appuntamento.data_nascita))
+            self.appuntamento_tampone = AppuntamentoTampone(nome, cognome, cf, telefono, indirizzo, data_nascita, self.data_selezionata, self.orario_selected, is_drive_through, tipo_tampone)
+            if self.appuntamento_tampone.tipo_tampone is not None:
+                self.controller.aggiungi_appuntamento(
+                    AppuntamentoTampone(nome, cognome, cf, telefono, indirizzo, data_nascita, self.data_selezionata,
+                                        self.orario_selected, is_drive_through, tipo_tampone))
+
+            self.vista_riepilogo = VistaAppuntamentoTampone(self.appuntamento_tampone)
             self.vista_riepilogo.show()
             self.close()
+        else:
+            QMessageBox.critical(self, 'Errore', 'Ci dispiace ma non è possibile prenotare '
+                                                         'l\'appuntamento a causa di una mancanza di vaccini che possono essere somministrati al paziente.',
+                                     QMessageBox.Ok, QMessageBox.Ok)
+
 
     def controllo_disponibilita(self):
         disponibile = False
@@ -178,7 +205,8 @@ class VistaInserisciAppuntamentoTampone(QWidget):
 
     def update_ui(self):
         self.list_view_orario_model = QStandardItemModel(self.list_view_orario)
-        self.orari = ["9:00-10:00", "10:00-11:00", "11:00-12:00", "12:00-13:00", "13:00-14:00", "14:00-15:00", "15:00-16:00", "16:00-17:00", "17:00-18:00", "18:00-19:00"]
+        self.orari = ["9:00-10:00", "10:00-11:00", "11:00-12:00", "12:00-13:00", "13:00-14:00", "14:00-15:00",
+                      "15:00-16:00", "16:00-17:00", "17:00-18:00", "18:00-19:00"]
         for fascia in self.orari:
             item = QStandardItem()
             item.setText(fascia)

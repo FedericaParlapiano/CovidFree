@@ -1,6 +1,6 @@
 from datetime import datetime
 import calendar
-from PyQt5.QtGui import QFont, QStandardItemModel, QStandardItem, QIcon
+from PyQt5.QtGui import QFont, QIcon
 from PyQt5.QtWidgets import QWidget, QCalendarWidget, QSizePolicy, QVBoxLayout, QPushButton, QHBoxLayout, QLabel
 from PyQt5.QtCore import QDate
 

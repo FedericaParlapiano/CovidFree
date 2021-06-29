@@ -48,8 +48,8 @@ class VistaListaAppuntamentiVaccini(QWidget):
         self.grid_layout.addWidget(self.list_view_pfizer, 1, 2)
 
         visualizza_astrazeneca = QPushButton("Visualizza")
-        modifica_astrazeneca = QPushButton("Modifica")
         elimina_astrazeneca = QPushButton("Elimina")
+        modifica_astrazeneca = QPushButton("Modifica")
         self.grid_layout.addWidget(visualizza_astrazeneca, 2, 0)
         self.grid_layout.addWidget(elimina_astrazeneca, 3, 0)
         self.grid_layout.addWidget(modifica_astrazeneca, 4, 0)
@@ -59,17 +59,23 @@ class VistaListaAppuntamentiVaccini(QWidget):
 
         visualizza_moderna = QPushButton("Visualizza")
         elimina_moderna = QPushButton("Elimina")
+        modifica_moderna = QPushButton("Modifica")
         self.grid_layout.addWidget(visualizza_moderna, 2, 1)
         self.grid_layout.addWidget(elimina_moderna, 3, 1)
+        self.grid_layout.addWidget(modifica_moderna, 4, 1)
         visualizza_moderna.clicked.connect(self.show_selected_info_moderna)
         elimina_moderna.clicked.connect(self.elimina_appuntamento_moderna)
+        modifica_moderna.clicked.connect(self.modifica_appuntamento_moderna)
 
         visualizza_pfizer = QPushButton("Visualizza")
         elimina_pfizer = QPushButton("Elimina")
+        modifica_pfizer = QPushButton("Modifica")
         self.grid_layout.addWidget(visualizza_pfizer, 2, 2)
         self.grid_layout.addWidget(elimina_pfizer, 3, 2)
+        self.grid_layout.addWidget(modifica_pfizer, 4, 2)
         visualizza_pfizer.clicked.connect(self.show_selected_info_pfizer)
         elimina_pfizer.clicked.connect(self.elimina_appuntamento_pfizer)
+        modifica_pfizer.clicked.connect(self.modifica_appuntamento_pfizer)
 
         self.setLayout(self.grid_layout)
         self.resize(600, 300)
@@ -233,3 +239,18 @@ class VistaListaAppuntamentiVaccini(QWidget):
             vista_modifica.show()
             self.close()
 
+    def modifica_appuntamento_moderna(self):
+        if self.list_view_moderna.selectedIndexes():
+            selected = self.list_view_moderna.selectedIndexes()[0].row()
+            appuntamento_selezionato = self.elenco_moderna[selected]
+            vista_modifica = VistaModificaAppuntamentoVaccino(appuntamento_selezionato)
+            vista_modifica.show()
+            self.close()
+
+    def modifica_appuntamento_pfizer(self):
+        if self.list_view_pfizer.selectedIndexes():
+            selected = self.list_view_pfizer.selectedIndexes()[0].row()
+            appuntamento_selezionato = self.elenco_pfizer[selected]
+            vista_modifica = VistaModificaAppuntamentoVaccino(appuntamento_selezionato)
+            vista_modifica.show()
+            self.close()

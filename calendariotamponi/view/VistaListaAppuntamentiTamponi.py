@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushB
 
 from appuntamentotampone.view.VistaAppuntamentoTampone import VistaAppuntamentoTampone
 from calendariotamponi.controller.ControlloreCalendarioTamponi import ControlloreCalendarioTamponi
+from calendariotamponi.view.VistaModificaAppuntamentoTampone import VistaModificaAppuntamentoTampone
 
 
 class VistaListaAppuntamentiTamponi(QWidget):
@@ -42,24 +43,33 @@ class VistaListaAppuntamentiTamponi(QWidget):
 
         visualizza_antigenico = QPushButton("Visualizza")
         elimina_antigenico = QPushButton("Elimina")
+        modifica_antigenico = QPushButton("Modifica")
         self.grid_layout.addWidget(visualizza_antigenico, 2, 0)
         self.grid_layout.addWidget(elimina_antigenico, 3, 0)
+        self.grid_layout.addWidget(modifica_antigenico, 4, 0)
         visualizza_antigenico.clicked.connect(self.show_selected_info_antigenico)
         elimina_antigenico.clicked.connect(self.elimina_appuntamento_antigenico)
+        modifica_antigenico.clicked.connect(self.modifica_appuntamento_antigenico)
 
         visualizza_molecolare = QPushButton("Visualizza")
         elimina_molecolare = QPushButton("Elimina")
+        modifica_molecolare = QPushButton("Modifica")
         self.grid_layout.addWidget(visualizza_molecolare, 2, 1)
         self.grid_layout.addWidget(elimina_molecolare, 3, 1)
+        self.grid_layout.addWidget(modifica_molecolare, 4, 1)
         visualizza_molecolare.clicked.connect(self.show_selected_info_molecolare)
         elimina_molecolare.clicked.connect(self.elimina_appuntamento_molecolare)
+        modifica_molecolare.clicked.connect(self.modifica_appuntamento_molecolare)
 
         visualizza_sierologico = QPushButton("Visualizza")
         elimina_sierologico = QPushButton("Elimina")
+        modifica_sierologico = QPushButton("Modifica")
         self.grid_layout.addWidget(visualizza_sierologico, 2, 2)
         self.grid_layout.addWidget(elimina_sierologico, 3, 2)
+        self.grid_layout.addWidget(modifica_sierologico, 4, 2)
         visualizza_sierologico.clicked.connect(self.show_selected_info_sierologico)
         elimina_sierologico.clicked.connect(self.elimina_appuntamento_sierologico)
+        modifica_sierologico.clicked.connect(self.modifica_appuntamento_sierologico)
 
         self.setLayout(self.grid_layout)
         self.resize(600, 300)
@@ -201,3 +211,27 @@ class VistaListaAppuntamentiTamponi(QWidget):
                     self.controller.elimina_appuntamento(appuntamento_selezionato)
                     self.elenco_sierologico.remove(appuntamento_selezionato)
                 self.update_ui()
+
+    def modifica_appuntamento_antigenico(self):
+        if self.list_view_antigenico.selectedIndexes():
+            selected = self.list_view_antigenico.selectedIndexes()[0].row()
+            appuntamento_selezionato = self.elenco_antigenico[selected]
+            self.vista_modifica = VistaModificaAppuntamentoTampone(appuntamento_selezionato)
+            self.vista_modifica.show()
+            self.close()
+
+    def modifica_appuntamento_molecolare(self):
+        if self.list_view_molecolare.selectedIndexes():
+            selected = self.list_view_molecolare.selectedIndexes()[0].row()
+            appuntamento_selezionato = self.elenco_molecolare[selected]
+            self.vista_modifica = VistaModificaAppuntamentoTampone(appuntamento_selezionato)
+            self.vista_modifica.show()
+            self.close()
+
+    def modifica_appuntamento_sierologico(self):
+        if self.list_view_sierologico.selectedIndexes():
+            selected = self.list_view_sierologico.selectedIndexes()[0].row()
+            appuntamento_selezionato = self.elenco_sierologico[selected]
+            self.vista_modifica = VistaModificaAppuntamentoTampone(appuntamento_selezionato)
+            self.vista_modifica.show()
+            self.close()

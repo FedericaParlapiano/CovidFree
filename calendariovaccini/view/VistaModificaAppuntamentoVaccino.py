@@ -68,9 +68,10 @@ class VistaModificaAppuntamentoVaccino(QWidget):
         btn_ok = QPushButton("OK")
         btn_ok.clicked.connect(self.add_appuntamento)
         self.v_layout.addWidget(btn_ok)
+
         self.setLayout(self.v_layout)
         self.setWindowTitle("Modifica Appuntamento")
-        self.resize(300,600)
+        self.resize(300, 600)
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
     def get_form_entry(self, tipo, campo):
