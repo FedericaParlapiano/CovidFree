@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QWidget, QCalendarWidget, QSizePolicy, QVBoxLayout, 
     QGridLayout, QDesktopWidget
 from PyQt5.QtCore import QDate, Qt
 
+from calendariovaccini.view.VistaListaGreenPass import VistaListaGreenPass
 from calendariovaccini.view.VistaRicercaAppuntamentoVaccino import VistaRicercaAppuntamentoVaccino
 from calendariovaccini.controller.ControlloreCalendarioVaccini import ControlloreCalendarioVaccini
 from calendariovaccini.view.VistaInserisciAppuntamentoVaccino import VistaInserisciAppuntamentoVaccino
@@ -31,6 +32,7 @@ class VistaCalendarioVaccini(QWidget):
         buttons_layout.addWidget(self.get_generic_button("Visualizza", self.show_selected_data))
         buttons_layout.addWidget(self.get_generic_button("Aggiungi Appuntamento", self.show_add_appuntamento))
         buttons_layout.addWidget(self.get_generic_button("Ricerca Appuntamento", self.show_ricerca_appuntamento))
+        buttons_layout.addWidget(self.get_generic_button("Green pass", self.show_green_pass_list))
 
         grid_layout.addLayout(calendar_layout, 0, 0)
         grid_layout.addLayout(buttons_layout, 0, 1, alignment=Qt.AlignBottom)
@@ -77,6 +79,10 @@ class VistaCalendarioVaccini(QWidget):
     def show_ricerca_appuntamento(self):
         self.vista_ricerca_appuntamento = VistaRicercaAppuntamentoVaccino()
         self.vista_ricerca_appuntamento.show()
+
+    def show_green_pass_list(self):
+        self.vista_lista_green_pass = VistaListaGreenPass()
+        self.vista_lista_green_pass.show()
 
     def update_ui(self):
         pass
