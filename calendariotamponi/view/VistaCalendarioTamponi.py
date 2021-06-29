@@ -1,8 +1,9 @@
 from datetime import datetime
 import calendar
 from PyQt5.QtGui import QFont, QIcon
-from PyQt5.QtWidgets import QWidget, QCalendarWidget, QSizePolicy, QVBoxLayout, QPushButton, QHBoxLayout, QLabel
-from PyQt5.QtCore import QDate
+from PyQt5.QtWidgets import QWidget, QCalendarWidget, QSizePolicy, QVBoxLayout, QPushButton, QHBoxLayout, QLabel, \
+    QGridLayout, QDesktopWidget
+from PyQt5.QtCore import QDate, Qt
 
 from calendariotamponi.controller.ControlloreCalendarioTamponi import ControlloreCalendarioTamponi
 from calendariotamponi.view.VistaInserisciAppuntamentoTampone import VistaInserisciAppuntamentoTampone
@@ -18,7 +19,7 @@ class VistaCalendarioTamponi(QWidget):
         self.controller = ControlloreCalendarioTamponi()
         self.calendario_tamponi = self.init_calendario()
 
-        h_layout = QHBoxLayout()
+        grid_layout = QGridLayout()
         calendar_layout = QVBoxLayout()
         calendar_layout.addWidget(self.calendario_tamponi)
 
@@ -31,12 +32,14 @@ class VistaCalendarioTamponi(QWidget):
         buttons_layout.addWidget(self.get_generic_button("Visualizza", self.show_selected_data))
         buttons_layout.addWidget(self.get_generic_button("Aggiungi Appuntamento", self.show_add_appuntamento))
 
-        h_layout.addLayout(calendar_layout)
-        h_layout.addLayout(buttons_layout)
+        grid_layout.addLayout(calendar_layout, 0, 0)
+        grid_layout.addLayout(buttons_layout, 0, 1, alignment=Qt.AlignBottom)
 
-        self.setLayout(h_layout)
+        self.setLayout(grid_layout)
         self.setWindowTitle("Calendario Appuntamenti Tamponi")
-        self.resize(500, 300)
+        self.setMaximumSize(1000, 600)
+        self.resize(900, 550)
+        self.center()
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
     def init_calendario(self):
@@ -60,8 +63,7 @@ class VistaCalendarioTamponi(QWidget):
 
     def get_generic_button(self, titolo, on_click):
         button = QPushButton(titolo)
-        button.setFont(QFont('Georgia', 10))
-        button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        button.setFont(QFont('Georgia', 13))
         button.clicked.connect(on_click)
         return button
 
@@ -82,3 +84,9 @@ class VistaCalendarioTamponi(QWidget):
 
         self.label.setText("Data selezionata : " + data_selezionata)
         return data_selezionata
+
+    def center(self):
+        qr = self.frameGeometry()
+        cp = QDesktopWidget().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
