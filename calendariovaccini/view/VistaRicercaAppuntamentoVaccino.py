@@ -1,4 +1,4 @@
-from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QFont, QIcon
 from PyQt5.QtWidgets import QWidget, QRadioButton, QLabel, QGridLayout, QVBoxLayout, QLineEdit, QMessageBox, QPushButton
 
 from appuntamentovaccino.view.VistaAppuntamentoVaccino import VistaAppuntamentoVaccino
@@ -17,6 +17,7 @@ class VistaRicercaAppuntamentoVaccino(QWidget):
 
         self.get_parametri_di_ricerca("Nome:")
         self.get_parametri_di_ricerca("Cognome:")
+        self.get_parametri_di_ricerca("Codice fiscale:")
 
         self.label = QLabel("Appuntamento per:")
         font = QFont("Georgia", 12)
@@ -37,6 +38,7 @@ class VistaRicercaAppuntamentoVaccino(QWidget):
 
         self.setLayout(self.v_layout)
         self.setWindowTitle("Ricerca appuntamento")
+        self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
     def get_parametri_di_ricerca(self, tipo):
         self.v_layout.addWidget(QLabel(tipo))
@@ -47,9 +49,10 @@ class VistaRicercaAppuntamentoVaccino(QWidget):
     def ricerca_appuntamento(self):
         nome = self.info["Nome:"].text()
         cognome = self.info["Cognome:"].text()
+        cf = self.info["Codice fiscale:"].text()
 
         ok = True
-        if nome == "" or cognome == "":
+        if nome == "" or cognome == "" or cf == "":
             QMessageBox.critical(self, 'Errore', 'Per favore, completa tutti i campi', QMessageBox.Ok, QMessageBox.Ok)
             ok = False
 
@@ -63,7 +66,7 @@ class VistaRicercaAppuntamentoVaccino(QWidget):
                 ok = False
 
         if ok is True:
-            appuntamento_ricercato = self.controller.get_appuntamento(nome,cognome,tipo_appuntamento)
+            appuntamento_ricercato = self.controller.get_appuntamento_by_cf(nome, cognome, cf, tipo_appuntamento)
 
             if appuntamento_ricercato is None:
                 QMessageBox.warning(self, 'Attenzione', 'Siamo spiacenti ma nessun appuntamento corrisponde ai paramenti inseriti',

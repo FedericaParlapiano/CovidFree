@@ -21,6 +21,12 @@ class CalendarioVaccini():
                 return appuntamento
         return None
 
+    def get_appuntamento_by_cf(self, nome, cognome, cf, id):
+        for appuntamento in self.elenco_appuntamenti:
+            if appuntamento.cartella_paziente.nome == nome and appuntamento.cartella_paziente.cognome == cognome and appuntamento.cartella_paziente.cf == cf and appuntamento.id == id:
+                return appuntamento
+        return None
+
     def get_elenco_appuntamenti(self):
         return self.elenco_appuntamenti
 

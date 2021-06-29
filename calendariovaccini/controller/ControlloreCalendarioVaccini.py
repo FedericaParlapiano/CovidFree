@@ -15,6 +15,9 @@ class ControlloreCalendarioVaccini():
     def get_appuntamento(self, nome, cognome, id):
         return self.model.get_appuntamento(nome, cognome, id)
 
+    def get_appuntamento_by_cf(self, nome, cognome, cf, id):
+        return self.model.get_appuntamento_by_cf(nome, cognome, cf, id)
+
     def elimina_appuntamento(self, appuntamento):
         self.model.elimina_appuntamento(appuntamento)
         self.save_data()

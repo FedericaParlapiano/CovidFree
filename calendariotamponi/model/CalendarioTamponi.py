@@ -49,3 +49,9 @@ class CalendarioTamponi():
             if appuntamento.nome == nome and appuntamento.cognome == cognome and appuntamento.data_nascita == data_nascita:
                 return appuntamento
         return None
+
+    def get_appuntamento_by_cf(self, nome, cognome, data_nascita, cf, tipo_tampone):
+        for appuntamento in self.elenco_appuntamenti:
+            if appuntamento.nome == nome and appuntamento.cognome == cognome and appuntamento.data_nascita == data_nascita and appuntamento.cf == cf and appuntamento.tipo_tampone == tipo_tampone:
+                return appuntamento
+        return None

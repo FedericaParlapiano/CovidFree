@@ -34,3 +34,6 @@ class ControlloreCalendarioTamponi():
 
     def get_appuntamento(self, nome, cognome, id):
         return self.model.get_appuntamento(nome, cognome, id)
+
+    def get_appuntamento_by_cf(self, nome, cognome, cf, data_nascita, tipo_tampone):
+        return self.model.get_appuntamento_by_cf(nome, cognome, cf, data_nascita, tipo_tampone)
