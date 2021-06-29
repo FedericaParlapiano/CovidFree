@@ -8,6 +8,7 @@ from PyQt5.QtCore import QDate, Qt
 from calendariotamponi.controller.ControlloreCalendarioTamponi import ControlloreCalendarioTamponi
 from calendariotamponi.view.VistaInserisciAppuntamentoTampone import VistaInserisciAppuntamentoTampone
 from calendariotamponi.view.VistaListaAppuntamentiTamponi import VistaListaAppuntamentiTamponi
+from calendariotamponi.view.VistaRicercaAppuntamentoTampone import VistaRicercaAppuntamentoTampone
 
 
 class VistaCalendarioTamponi(QWidget):
@@ -31,6 +32,7 @@ class VistaCalendarioTamponi(QWidget):
         buttons_layout = QVBoxLayout()
         buttons_layout.addWidget(self.get_generic_button("Visualizza", self.show_selected_data))
         buttons_layout.addWidget(self.get_generic_button("Aggiungi Appuntamento", self.show_add_appuntamento))
+        buttons_layout.addWidget(self.get_generic_button("Ricerca Appuntamento", self.show_ricerca_appuntamento))
 
         grid_layout.addLayout(calendar_layout, 0, 0)
         grid_layout.addLayout(buttons_layout, 0, 1, alignment=Qt.AlignBottom)
@@ -74,6 +76,10 @@ class VistaCalendarioTamponi(QWidget):
     def show_add_appuntamento(self):
         self.vista_inserisci_appuntamento = VistaInserisciAppuntamentoTampone(self.controller, self.update_ui)
         self.vista_inserisci_appuntamento.show()
+
+    def show_ricerca_appuntamento(self):
+        self.vista_ricerca_appuntamento = VistaRicercaAppuntamentoTampone()
+        self.vista_ricerca_appuntamento.show()
 
     def update_ui(self):
         pass

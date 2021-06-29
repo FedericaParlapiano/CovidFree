@@ -87,7 +87,6 @@ class VistaModificaAppuntamentoVaccino(QWidget):
     def go_scelta_data(self):
         self.vista_mostra_date.show()
 
-
     def add_appuntamento(self):
         nome = self.info["Nome*"].text()
         cognome = self.info["Cognome*"].text()
@@ -165,7 +164,11 @@ class VistaModificaAppuntamentoVaccino(QWidget):
                 ok = False
 
         if ok is True:
-            self.controller.elimina_appuntamento(self.controller.get_appuntamento(self.appuntamento.cartella_paziente.nome, self.appuntamento.cartella_paziente.cognome, self.appuntamento.id))
+            da_eliminare = self.controller.get_appuntamento(self.appuntamento.cartella_paziente.nome, self.appuntamento.cartella_paziente.cognome, self.appuntamento.id)
+            self.controller.lettura_magazzino()
+            self.controller.aggiorna_magazzino(da_eliminare.vaccino)
+            self.controller.elimina_appuntamento(da_eliminare)
+
             cartella_paziente = CartellaPaziente(nome, cognome, data_nascita, cf, indirizzo, telefono,
                                                  categoria_speciale, preferenze, self.vista_inserisci_anamnesi.anamnesi)
             self.appuntamento_vaccino = AppuntamentoVaccino(self.appuntamento.id, cartella_paziente,
@@ -178,6 +181,8 @@ class VistaModificaAppuntamentoVaccino(QWidget):
                 if self.appuntamento.id == 'Prima Dose':
                     seconda_dose = self.controller.get_appuntamento(self.appuntamento.cartella_paziente.nome, self.appuntamento.cartella_paziente.cognome, 'Seconda Dose')
                     if seconda_dose is not None:
+                        self.controller.lettura_magazzino()
+                        self.controller.aggiorna_magazzino(da_eliminare.vaccino)
                         self.controller.elimina_appuntamento(seconda_dose)
                     if self.vista_inserisci_anamnesi.anamnesi['Positivo COVID-19'] != 'tra i 3 e i 6 mesi':
                         data_prima_dose = datetime.strptime(self.vista_mostra_date.data_scelta, '%d-%m-%Y')

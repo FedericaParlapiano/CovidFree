@@ -97,7 +97,7 @@ class VistaModificaAppuntamentoTampone(QWidget):
             is_drive_through = True
         ok = True
 
-        if nome == "" or cognome == "" or data_nascita == "" or cf == "" or indirizzo == "" or telefono == "" or tipo_tampone == ' ' or self.orario_selected == " " or self.data_selezionata == " ":
+        if nome == "" or cognome == "" or data_nascita == "" or cf == "" or indirizzo == "" or telefono == "" or tipo_tampone == ' ' or self.data_selezionata == " " or self.orario_selected == " ":
             QMessageBox.critical(self, 'Errore', 'Per favore, completa tutti i campi', QMessageBox.Ok, QMessageBox.Ok)
             ok = False
 
@@ -145,22 +145,25 @@ class VistaModificaAppuntamentoTampone(QWidget):
                 ok = False
 
         if ok is True:
-            print("numero 1")
+            da_eliminare = self.controller.get_appuntamento(self.appuntamento.nome,
+                                                 self.appuntamento.cognome, self.appuntamento.data_nascita)
+            self.controller.lettura_magazzino()
+            self.controller.aggiorna_magazzino(da_eliminare.tipo_tampone)
             self.controller.elimina_appuntamento(self.controller.get_appuntamento(self.appuntamento.nome,
                                                  self.appuntamento.cognome, self.appuntamento.data_nascita))
-            self.appuntamento_tampone = AppuntamentoTampone(nome, cognome, cf, telefono, indirizzo, data_nascita, self.data_selezionata, self.orario_selected, is_drive_through, tipo_tampone)
-            if self.appuntamento_tampone.tipo_tampone is not None:
-                self.controller.aggiungi_appuntamento(
-                    AppuntamentoTampone(nome, cognome, cf, telefono, indirizzo, data_nascita, self.data_selezionata,
-                                        self.orario_selected, is_drive_through, tipo_tampone))
 
-            self.vista_riepilogo = VistaAppuntamentoTampone(self.appuntamento_tampone)
-            self.vista_riepilogo.show()
+            self.appuntamento_tampone = AppuntamentoTampone(nome, cognome, cf, telefono, indirizzo, data_nascita, self.data_selezionata, self.orario_selected, is_drive_through, tipo_tampone)
+
+            if self.appuntamento_tampone.tipo_tampone is not None:
+                self.controller.aggiungi_appuntamento(self.appuntamento_tampone)
+                self.vista_riepilogo = VistaAppuntamentoTampone(self.appuntamento_tampone)
+                self.vista_riepilogo.show()
+            else:
+                QMessageBox.critical(self, 'Errore', 'Ci dispiace ma non è possibile prenotare '
+                                                           'l\'appuntamento a causa di una mancanza di tamponi che possono essere somministrati al paziente.',QMessageBox.Ok, QMessageBox.Ok)
+
             self.close()
-        else:
-            QMessageBox.critical(self, 'Errore', 'Ci dispiace ma non è possibile prenotare '
-                                                         'l\'appuntamento a causa di una mancanza di vaccini che possono essere somministrati al paziente.',
-                                     QMessageBox.Ok, QMessageBox.Ok)
+
 
 
     def controllo_disponibilita(self):

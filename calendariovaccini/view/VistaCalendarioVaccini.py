@@ -1,11 +1,11 @@
 from datetime import datetime
 import calendar
-from PyQt5.QtGui import QFont, QStandardItemModel, QStandardItem, QIcon
-from PyQt5.QtWidgets import QWidget, QCalendarWidget, QSizePolicy, QVBoxLayout, QPushButton, QHBoxLayout, QLabel, \
+from PyQt5.QtGui import QFont, QIcon
+from PyQt5.QtWidgets import QWidget, QCalendarWidget, QSizePolicy, QVBoxLayout, QPushButton, QLabel, \
     QGridLayout, QDesktopWidget
 from PyQt5.QtCore import QDate, Qt
 
-
+from calendariovaccini.view.VistaRicercaAppuntamentoVaccino import VistaRicercaAppuntamentoVaccino
 from calendariovaccini.controller.ControlloreCalendarioVaccini import ControlloreCalendarioVaccini
 from calendariovaccini.view.VistaInserisciAppuntamentoVaccino import VistaInserisciAppuntamentoVaccino
 from calendariovaccini.view.VistaListaAppuntamentiVaccini import VistaListaAppuntamentiVaccini
@@ -30,6 +30,7 @@ class VistaCalendarioVaccini(QWidget):
         buttons_layout = QVBoxLayout()
         buttons_layout.addWidget(self.get_generic_button("Visualizza", self.show_selected_data))
         buttons_layout.addWidget(self.get_generic_button("Aggiungi Appuntamento", self.show_add_appuntamento))
+        buttons_layout.addWidget(self.get_generic_button("Ricerca Appuntamento", self.show_ricerca_appuntamento))
 
         grid_layout.addLayout(calendar_layout, 0, 0)
         grid_layout.addLayout(buttons_layout, 0, 1, alignment=Qt.AlignBottom)
@@ -72,6 +73,10 @@ class VistaCalendarioVaccini(QWidget):
     def show_add_appuntamento(self):
         self.vista_inserisci_appuntamento = VistaInserisciAppuntamentoVaccino(self.update_ui)
         self.vista_inserisci_appuntamento.show()
+
+    def show_ricerca_appuntamento(self):
+        self.vista_ricerca_appuntamento = VistaRicercaAppuntamentoVaccino()
+        self.vista_ricerca_appuntamento.show()
 
     def update_ui(self):
         pass

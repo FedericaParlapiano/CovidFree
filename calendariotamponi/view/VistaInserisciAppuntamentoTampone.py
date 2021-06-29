@@ -101,7 +101,7 @@ class VistaInserisciAppuntamentoTampone(QWidget):
             QMessageBox.critical(self, 'Errore', 'La data di nascita inserita non è valida',
                                  QMessageBox.Ok, QMessageBox.Ok)
             ok = False
-        #d = datetime.strptime(self.data_selezionata, '%Y-%m-%d')
+
         if ok is True:
             d = datetime.strptime(self.data_selezionata, '%Y-%m-%d')
             if date.today().day > d.day and date.today().month == d.month:
@@ -131,8 +131,11 @@ class VistaInserisciAppuntamentoTampone(QWidget):
             is_drive_through = False
             if self.drive_through.isChecked():
                 is_drive_through = True
-            self.controller.aggiungi_appuntamento(AppuntamentoTampone(nome, cognome, cf, telefono, indirizzo, data_nascita, self.data_selezionata, self.orario_selected, is_drive_through, tipo_tampone))
-            self.vista_riepilogo = VistaAppuntamentoTampone(AppuntamentoTampone(nome, cognome, cf, telefono, indirizzo, data_nascita, self.data_selezionata, self.orario_selected, is_drive_through, tipo_tampone))
+
+            appuntamento_tampone = AppuntamentoTampone(nome, cognome, cf, telefono, indirizzo, data_nascita, self.data_selezionata, self.orario_selected, is_drive_through, tipo_tampone)
+
+            self.controller.aggiungi_appuntamento(appuntamento_tampone)
+            self.vista_riepilogo = VistaAppuntamentoTampone(appuntamento_tampone)
             self.vista_riepilogo.show()
             self.close()
 
