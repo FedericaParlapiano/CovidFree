@@ -1,5 +1,4 @@
 from datetime import date, datetime
-
 from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QPushButton, QGridLayout, QVBoxLayout
 
@@ -42,15 +41,16 @@ class VistaListaGreenPass(QWidget):
             data_oggi = date.today()
             #if (data_oggi.month-data_appuntamento.month) > 0 and (data_oggi.month-data_appuntamento.month) < 9:
             if (data_oggi.month - data_appuntamento.month) < 0:
-                item.setText(appuntamento.cartella_paziente.nome + " " + appuntamento.cartella_paziente.cognome)
-                item.setEditable(False)
-                font = item.font()
-                font.setFamily('Georgia')
-                font.setPointSize(12)
-                item.setFont(font)
+                if appuntamento.id == "Prima Dose":
+                    item.setText(appuntamento.cartella_paziente.nome + " " + appuntamento.cartella_paziente.cognome)
+                    item.setEditable(False)
+                    font = item.font()
+                    font.setFamily('Georgia')
+                    font.setPointSize(12)
+                    item.setFont(font)
 
-                self.list_view_elenco_green_pass_model.appendRow(item)
-                self.elenco_green_pass.append(appuntamento)
+                    self.list_view_elenco_green_pass_model.appendRow(item)
+                    self.elenco_green_pass.append(appuntamento)
         self.list_view_elenco_green_pass.setModel(self.list_view_elenco_green_pass_model)
 
     def show_selected_green_pass(self):
