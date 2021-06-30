@@ -65,6 +65,8 @@ class VistaCalendarioVaccini(QWidget):
     def get_generic_button(self, titolo, on_click):
         button = QPushButton(titolo)
         button.setFont(QFont('Georgia', 13))
+        if titolo == "Green pass":
+            button.setStyleSheet("background-color: rgb(145, 234, 152)")
         button.clicked.connect(on_click)
         return button
 

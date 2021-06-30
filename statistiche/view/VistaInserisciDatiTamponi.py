@@ -1,6 +1,6 @@
 from PyQt5.QtGui import QFont, QIcon
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QRadioButton, QButtonGroup, QGridLayout, QSpacerItem, \
-    QSizePolicy, QPushButton, QCheckBox, QMessageBox
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QRadioButton, QButtonGroup, QGridLayout, \
+    QPushButton, QMessageBox
 
 from statistiche.controller.ControlloreStatistiche import ControlloreStatistiche
 

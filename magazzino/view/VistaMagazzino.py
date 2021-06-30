@@ -1,5 +1,5 @@
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QPushButton, QListView, QVBoxLayout, QGridLayout, QLabel, QSizePolicy
+from PyQt5.QtWidgets import QWidget, QPushButton, QListView, QVBoxLayout, QGridLayout, QLabel
 
 from magazzino.controller.ControlloreMagazzino import ControlloreMagazzino
 from magazzino.view.VistaAggiornaFornitura import VistaAggiornaFornitura

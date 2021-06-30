@@ -1,6 +1,3 @@
-import os
-import pickle
-
 from calendariotamponi.model.CalendarioTamponi import CalendarioTamponi
 
 

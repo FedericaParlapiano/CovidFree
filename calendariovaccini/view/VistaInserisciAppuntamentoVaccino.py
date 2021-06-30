@@ -2,7 +2,7 @@ from datetime import date, datetime, timedelta
 
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QSpacerItem, QSizePolicy, QPushButton, QLabel, QLineEdit, QMessageBox, \
-    QGridLayout, QCheckBox, QRadioButton, QComboBox
+    QCheckBox, QComboBox
 
 from appuntamentovaccino.model.AppuntamentoVaccino import AppuntamentoVaccino
 from appuntamentovaccino.view.VistaAppuntamentoVaccino import VistaAppuntamentoVaccino

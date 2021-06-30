@@ -1,5 +1,3 @@
-import datetime
-
 from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QLineEdit, QMessageBox, QPushButton, QRadioButton, QGridLayout
 

@@ -5,7 +5,7 @@ from datetime import date, datetime
 from PyQt5.QtCore import QDate
 from PyQt5.QtGui import QFont, QStandardItemModel, QStandardItem, QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QCheckBox, QSpacerItem, QSizePolicy, QLabel, QComboBox, QLineEdit, \
-    QPushButton, QMessageBox, QCalendarWidget, QListView, QGridLayout, QAbstractItemView
+    QPushButton, QMessageBox, QCalendarWidget, QListView, QGridLayout
 from appuntamentotampone.model.AppuntamentoTampone import AppuntamentoTampone
 from appuntamentotampone.view.VistaAppuntamentoTampone import VistaAppuntamentoTampone
 

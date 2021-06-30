@@ -1,7 +1,6 @@
 from PyQt5.QtGui import QFont, QIcon
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QPushButton, QSizePolicy, QLabel, QGridLayout, QVBoxLayout, \
-    QSpacerItem
+from PyQt5.QtWidgets import QWidget, QPushButton, QSizePolicy, QLabel, QGridLayout, QVBoxLayout
 
 from statistiche.controller.ControlloreStatistiche import ControlloreStatistiche
 from statistiche.view.VistaInserisciDatiTamponi import VistaInserisciDatiTamponi

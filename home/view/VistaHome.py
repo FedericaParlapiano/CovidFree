@@ -34,6 +34,7 @@ class VistaHome(QWidget):
         self.setLayout(grid_layout)
         self.setMaximumSize(1000, 600)
         self.resize(1000, 600)
+
         self.center()
 
         self.setWindowTitle("Clinica COVID FREE")

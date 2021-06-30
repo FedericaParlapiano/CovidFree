@@ -1,6 +1,4 @@
-import os
-import pickle
-from datetime import datetime, date, timedelta
+from datetime import datetime, date
 
 from PyQt5 import QtGui
 from PyQt5.QtGui import QStandardItem, QStandardItemModel, QIcon

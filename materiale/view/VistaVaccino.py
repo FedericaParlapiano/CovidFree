@@ -1,5 +1,5 @@
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QVBoxLayout, QSpacerItem, QSizePolicy
+from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QSpacerItem, QSizePolicy
 from PyQt5.QtCore import Qt
 from materiale.controller.ControlloreMateriale import ControlloreMateriale
 

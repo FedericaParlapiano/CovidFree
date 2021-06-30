@@ -1,4 +1,4 @@
-from datetime import datetime, date
+from datetime import date
 
 from PyQt5 import QtGui
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon

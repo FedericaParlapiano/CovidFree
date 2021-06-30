@@ -1,6 +1,6 @@
 from PyQt5.QtGui import QFont, QIcon
-from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QRadioButton, QButtonGroup, QPushButton, QSpacerItem, \
-    QSizePolicy, QMessageBox, QComboBox
+from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QRadioButton, QButtonGroup, QPushButton, \
+     QMessageBox, QComboBox
 
 
 class VistaInserisciAnamnesi(QWidget):

@@ -1,6 +1,6 @@
 from datetime import date, datetime
 from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QPushButton, QGridLayout, QVBoxLayout
+from PyQt5.QtWidgets import QWidget, QListView, QPushButton, QVBoxLayout
 
 from calendariovaccini.controller.ControlloreCalendarioVaccini import ControlloreCalendarioVaccini
 from calendariovaccini.view.VistaGreenPass import VistaGreenPass

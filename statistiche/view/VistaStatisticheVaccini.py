@@ -1,7 +1,7 @@
 from PyQt5 import Qt, QtGui
-from PyQt5.QtChart import QPieSeries, QChart, QChartView, QPieSlice, QPercentBarSeries
-from PyQt5.QtGui import QFont, QPen, QPainter, QColor, QIcon
-from PyQt5.QtWidgets import QWidget, QPushButton, QVBoxLayout, QHBoxLayout, QGridLayout, QSizePolicy, QLabel
+from PyQt5.QtChart import QPieSeries, QChart, QChartView, QPieSlice
+from PyQt5.QtGui import QFont, QPainter, QColor, QIcon
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QGridLayout, QLabel
 from PyQt5.QtCore import Qt
 
 from statistiche.controller.ControlloreStatistiche import ControlloreStatistiche
