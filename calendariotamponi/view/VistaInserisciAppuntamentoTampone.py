@@ -140,17 +140,8 @@ class VistaInserisciAppuntamentoTampone(QWidget):
             self.close()
 
     def controllo_disponibilita(self):
-        disponibile = False
-        if os.path.isfile('magazzino/data/lista_tamponi_salvata.pickle'):
-            with open('magazzino/data/lista_tamponi_salvata.pickle', 'rb') as f:
-                self.tamponi_presenti = pickle.load(f)
-        for tampone in self.tamponi_presenti:
-            if tampone.tipologia == self.tipo_tampone.currentText() and tampone.is_disponibile():
-                disponibile = True
-                tampone.quantita = tampone.quantita - 1
-                with open('magazzino/data/lista_tamponi_salvata.pickle', 'wb') as handle:
-                    pickle.dump(self.tamponi_presenti, handle, pickle.HIGHEST_PROTOCOL)
-        return disponibile
+        self.controller.lettura_magazzino()
+        return self.controller.prenota_tampone(self.tipo_tampone.currentText())
 
     def init_calendario(self):
         calendario = QCalendarWidget(self)

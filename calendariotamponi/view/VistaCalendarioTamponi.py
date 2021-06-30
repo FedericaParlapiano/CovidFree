@@ -16,7 +16,6 @@ class VistaCalendarioTamponi(QWidget):
     def __init__(self, parent=None):
 
         super(VistaCalendarioTamponi, self).__init__(parent)
-
         self.controller = ControlloreCalendarioTamponi()
         self.calendario_tamponi = self.init_calendario()
 

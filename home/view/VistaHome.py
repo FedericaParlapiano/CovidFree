@@ -1,7 +1,6 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont, QPixmap, QIcon
-from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy, QLabel, QVBoxLayout, \
-    QDesktopWidget
+from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy, QLabel, QVBoxLayout, QDesktopWidget
 
 from calendariotamponi.view.VistaCalendarioTamponi import VistaCalendarioTamponi
 from calendariovaccini.view.VistaCalendarioVaccini import VistaCalendarioVaccini

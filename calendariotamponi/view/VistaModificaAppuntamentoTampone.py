@@ -165,7 +165,6 @@ class VistaModificaAppuntamentoTampone(QWidget):
             self.close()
 
 
-
     def controllo_disponibilita(self):
         disponibile = False
         if os.path.isfile('magazzino/data/lista_tamponi_salvata.pickle'):

@@ -44,6 +44,18 @@ class CalendarioTamponi():
                 with open('magazzino/data/lista_tamponi_salvata.pickle', 'wb') as handle:
                     pickle.dump(self.tamponi_presenti, handle, pickle.HIGHEST_PROTOCOL)
 
+    def prenota_tampone(self, tipologia):
+        prenotato = False
+        for tampone in self.tamponi_presenti:
+            if tipologia == tampone.tipologia:
+                if tampone.is_disponibile():
+                    tampone.quantita = tampone.quantita - 1
+                    prenotato = True
+                    with open('magazzino/data/lista_tamponi_salvata.pickle', 'wb') as handle:
+                        pickle.dump(self.tamponi_presenti, handle, pickle.HIGHEST_PROTOCOL)
+        return prenotato
+
+
     def get_appuntamento(self, nome, cognome, data_nascita):
         for appuntamento in self.elenco_appuntamenti:
             if appuntamento.nome == nome and appuntamento.cognome == cognome and appuntamento.data_nascita == data_nascita:

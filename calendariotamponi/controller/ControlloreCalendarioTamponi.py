@@ -29,6 +29,9 @@ class ControlloreCalendarioTamponi():
     def aggiorna_magazzino(self, tipologia):
         self.model.aggiorna_magazzino(tipologia)
 
+    def prenota_tampone(self, tipologia):
+        return self.model.prenota_tampone(tipologia)
+
     def get_appuntamento(self, nome, cognome, id):
         return self.model.get_appuntamento(nome, cognome, id)
 
