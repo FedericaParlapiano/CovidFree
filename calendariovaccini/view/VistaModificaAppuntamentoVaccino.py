@@ -184,7 +184,7 @@ class VistaModificaAppuntamentoVaccino(QWidget):
                     seconda_dose = self.controller.get_appuntamento(self.appuntamento.cartella_paziente.nome, self.appuntamento.cartella_paziente.cognome, 'Seconda Dose')
                     if seconda_dose is not None:
                         self.controller.lettura_magazzino()
-                        self.controller.aggiorna_magazzino(da_eliminare.vaccino)
+                        self.controller.aggiorna_magazzino(seconda_dose.vaccino)
                         self.controller.elimina_appuntamento(seconda_dose)
                     if self.vista_inserisci_anamnesi.anamnesi['Positivo COVID-19'] != 'tra i 3 e i 6 mesi':
                         data_prima_dose = datetime.strptime(self.vista_mostra_date.data_scelta, '%d-%m-%Y')

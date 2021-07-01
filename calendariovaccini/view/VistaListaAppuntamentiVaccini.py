@@ -138,7 +138,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
                     item.setBackground(QtGui.QColor(255,255,153))
 
                 if appuntamento.id == 'Seconda Dose':
-                    item.setBackground(QtGui.QColor(200, 255, 153))
+                    item.setBackground(QtGui.QColor(255, 200, 153))
 
                 if appuntamento.vaccino == "Astrazeneca":
                     self.list_view_astrazeneca_model.appendRow(item)
@@ -170,10 +170,9 @@ class VistaListaAppuntamentiVaccini(QWidget):
                 msg.setText("Sei sicuro di voler eliminare l'appuntamento?")
                 msg.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
                 msg.setInformativeText("La decisione è irreversibile!")
+                msg.setDetailedText("N.B. Se l'appuntamento da eliminare è assocato ad un secondo appuntamento, anche questo verrà rimosso.")
                 msg.setWindowTitle("Conferma eliminazione")
                 msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-                msg.move(250,100)
-
                 msg.move(250,100)
 
                 if msg.exec() == QMessageBox.Ok:
@@ -181,6 +180,16 @@ class VistaListaAppuntamentiVaccini(QWidget):
                     self.controller.aggiorna_magazzino(appuntamento_selezionato.vaccino)
                     self.controller.elimina_appuntamento(appuntamento_selezionato)
                     self.elenco_astrazeneca.remove(appuntamento_selezionato)
+
+                    if appuntamento_selezionato.id == 'Prima Dose':
+                        seconda_dose = self.controller.get_appuntamento(appuntamento_selezionato.cartella_paziente.nome,
+                                                                        appuntamento_selezionato.cartella_paziente.cognome,
+                                                                        'Seconda Dose')
+                        if seconda_dose is not None:
+                            self.controller.lettura_magazzino()
+                            self.controller.aggiorna_magazzino(seconda_dose.vaccino)
+                            self.controller.elimina_appuntamento(seconda_dose)
+
                 self.update_ui()
 
     def elimina_appuntamento_moderna(self):
@@ -199,16 +208,25 @@ class VistaListaAppuntamentiVaccini(QWidget):
                 msg.setText("Sei sicuro di voler eliminare l'appuntamento?")
                 msg.setInformativeText("La decisione è irreversibile!")
                 msg.setWindowTitle("Conferma eliminazione")
+                msg.setDetailedText("N.B. Se l'appuntamento da eliminare è assocato ad un secondo appuntamento, anche questo verrà rimosso.")
                 msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
                 msg.move(250,100)
-
-                msg.move(250, 100)
 
                 if msg.exec() == QMessageBox.Ok:
                     self.controller.lettura_magazzino()
                     self.controller.aggiorna_magazzino(appuntamento_selezionato.vaccino)
                     self.controller.elimina_appuntamento(appuntamento_selezionato)
                     self.elenco_moderna.remove(appuntamento_selezionato)
+
+                    if appuntamento_selezionato.id == 'Prima Dose':
+                        seconda_dose = self.controller.get_appuntamento(appuntamento_selezionato.cartella_paziente.nome,
+                                                                        appuntamento_selezionato.cartella_paziente.cognome,
+                                                                        'Seconda Dose')
+                        if seconda_dose is not None:
+                            self.controller.lettura_magazzino()
+                            self.controller.aggiorna_magazzino(seconda_dose.vaccino)
+                            self.controller.elimina_appuntamento(seconda_dose)
+
                 self.update_ui()
 
     def elimina_appuntamento_pfizer(self):
@@ -227,9 +245,8 @@ class VistaListaAppuntamentiVaccini(QWidget):
                 msg.setText("Sei sicuro di voler eliminare l'appuntamento?")
                 msg.setInformativeText("La decisione è irreversibile!")
                 msg.setWindowTitle("Conferma eliminazione")
+                msg.setDetailedText("N.B. Se l'appuntamento da eliminare è assocato ad un secondo appuntamento, anche questo verrà rimosso.")
                 msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-                msg.move(250,100)
-
                 msg.move(250, 100)
 
                 if msg.exec() == QMessageBox.Ok:
@@ -237,6 +254,16 @@ class VistaListaAppuntamentiVaccini(QWidget):
                     self.controller.aggiorna_magazzino(appuntamento_selezionato.vaccino)
                     self.controller.elimina_appuntamento(appuntamento_selezionato)
                     self.elenco_pfizer.remove(appuntamento_selezionato)
+
+                    if appuntamento_selezionato.id == 'Prima Dose':
+                        seconda_dose = self.controller.get_appuntamento(appuntamento_selezionato.cartella_paziente.nome,
+                                                                        appuntamento_selezionato.cartella_paziente.cognome,
+                                                                        'Seconda Dose')
+                        if seconda_dose is not None:
+                            self.controller.lettura_magazzino()
+                            self.controller.aggiorna_magazzino(seconda_dose.vaccino)
+                            self.controller.elimina_appuntamento(seconda_dose)
+
                 self.update_ui()
 
     def modifica_appuntamento_astrazeneca(self):

@@ -1,19 +1,20 @@
 import os
 import pickle
 
+
 class AppuntamentoVaccino():
 
     def __init__(self, id, cartella_paziente, data_appuntamento, fascia_oraria, is_a_domicilio):
 
         super(AppuntamentoVaccino, self).__init__()
+
         self.id = id
         self.cartella_paziente = cartella_paziente
         self.is_a_domicilio = is_a_domicilio
-
-        self.vaccino = self.assegna_vaccino()
-        self.distanza_richiamo = 0
         self.fascia_oraria = fascia_oraria
         self.data_appuntamento = data_appuntamento
+
+        self.vaccino = self.assegna_vaccino()
 
     def assegna_vaccino(self):
         preferenza = self.cartella_paziente.preferenza
@@ -47,4 +48,3 @@ class AppuntamentoVaccino():
                     pickle.dump(self.vaccini_presenti, handle, pickle.HIGHEST_PROTOCOL)
 
         return da_assegnare
-

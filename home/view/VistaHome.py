@@ -43,7 +43,7 @@ class VistaHome(QWidget):
     def get_generic_button(self, titolo, colore, on_click):
         button = QPushButton(titolo)
         button.setStyleSheet("background-color: {}".format(colore))
-        button.setFont(QFont('Arial Nova Light', 20))
+        button.setFont(QFont('Arial Nova Light', 18))
         button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         button.clicked.connect(on_click)
         return button
