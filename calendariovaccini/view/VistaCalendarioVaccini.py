@@ -37,13 +37,13 @@ class VistaCalendarioVaccini(QWidget):
         grid_layout.addLayout(calendar_layout, 0, 0)
         grid_layout.addLayout(buttons_layout, 0, 1, alignment=Qt.AlignBottom)
 
-
         self.setLayout(grid_layout)
         self.setWindowTitle("Calendario Appuntamenti Vaccini")
-        self.setMaximumSize(1000, 600)
-        self.resize(900, 550)
-        self.center()
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
+
+        self.setMaximumSize(1000, 650)
+        self.resize(910, 650)
+        self.move(0, 0)
 
     def init_calendario(self):
         calendario = QCalendarWidget(self)
@@ -51,11 +51,10 @@ class VistaCalendarioVaccini(QWidget):
         currentYear = datetime.now().year
 
         calendario.setMinimumDate(QDate(currentYear, currentMonth, 1))
-        calendario.setMaximumDate(
-            QDate(currentYear + 1, currentMonth, calendar.monthrange(currentYear, currentMonth)[1]))
+        calendario.setMaximumDate(QDate(currentYear + 1, currentMonth, calendar.monthrange(currentYear, currentMonth)[1]))
         calendario.setSelectedDate(QDate(currentYear, currentMonth, 1))
 
-        calendario.setFont(QFont('Georgia', 10))
+        calendario.setFont(QFont('Arial Nova Light', 18))
         calendario.setStyleSheet('background-color: lightblue')
         calendario.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         calendario.setGeometry(200, 200, 300, 200)
@@ -64,18 +63,18 @@ class VistaCalendarioVaccini(QWidget):
 
     def get_generic_button(self, titolo, on_click):
         button = QPushButton(titolo)
-        button.setFont(QFont('Georgia', 13))
+        button.setFont(QFont('Arial Nova Light', 15))
         if titolo == "Green pass":
             button.setStyleSheet("background-color: rgb(145, 234, 152)")
         button.clicked.connect(on_click)
         return button
 
     def show_selected_data(self):
-        self.vista_visualizza_appuntamenti = VistaListaAppuntamentiVaccini(self.calendar_date(), self.update_ui)
+        self.vista_visualizza_appuntamenti = VistaListaAppuntamentiVaccini(self.calendar_date(), self.controller)
         self.vista_visualizza_appuntamenti.show()
 
     def show_add_appuntamento(self):
-        self.vista_inserisci_appuntamento = VistaInserisciAppuntamentoVaccino(self.update_ui)
+        self.vista_inserisci_appuntamento = VistaInserisciAppuntamentoVaccino(self.controller)
         self.vista_inserisci_appuntamento.show()
 
     def show_ricerca_appuntamento(self):
@@ -86,17 +85,8 @@ class VistaCalendarioVaccini(QWidget):
         self.vista_lista_green_pass = VistaListaGreenPass()
         self.vista_lista_green_pass.show()
 
-    def update_ui(self):
-        pass
-
     def calendar_date(self):
         dateselected = self.calendario_vaccini.selectedDate()
         data_selezionata = str(dateselected.toPyDate())
         self.label.setText("Data selezionata : " + data_selezionata)
         return data_selezionata
-
-    def center(self):
-        qr = self.frameGeometry()
-        cp = QDesktopWidget().availableGeometry().center()
-        qr.moveCenter(cp)
-        self.move(qr.topLeft())

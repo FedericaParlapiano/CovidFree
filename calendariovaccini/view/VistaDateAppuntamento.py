@@ -1,14 +1,14 @@
 from datetime import date, datetime, timedelta
-from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon
+from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon, QFont
 from PyQt5.QtWidgets import QWidget, QListView, QVBoxLayout, QLabel, QPushButton, QMessageBox, QGridLayout
-from calendariovaccini.controller.ControlloreCalendarioVaccini import ControlloreCalendarioVaccini
+
 
 class VistaDateAppuntamento(QWidget):
 
-    def __init__(self):
+    def __init__(self, controller):
         super(VistaDateAppuntamento, self).__init__(parent=None)
 
-        self.controller = ControlloreCalendarioVaccini()
+        self.controller = controller
         self.appuntamenti = {}
         self.date_da_mostrare = []
         self.orari_disponibili = ["9:00-10:00", "10:00-11:00", "11:00-12:00", "12:00-13:00", "13:00-14:00", "14:00-15:00", "15:00-16:00", "16:00-17:00", "17:00-18:00", "18:00-19:00"]
@@ -57,9 +57,13 @@ class VistaDateAppuntamento(QWidget):
         self.v_layout.addWidget(self.button_conferma)
 
         self.setLayout(self.v_layout)
+        self.setFont(QFont('Arial Nova Light', 12))
         self.setWindowTitle("Scelta della data")
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
+        self.setMaximumSize(500, 300)
+        self.resize(500, 300)
+        self.move(150, 200)
 
     def determina_date(self):
         contatore = 10
@@ -82,8 +86,7 @@ class VistaDateAppuntamento(QWidget):
             item.setText(data)
             item.setEditable(False)
             font = item.font()
-            font.setFamily('Georgia')
-            font.setPointSize(12)
+            font.setPointSize(13)
             item.setFont(font)
             self.list_view_date_model.appendRow(item)
 
@@ -110,9 +113,7 @@ class VistaDateAppuntamento(QWidget):
                 if self.orari_appuntamenti[key] > 3:
                     if key in self.orari_disponibili:
                         self.orari_disponibili.remove(key)
-
             self.mostra_orari()
-
         else:
             QMessageBox.critical(self, 'Errore', 'Hai dimenticato di inserire una data! Non è possibile procedere!', QMessageBox.Ok, QMessageBox.Ok)
 
@@ -124,8 +125,7 @@ class VistaDateAppuntamento(QWidget):
                 item.setText(orario)
                 item.setEditable(False)
                 font = item.font()
-                font.setFamily('Georgia')
-                font.setPointSize(12)
+                font.setPointSize(13)
                 item.setFont(font)
                 self.list_view_orari_model.appendRow(item)
 

@@ -1,12 +1,11 @@
 from datetime import date, datetime, timedelta
 
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QSpacerItem, QSizePolicy, QPushButton, QLabel, QLineEdit, QMessageBox, \
     QCheckBox, QComboBox
 
 from appuntamentovaccino.model.AppuntamentoVaccino import AppuntamentoVaccino
 from appuntamentovaccino.view.VistaAppuntamentoVaccino import VistaAppuntamentoVaccino
-from calendariovaccini.controller.ControlloreCalendarioVaccini import ControlloreCalendarioVaccini
 from calendariovaccini.view.VistaDateAppuntamento import VistaDateAppuntamento
 from calendariovaccini.view.VistaInserisciAnamnesi import VistaInserisciAnamnesi
 from cartellapaziente.model.CartellaPaziente import CartellaPaziente
@@ -14,13 +13,14 @@ from cartellapaziente.model.CartellaPaziente import CartellaPaziente
 
 class VistaInserisciAppuntamentoVaccino(QWidget):
 
-    def __init__(self, callback):
-        super(VistaInserisciAppuntamentoVaccino, self).__init__()
-        self.controller = ControlloreCalendarioVaccini()
-        self.callback = callback
+    def __init__(self, controller, parent = None):
+        super(VistaInserisciAppuntamentoVaccino, self).__init__(parent)
+
+        self.controller = controller
+
         self.info = {}
-        self.vista_inserisci_anamnesi = VistaInserisciAnamnesi(self.controller, self.update_ui)
-        self.vista_mostra_date = VistaDateAppuntamento()
+        self.vista_inserisci_anamnesi = VistaInserisciAnamnesi(self.controller)
+        self.vista_mostra_date = VistaDateAppuntamento(self.controller)
 
         self.v_layout = QVBoxLayout()
 
@@ -32,7 +32,6 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
         self.get_form_entry("Telefono*")
         self.domicilio = QCheckBox("L'appuntamento è a domicilio")
         self.v_layout.addWidget(self.domicilio)
-
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         self.v_layout.addWidget(QLabel("Categorie speciali"))
@@ -69,8 +68,12 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
         self.v_layout.addWidget(btn_ok)
         self.setLayout(self.v_layout)
         self.setWindowTitle("Nuovo Appuntamento")
-        self.resize(300, 600)
+        self.setFont(QFont('Arial Nova Light', 12))
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
+
+        self.setMaximumSize(400, 500)
+        self.resize(400, 500)
+        self.move(200, 0)
 
     def get_form_entry(self, tipo):
         self.v_layout.addWidget(QLabel(tipo))
@@ -83,7 +86,6 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
 
     def go_scelta_data(self):
         self.vista_mostra_date.show()
-
 
     def add_appuntamento(self):
         nome = self.info["Nome*"].text()
@@ -196,9 +198,4 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
                 QMessageBox.critical(self, 'Errore', 'Ci dispiace ma non è possibile prenotare '
                                                          'l\'appuntamento a causa di una mancanza di vaccini che possono essere somministrati al paziente.',
                                      QMessageBox.Ok, QMessageBox.Ok)
-
-            self.callback()
             self.close()
-
-    def update_ui(self):
-        pass

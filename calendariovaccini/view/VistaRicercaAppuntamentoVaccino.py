@@ -20,8 +20,6 @@ class VistaRicercaAppuntamentoVaccino(QWidget):
         self.get_parametri_di_ricerca("Codice fiscale:")
 
         self.label = QLabel("Appuntamento per:")
-        font = QFont("Georgia", 12)
-        self.label.setFont(font)
         self.v_layout.addWidget(self.label)
 
         self.prima_dose = QRadioButton('Prima Dose')
@@ -37,8 +35,13 @@ class VistaRicercaAppuntamentoVaccino(QWidget):
         self.v_layout.addWidget(btn)
 
         self.setLayout(self.v_layout)
+        self.setFont(QFont('Arial Nova Light', 12))
         self.setWindowTitle("Ricerca appuntamento")
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
+
+        self.setMaximumSize(400, 300)
+        self.resize(400, 300)
+        self.move(170, 200)
 
     def get_parametri_di_ricerca(self, tipo):
         self.v_layout.addWidget(QLabel(tipo))

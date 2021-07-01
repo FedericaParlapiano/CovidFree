@@ -31,7 +31,6 @@ class CalendarioVaccini():
         return self.elenco_appuntamenti
 
     def elimina_appuntamento(self, appuntamento):
-
         for prenotazione in self.elenco_appuntamenti:
             if prenotazione == appuntamento:
                 self.elenco_appuntamenti.remove(prenotazione)

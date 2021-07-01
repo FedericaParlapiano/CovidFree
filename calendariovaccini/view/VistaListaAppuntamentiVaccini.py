@@ -1,21 +1,18 @@
 from datetime import datetime, date
 
 from PyQt5 import QtGui
-from PyQt5.QtGui import QStandardItem, QStandardItemModel, QIcon
+from PyQt5.QtGui import QStandardItem, QStandardItemModel, QIcon, QFont
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QGridLayout, QLabel, QMessageBox
 
 from appuntamentovaccino.view.VistaAppuntamentoVaccino import VistaAppuntamentoVaccino
-from calendariovaccini.controller.ControlloreCalendarioVaccini import ControlloreCalendarioVaccini
 from calendariovaccini.view.VistaModificaAppuntamentoVaccino import VistaModificaAppuntamentoVaccino
 
 
 class VistaListaAppuntamentiVaccini(QWidget):
 
-    def __init__(self, data, callback):
-        super(VistaListaAppuntamentiVaccini, self).__init__()
-        self.controller = ControlloreCalendarioVaccini()
-        self.callback = callback
-
+    def __init__(self, data, controller, parent = None):
+        super(VistaListaAppuntamentiVaccini, self).__init__(parent)
+        self.controller = controller
 
         appuntamento = datetime.strptime(data, '%Y-%m-%d')
         d = str(appuntamento.strftime('%d-%m-%Y'))
@@ -75,10 +72,14 @@ class VistaListaAppuntamentiVaccini(QWidget):
         elimina_pfizer.clicked.connect(self.elimina_appuntamento_pfizer)
         modifica_pfizer.clicked.connect(self.modifica_appuntamento_pfizer)
 
+        self.setFont(QFont('Arial Nova Light', 14))
+
         self.setLayout(self.grid_layout)
-        self.resize(600, 300)
         self.setWindowTitle('Lista Appuntamenti Vaccini Giorno: {}'.format(self.data))
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
+        self.setMaximumSize(910, 400)
+        self.resize(910, 400)
+        self.move(0,0)
 
     def get_list(self, tipologia, colonna):
 
@@ -128,8 +129,8 @@ class VistaListaAppuntamentiVaccini(QWidget):
                 item.setText(appuntamento.cartella_paziente.nome + " " + appuntamento.cartella_paziente.cognome)
                 item.setEditable(False)
                 font = item.font()
-                font.setFamily('Georgia')
-                font.setPointSize(12)
+                font.setFamily('Arial Nova Light')
+                font.setPointSize(15)
                 item.setFont(font)
 
                 if appuntamento.is_a_domicilio:
@@ -170,6 +171,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
                 msg.setInformativeText("La decisione è irreversibile!")
                 msg.setWindowTitle("Conferma eliminazione")
                 msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                msg.move(250,100)
 
                 if msg.exec() == QMessageBox.Ok:
                     self.controller.lettura_magazzino()
@@ -195,6 +197,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
                 msg.setInformativeText("La decisione è irreversibile!")
                 msg.setWindowTitle("Conferma eliminazione")
                 msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                msg.move(250,100)
 
                 if msg.exec() == QMessageBox.Ok:
                     self.controller.lettura_magazzino()
@@ -202,7 +205,6 @@ class VistaListaAppuntamentiVaccini(QWidget):
                     self.controller.elimina_appuntamento(appuntamento_selezionato)
                     self.elenco_moderna.remove(appuntamento_selezionato)
                 self.update_ui()
-
 
     def elimina_appuntamento_pfizer(self):
         if self.list_view_pfizer.selectedIndexes():
@@ -221,6 +223,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
                 msg.setInformativeText("La decisione è irreversibile!")
                 msg.setWindowTitle("Conferma eliminazione")
                 msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                msg.move(250,100)
 
                 if msg.exec() == QMessageBox.Ok:
                     self.controller.lettura_magazzino()
@@ -233,22 +236,22 @@ class VistaListaAppuntamentiVaccini(QWidget):
         if self.list_view_astrazeneca.selectedIndexes():
             selected = self.list_view_astrazeneca.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_astrazeneca[selected]
-            vista_modifica = VistaModificaAppuntamentoVaccino(appuntamento_selezionato)
-            vista_modifica.show()
+            self.vista_modifica = VistaModificaAppuntamentoVaccino(appuntamento_selezionato, self.controller)
+            self.vista_modifica.show()
             self.close()
 
     def modifica_appuntamento_moderna(self):
         if self.list_view_moderna.selectedIndexes():
             selected = self.list_view_moderna.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_moderna[selected]
-            vista_modifica = VistaModificaAppuntamentoVaccino(appuntamento_selezionato)
-            vista_modifica.show()
+            self.vista_modifica = VistaModificaAppuntamentoVaccino(appuntamento_selezionato, self.controller)
+            self.vista_modifica.show()
             self.close()
 
     def modifica_appuntamento_pfizer(self):
         if self.list_view_pfizer.selectedIndexes():
             selected = self.list_view_pfizer.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_pfizer[selected]
-            vista_modifica = VistaModificaAppuntamentoVaccino(appuntamento_selezionato)
-            vista_modifica.show()
+            self.vista_modifica = VistaModificaAppuntamentoVaccino(appuntamento_selezionato,self.controller)
+            self.vista_modifica.show()
             self.close()

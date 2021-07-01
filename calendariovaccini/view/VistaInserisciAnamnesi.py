@@ -5,14 +5,14 @@ from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QRadioButton, QButtonG
 
 class VistaInserisciAnamnesi(QWidget):
 
-    def __init__(self, controller, callback):
+    def __init__(self, controller):
         super(VistaInserisciAnamnesi, self).__init__(parent=None)
         self.controller = controller
-        self.callback = callback
+
         self.info = {}
         self.anamnesi = {}
 
-        font = QFont('Georia',10)
+        font = QFont('Arial Nova Light', 14)
         font.setBold(True)
         self.grid_layout = QGridLayout()
         label1 = QLabel('Da compilare a cura del personale e da riesaminare insieme ai Professionisti Sanitari addetti alla vaccinazione.')
@@ -28,7 +28,7 @@ class VistaInserisciAnamnesi(QWidget):
         self.get_domanda('Sistema immunitario', 'Si trova in una condizione di compromissione del sistema immunitario (esempio: cancro, leucemia, linfoma, HIV/AIDS, trapianto)?', 8)
         self.get_domanda('Gravidanza', 'È incinta o sta pensando di rimanere incinta nel prossimo mese?', 9)
 
-        font.setPointSize(8)
+        font.setBold(False)
         font.setItalic(True)
         label2 = QLabel('Anamnesi COVID-Correlata')
         label2.setFont(font)
@@ -45,11 +45,15 @@ class VistaInserisciAnamnesi(QWidget):
         self.grid_layout.addWidget(btn, 14, 0, -1, 3)
 
         self.setLayout(self.grid_layout)
+        self.setFont(QFont('Arial Nova Light', 12))
         self.setWindowTitle("Questionario anamnestico")
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
-    def get_domanda(self, chiave, domanda, riga):
+        self.setMaximumSize(700, 400)
+        self.resize(700, 400)
+        self.move(600, 100)
 
+    def get_domanda(self, chiave, domanda, riga):
         label = QLabel(domanda)
 
         btn1 = QRadioButton('Sì')
@@ -62,7 +66,6 @@ class VistaInserisciAnamnesi(QWidget):
         self.grid_layout.addWidget(btn1, riga, 1)
         self.grid_layout.addWidget(btn2, riga, 2)
         self.info[chiave] = bg
-
 
     def check_anamnesi_completa(self):
         controllo = True
@@ -87,7 +90,3 @@ class VistaInserisciAnamnesi(QWidget):
             self.close()
         else:
             QMessageBox.critical(self, 'Errore', 'Per favore, rispondi a tutte le domande', QMessageBox.Ok, QMessageBox.Ok)
-
-
-
-

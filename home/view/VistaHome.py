@@ -31,18 +31,18 @@ class VistaHome(QWidget):
         grid_layout.addLayout(v_layout, 0, 1)
 
         self.setLayout(grid_layout)
-        self.setMaximumSize(1000, 600)
-        self.resize(1000, 600)
-
-        self.center()
 
         self.setWindowTitle("Clinica COVID FREE")
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
+        self.setMaximumSize(1000, 650)
+        self.resize(910, 650)
+        self.move(0, 0)
+
     def get_generic_button(self, titolo, colore, on_click):
         button = QPushButton(titolo)
         button.setStyleSheet("background-color: {}".format(colore))
-        button.setFont(QFont('Georgia', 10))
+        button.setFont(QFont('Arial Nova Light', 20))
         button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         button.clicked.connect(on_click)
         return button
@@ -62,9 +62,3 @@ class VistaHome(QWidget):
     def go_statistiche(self):
         self.vista_statistiche = VistaStatistiche()
         self.vista_statistiche.show()
-
-    def center(self):
-        qr = self.frameGeometry()
-        cp = QDesktopWidget().availableGeometry().center()
-        qr.moveCenter(cp)
-        self.move(qr.topLeft())

@@ -1,5 +1,5 @@
-from datetime import date, datetime
-from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
+from datetime import date, datetime, timedelta
+from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem, QFont
 from PyQt5.QtWidgets import QWidget, QListView, QPushButton, QVBoxLayout
 
 from calendariovaccini.controller.ControlloreCalendarioVaccini import ControlloreCalendarioVaccini
@@ -8,7 +8,7 @@ from calendariovaccini.view.VistaGreenPass import VistaGreenPass
 
 class VistaListaGreenPass(QWidget):
 
-    def __init__(self, parent=None):
+    def __init__(self, parent = None):
         super(VistaListaGreenPass, self).__init__(parent)
         self.controller = ControlloreCalendarioVaccini()
 
@@ -22,31 +22,35 @@ class VistaListaGreenPass(QWidget):
 
         v_layout.addWidget(self.list_view_elenco_green_pass)
 
-
         visualizza = QPushButton("Visualizza")
         v_layout.addWidget(visualizza)
         visualizza.clicked.connect(self.show_selected_green_pass)
 
         self.setLayout(v_layout)
-        self.resize(600, 300)
+        self.setFont(QFont('Arial Nova Light', 14))
         self.setWindowTitle('Grenn pass validi al giorno: {}'.format(date.today()))
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
+
+        self.setMaximumSize(600, 400)
+        self.resize(600, 400)
+        self.move(150, 200)
 
     def get_list(self):
         self.list_view_elenco_green_pass_model = QStandardItemModel(self.list_view_elenco_green_pass)
 
         for appuntamento in self.controller.get_elenco_appuntamenti():
             item = QStandardItem()
-            data_appuntamento = datetime.strptime(appuntamento.data_appuntamento, '%d-%m-%Y')
-            data_oggi = date.today()
-            #if (data_oggi.month-data_appuntamento.month) > 0 and (data_oggi.month-data_appuntamento.month) < 9:
-            if (data_oggi.month - data_appuntamento.month) < 0:
+            #data_oggi = date.today()
+            scadenza = datetime.strptime(appuntamento.data_appuntamento, '%d-%m-%Y') + timedelta(days=270)
+            #if (data_oggi.month-data_appuntamento.month) >= 0 and (data_oggi.month-data_appuntamento.month) < 9 and (data_oggi.day-data_appuntamento.day) >= 0:
+            #if (data_oggi.month - data_appuntamento.month) < 0:
+            if scadenza.year > date.today().year or (scadenza.month >= date.today().month and scadenza.day > date.today().day):
                 if appuntamento.id == "Prima Dose":
                     item.setText(appuntamento.cartella_paziente.nome + " " + appuntamento.cartella_paziente.cognome)
                     item.setEditable(False)
                     font = item.font()
-                    font.setFamily('Georgia')
-                    font.setPointSize(12)
+                    font.setFamily('Arial Nova Light')
+                    font.setPointSize(13)
                     item.setFont(font)
 
                     self.list_view_elenco_green_pass_model.appendRow(item)
