@@ -64,34 +64,43 @@ class VistaStatisticheVaccini(QWidget):
         self.setLayout(self.grid_layout)
 
     def get_torta(self, elenco, titolo, riga, colonna):
-        if elenco:
-            torta = QPieSeries()
-            for elemento in elenco:
-                torta.append(elemento, elenco[elemento])
-            torta.setLabelsVisible()
-            torta.setLabelsPosition(QPieSlice.LabelInsideHorizontal)
-            red = 100
-            green =230
-            for slice in torta.slices():
-                slice.setLabel("{:.1f}%".format(100 * slice.percentage()))
-                slice.setBrush(QColor(red, green, 254))
-                red += 10
-                green -= 5
-            chart = QChart()
-            chart.addSeries(torta)
-            chart.setAnimationOptions(QChart.SeriesAnimations)
-            chart.setTitle(titolo)
-            chart.setTitleFont(QFont('Arial Nova Light', 15, weight=QtGui.QFont.Bold))
-            chart.setTitleBrush(QColor(160, 200, 254))
-            chart.legend().setAlignment(Qt.AlignRight)
-            i = 0
-            for key in elenco:
-                chart.legend().markers(torta)[i].setLabel(key)
-                i+=1
-            self.chartview = QChartView(chart)
-            self.chartview.setRenderHint(QPainter.Antialiasing)
-            self.grid_layout.addWidget(self.chartview, riga, colonna)
-        else:
+        vuoto = 0
+        for item in elenco:
+            if elenco[item] != 0:
+                vuoto += 1
+
+        msg = True
+        if vuoto:
+            if elenco:
+                msg = False
+                torta = QPieSeries()
+                for elemento in elenco:
+                    torta.append(elemento, elenco[elemento])
+                torta.setLabelsVisible()
+                torta.setLabelsPosition(QPieSlice.LabelInsideHorizontal)
+                red = 100
+                green =230
+                for slice in torta.slices():
+                    slice.setLabel("{:.1f}%".format(100 * slice.percentage()))
+                    slice.setBrush(QColor(red, green, 254))
+                    red += 10
+                    green -= 5
+                chart = QChart()
+                chart.addSeries(torta)
+                chart.setAnimationOptions(QChart.SeriesAnimations)
+                chart.setTitle(titolo)
+                chart.setTitleFont(QFont('Arial Nova Light', 15, weight=QtGui.QFont.Bold))
+                chart.setTitleBrush(QColor(160, 200, 254))
+                chart.legend().setAlignment(Qt.AlignRight)
+                i = 0
+                for key in elenco:
+                    chart.legend().markers(torta)[i].setLabel(key)
+                    i+=1
+                self.chartview = QChartView(chart)
+                self.chartview.setRenderHint(QPainter.Antialiasing)
+                self.grid_layout.addWidget(self.chartview, riga, colonna)
+
+        if msg:
             label = QLabel("Al momento non sono ancora \n disponibili dati su " + titolo)
             font_label = label.font()
             font_label.setPointSize(12)
