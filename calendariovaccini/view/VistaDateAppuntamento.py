@@ -60,9 +60,9 @@ class VistaDateAppuntamento(QWidget):
         self.setWindowTitle("Scelta della data")
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
-        self.setMaximumSize(500, 300)
-        self.resize(500, 300)
-        self.move(150, 200)
+        self.setMaximumSize(700, 300)
+        self.resize(700, 300)
+        self.move(100, 200)
 
     def determina_date(self):
         contatore = 10
