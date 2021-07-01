@@ -61,9 +61,12 @@ class VistaMagazzino(QWidget):
         grid_layout.addLayout(buttons_tamponi, 1, 1)
 
         self.setLayout(grid_layout)
-        self.resize(600, 300)
         self.setWindowTitle("Lista Presidi")
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
+
+        self.setMaximumSize(600, 300)
+        self.resize(600, 300)
+        self.move(200, 200)
 
     def update_ui(self):
         self.listview_vaccini_model = QStandardItemModel(self.list_view_vaccini)

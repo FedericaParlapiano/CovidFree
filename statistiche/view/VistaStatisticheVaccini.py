@@ -23,7 +23,10 @@ class VistaStatisticheVaccini(QWidget):
         self.v_layout_effetti = QHBoxLayout()
         self.setWindowTitle("Statistiche Vaccini")
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
-        self.resize(1000, 1000)
+
+        self.setMaximumSize(950, 950)
+        self.resize(950, 950)
+        self.move(0, 0)
 
         for appuntamento in self.controller.get_elenco_appuntamenti_vaccini():
             for key in self.vaccino_per_tipologia:
@@ -52,9 +55,9 @@ class VistaStatisticheVaccini(QWidget):
                     self.effetti_collaterali_pfizer[effetto_p] = 1
 
         self.get_torta(self.vaccino_per_tipologia, "Vaccini somministrati", 0, 0)
-        self.get_torta(self.effetti_collaterali_astrazeneca, "Effetti collaterali Astrazeneca", 0, 1)
-        self.get_torta(self.effetti_collaterali_moderna, "Effetti collaterali Moderna", 1, 0)
-        self.get_torta(self.effetti_collaterali_pfizer, "Effetti collaterali Pfizer", 1, 1)
+        self.get_torta(self.effetti_collaterali_astrazeneca, "Effetti collaterali \n Astrazeneca", 0, 1)
+        self.get_torta(self.effetti_collaterali_moderna, "Effetti collaterali \n Moderna", 1, 0)
+        self.get_torta(self.effetti_collaterali_pfizer, "Effetti collaterali \n Pfizer", 1, 1)
         self.setLayout(self.grid_layout)
 
     def get_torta(self, elenco, titolo, riga, colonna):

@@ -2,7 +2,6 @@ from datetime import date, datetime, timedelta
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon, QFont
 from PyQt5.QtWidgets import QWidget, QListView, QVBoxLayout, QLabel, QPushButton, QMessageBox, QGridLayout
 
-
 class VistaDateAppuntamento(QWidget):
 
     def __init__(self, controller):

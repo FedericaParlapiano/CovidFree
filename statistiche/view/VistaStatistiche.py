@@ -38,8 +38,11 @@ class VistaStatistiche(QWidget):
 
         self.setLayout(v_layout)
         self.setWindowTitle("Statistiche")
-        self.resize(450, 350)
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
+
+        self.setMaximumSize(500, 400)
+        self.resize(500, 400)
+        self.move(200, 100)
 
     def get_label(self, testo, layout):
         label = QLabel(testo)

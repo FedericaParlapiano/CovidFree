@@ -38,10 +38,11 @@ class VistaCalendarioTamponi(QWidget):
 
         self.setLayout(grid_layout)
         self.setWindowTitle("Calendario Appuntamenti Tamponi")
-        self.setMaximumSize(1000, 600)
-        self.resize(900, 550)
-        self.center()
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
+
+        self.setMaximumSize(1000, 650)
+        self.resize(915, 650)
+        self.move(0, 0)
 
     def init_calendario(self):
         calendario = QCalendarWidget(self)
@@ -89,9 +90,3 @@ class VistaCalendarioTamponi(QWidget):
 
         self.label.setText("Data selezionata : " + data_selezionata)
         return data_selezionata
-
-    def center(self):
-        qr = self.frameGeometry()
-        cp = QDesktopWidget().availableGeometry().center()
-        qr.moveCenter(cp)
-        self.move(qr.topLeft())

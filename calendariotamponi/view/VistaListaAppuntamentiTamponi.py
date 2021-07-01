@@ -72,9 +72,12 @@ class VistaListaAppuntamentiTamponi(QWidget):
         modifica_sierologico.clicked.connect(self.modifica_appuntamento_sierologico)
 
         self.setLayout(self.grid_layout)
-        self.resize(600, 300)
         self.setWindowTitle('Lista Appuntamenti Tamponi Giorno: {}'.format(self.data))
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
+
+        self.setMaximumSize(910, 630)
+        self.resize(910, 300)
+        self.move(0, 0)
 
 
     def get_list(self, tipologia, colonna):
@@ -159,6 +162,9 @@ class VistaListaAppuntamentiTamponi(QWidget):
                 msg.setInformativeText("La decisione è irreversibile!")
                 msg.setWindowTitle("Conferma eliminazione")
                 msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+
+                msg.move(250, 100)
+
                 if msg.exec() == QMessageBox.Ok:
                     self.controller.lettura_magazzino()
                     self.controller.aggiorna_magazzino(appuntamento_selezionato.tipo_tampone)
@@ -182,6 +188,9 @@ class VistaListaAppuntamentiTamponi(QWidget):
                 msg.setInformativeText("La decisione è irreversibile!")
                 msg.setWindowTitle("Conferma eliminazione")
                 msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+
+                msg.move(250, 100)
+
                 if msg.exec() == QMessageBox.Ok:
                     self.controller.lettura_magazzino()
                     self.controller.aggiorna_magazzino(appuntamento_selezionato.tipo_tampone)
@@ -205,6 +214,9 @@ class VistaListaAppuntamentiTamponi(QWidget):
                 msg.setInformativeText("La decisione è irreversibile!")
                 msg.setWindowTitle("Conferma eliminazione")
                 msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+
+                msg.move(250, 100)
+
                 if msg.exec() == QMessageBox.Ok:
                     self.controller.lettura_magazzino()
                     self.controller.aggiorna_magazzino(appuntamento_selezionato.tipo_tampone)

@@ -99,11 +99,7 @@ class VistaAppuntamentoTampone(QWidget):
         self.setLayout(v_layout)
         self.setWindowTitle("Appuntamento Tampone " + self.controller.get_nome() + " " + self.controller.get_cognome())
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
-        self.setMaximumSize(400, 600)
-        self.center()
 
-    def center(self):
-        qr = self.frameGeometry()
-        cp = QDesktopWidget().availableGeometry().center()
-        qr.moveCenter(cp)
-        self.move(qr.topLeft())
+        self.setMaximumSize(400, 500)
+        self.resize(400, 500)
+        self.move(200, 100)

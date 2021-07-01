@@ -77,6 +77,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
         self.setLayout(self.grid_layout)
         self.setWindowTitle('Lista Appuntamenti Vaccini Giorno: {}'.format(self.data))
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
+
         self.setMaximumSize(910, 400)
         self.resize(910, 400)
         self.move(0,0)
@@ -173,6 +174,8 @@ class VistaListaAppuntamentiVaccini(QWidget):
                 msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
                 msg.move(250,100)
 
+                msg.move(250,100)
+
                 if msg.exec() == QMessageBox.Ok:
                     self.controller.lettura_magazzino()
                     self.controller.aggiorna_magazzino(appuntamento_selezionato.vaccino)
@@ -199,6 +202,8 @@ class VistaListaAppuntamentiVaccini(QWidget):
                 msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
                 msg.move(250,100)
 
+                msg.move(250, 100)
+
                 if msg.exec() == QMessageBox.Ok:
                     self.controller.lettura_magazzino()
                     self.controller.aggiorna_magazzino(appuntamento_selezionato.vaccino)
@@ -224,6 +229,8 @@ class VistaListaAppuntamentiVaccini(QWidget):
                 msg.setWindowTitle("Conferma eliminazione")
                 msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
                 msg.move(250,100)
+
+                msg.move(250, 100)
 
                 if msg.exec() == QMessageBox.Ok:
                     self.controller.lettura_magazzino()

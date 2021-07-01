@@ -72,6 +72,10 @@ class VistaInserisciAppuntamentoTampone(QWidget):
         self.setWindowTitle("Nuovo Appuntamento")
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
+        self.setMaximumSize(550, 700)
+        self.resize(550, 700)
+        self.move(200, 0)
+
     def get_form_entry(self, tipo):
         self.v_layout.addWidget(QLabel(tipo))
         current_text_edit = QLineEdit(self)

@@ -136,9 +136,10 @@ class VistaAppuntamentoVaccino(QWidget):
         self.setLayout(v_layout)
         self.setWindowTitle("Appuntamento Vaccino " + self.controller.get_cartella_paziente_appuntamento().nome + " " + self.controller.get_cartella_paziente_appuntamento().cognome)
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
-        #self.resize(1300, 950)
-        self.setMaximumSize(2000, 1000)
-        self.center()
+
+        self.setMaximumSize(900, 800)
+        self.resize(900, 800)
+        self.move(0, 0)
 
 
     def get_label_anamnesi(self, domanda, chiave, posizione):

@@ -32,6 +32,10 @@ class VistaAggiornaFornitura(QWidget):
         self.setWindowTitle("Aggiornamento della fornitura di " + materiale.tipologia)
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
+        self.setMaximumSize(600, 100)
+        self.resize(600, 100)
+        self.move(70, 250)
+
     def aggiorna_quantita(self):
         ok = True
         if self.nuova_quantita.text() == "":

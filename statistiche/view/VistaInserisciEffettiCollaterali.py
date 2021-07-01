@@ -85,6 +85,10 @@ class VistaInserisciEffettiCollaterali(QWidget):
         self.setWindowTitle("Inserisci Effetti Collaterali")
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
+        self.setMaximumSize(300, 600)
+        self.resize(300, 600)
+        self.move(200, 0)
+
     def definisci_effetto_collaterale(self, effetto, descrizione):
         checkbox = QCheckBox(descrizione)
         self.info[effetto] = checkbox

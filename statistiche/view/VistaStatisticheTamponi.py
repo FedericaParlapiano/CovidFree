@@ -29,8 +29,11 @@ class VistaStatisticheTamponi(QWidget):
 
         self.setLayout(self.v_layout)
         self.setWindowTitle("Statistiche Tamponi")
-        self.resize(1000, 800)
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
+
+        self.setMaximumSize(1000, 800)
+        self.resize(1000, 800)
+        self.move(0, 0)
 
         for appuntamento in self.controller.get_elenco_appuntamenti_tamponi():
             for key in self.tampone_per_tipologia:

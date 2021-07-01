@@ -68,4 +68,8 @@ class VistaVaccino(QWidget):
         self.setWindowTitle("Vaccino " + self.controller.get_tipologia_materiale())
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
         self.setLayout(v_layout)
-        self.adjustSize()
+
+        self.setMaximumSize(400, 300)
+        self.resize(400, 300)
+        self.move(250, 190)
+

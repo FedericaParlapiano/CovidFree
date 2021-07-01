@@ -39,6 +39,11 @@ class VistaHome(QWidget):
         self.resize(910, 650)
         self.move(0, 0)
 
+        self.setLayout(grid_layout)
+        self.setMaximumSize(1000, 650)
+        self.resize(910, 650)
+        self.move(0, 0)
+
     def get_generic_button(self, titolo, colore, on_click):
         button = QPushButton(titolo)
         button.setStyleSheet("background-color: {}".format(colore))

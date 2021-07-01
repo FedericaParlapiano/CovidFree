@@ -59,10 +59,12 @@ class VistaInserisciDatiTamponi(QWidget):
         self.v_layout.addWidget(conferma)
 
         self.setLayout(self.v_layout)
-        self.resize(360, 200)
         self.setWindowTitle("Inserisci Dati Tamponi")
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
+        self.setMaximumSize(400, 250)
+        self.resize(360, 200)
+        self.move(270, 200)
 
 
     def salva_dati(self):
