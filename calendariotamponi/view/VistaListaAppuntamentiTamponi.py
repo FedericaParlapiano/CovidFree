@@ -75,8 +75,8 @@ class VistaListaAppuntamentiTamponi(QWidget):
         self.setWindowTitle('Lista Appuntamenti Tamponi Giorno: {}'.format(self.data))
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
-        self.setMaximumSize(910, 630)
-        self.resize(910, 300)
+        self.setMaximumSize(910, 400)
+        self.resize(910, 400)
         self.move(0, 0)
 
 

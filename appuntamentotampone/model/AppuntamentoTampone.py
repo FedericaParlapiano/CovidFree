@@ -2,6 +2,7 @@ class AppuntamentoTampone():
 
     def __init__(self, nome, cognome, cf, telefono, indirizzo, data_nascita, data_appuntamento, fascia_oraria, is_drive_through, tipo_tampone):
         super(AppuntamentoTampone, self).__init__()
+
         self.nome = nome
         self.cognome = cognome
         self.cf = cf
