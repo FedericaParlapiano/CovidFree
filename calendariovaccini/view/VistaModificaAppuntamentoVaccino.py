@@ -76,10 +76,6 @@ class VistaModificaAppuntamentoVaccino(QWidget):
         self.resize(400, 500)
         self.move(200, 0)
 
-        self.setMaximumSize(400, 650)
-        self.resize(400, 650)
-        self.move(200, 0)
-
     def get_form_entry(self, tipo, campo):
         self.v_layout.addWidget(QLabel(tipo))
         current_text_edit = QLineEdit(self)

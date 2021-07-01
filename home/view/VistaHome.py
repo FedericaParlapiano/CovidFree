@@ -35,10 +35,6 @@ class VistaHome(QWidget):
         self.setWindowTitle("Clinica COVID FREE")
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
-        self.setMaximumSize(1000, 650)
-        self.resize(910, 650)
-        self.move(0, 0)
-
         self.setLayout(grid_layout)
         self.setMaximumSize(1000, 650)
         self.resize(910, 650)

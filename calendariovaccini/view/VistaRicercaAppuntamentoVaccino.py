@@ -43,10 +43,6 @@ class VistaRicercaAppuntamentoVaccino(QWidget):
         self.resize(400, 300)
         self.move(170, 200)
 
-        self.setMaximumSize(400, 300)
-        self.resize(500, 200)
-        self.move(170, 200)
-
     def get_parametri_di_ricerca(self, tipo):
         self.v_layout.addWidget(QLabel(tipo))
         current_text_edit = QLineEdit(self)
