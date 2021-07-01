@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPixmap, QIcon
+from PyQt5.QtGui import QPixmap, QIcon, QFont
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QGridLayout, \
     QDesktopWidget
 from appuntamentovaccino.controller.ControlloreAppuntamentoVaccino import ControlloreAppuntamentoVaccino
@@ -7,35 +7,31 @@ from appuntamentovaccino.controller.ControlloreAppuntamentoVaccino import Contro
 class VistaAppuntamentoVaccino(QWidget):
 
     def __init__(self, appuntamento, parent=None):
-        super(VistaAppuntamentoVaccino, self).__init__()
+        super(VistaAppuntamentoVaccino, self).__init__(parent)
         self.controller = ControlloreAppuntamentoVaccino(appuntamento)
+
         self.grid_layout = QGridLayout()
         v_layout = QVBoxLayout()
 
+        font = QFont('Arial Nova Light')
+
         label_data = QLabel("Data: {} ".format(self.controller.get_data_appuntamento()))
-        font_data = label_data.font()
-        font_data.setPointSize(20)
-        font_data.setFamily('Georgia')
-        font_data.setCapitalization(True)
-        label_data.setFont(font_data)
+        font.setPointSize(19)
+        font.setCapitalization(True)
+        label_data.setFont(font)
         label_data.setAlignment(Qt.AlignCenter)
         v_layout.addWidget(label_data)
 
         label_ora = QLabel("Orario: {} ".format(self.controller.get_orario_appuntamento()))
-        font_ora = label_ora.font()
-        font_ora.setPointSize(20)
-        font_ora.setFamily('Georgia')
-        label_ora.setFont(font_data)
+        label_ora.setFont(font)
         label_ora.setAlignment(Qt.AlignCenter)
         v_layout.addWidget(label_ora)
 
         v_layout.addItem(QSpacerItem(10, 10, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         label_tipo = QLabel("Tipo vaccino: {}".format(self.controller.get_vaccino_appuntamento()))
-        font_tipo = label_tipo.font()
-        font_tipo.setPointSize(18)
-        font_tipo.setFamily('Georgia')
-        label_tipo.setFont(font_tipo)
+        font.setPointSize(15)
+        label_tipo.setFont(font)
         label_tipo.setAlignment(Qt.AlignCenter)
         v_layout.addWidget(label_tipo)
 
@@ -49,75 +45,52 @@ class VistaAppuntamentoVaccino(QWidget):
         v_layout.addWidget(label_im)
 
         label_id = QLabel("{}".format(self.controller.get_id_appuntamento()))
-        font_id = label_id.font()
-        font_id.setPointSize(15)
-        font_id.setFamily('Georgia')
-        label_id.setFont(font_id)
         label_id.setAlignment(Qt.AlignCenter)
         v_layout.addWidget(label_id)
         v_layout.addItem(QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         label_nome = QLabel("Nome e cognome: {} {}".format(self.controller.get_cartella_paziente_appuntamento().nome, self.controller.get_cartella_paziente_appuntamento().cognome))
-        font_nome = label_nome.font()
-        font_nome.setPointSize(20)
-        font_nome.setFamily('Georgia')
-        font_nome.setItalic(True)
-        label_nome.setFont(font_nome)
+        font.setPointSize(18)
+        font.setItalic(True)
+        label_nome.setFont(font)
         v_layout.addWidget(label_nome)
+        font.setItalic(False)
 
         label = QLabel("Dati personali")
-        font = label.font()
         font.setPointSize(15)
-        font.setFamily('Georgia')
         font.setUnderline(True)
         label.setFont(font)
         v_layout.addWidget(label)
+        font.setUnderline(False)
 
         label_cf = QLabel("Codice fiscale: {}".format(self.controller.get_cartella_paziente_appuntamento().cf))
-        font_cf = label_cf.font()
-        font_cf.setPointSize(12)
-        font_cf.setFamily('Georgia')
-        label_cf.setFont(font_cf)
+        font.setPointSize(12)
+        label_cf.setFont(font)
         v_layout.addWidget(label_cf)
 
         label_telefono = QLabel("Telefono: {}".format(self.controller.get_cartella_paziente_appuntamento().telefono))
-        font_telefono = label_telefono.font()
-        font_telefono.setPointSize(12)
-        font_telefono.setFamily('Georgia')
-        label_telefono.setFont(font_telefono)
+        label_telefono.setFont(font)
         v_layout.addWidget(label_telefono)
 
         label_indirizzo = QLabel("Indirizzo: {}".format(self.controller.get_cartella_paziente_appuntamento().indirizzo))
-        font_indirizzo = label_indirizzo.font()
-        font_indirizzo.setPointSize(12)
-        font_indirizzo.setFamily('Georgia')
-        label_indirizzo.setFont(font_indirizzo)
+        label_indirizzo.setFont(font)
         v_layout.addWidget(label_indirizzo)
 
         label_data_nascita = QLabel("Data di nascita: {}".format(self.controller.get_cartella_paziente_appuntamento().data_di_nascita))
-        font_data_nascita = label_data_nascita.font()
-        font_data_nascita.setPointSize(12)
-        font_data_nascita.setFamily('Georgia')
-        label_data_nascita.setFont(font_data_nascita)
+        label_data_nascita.setFont(font)
         v_layout.addWidget(label_data_nascita)
 
         if appuntamento.is_a_domicilio:
             label_is_a_domicilio = QLabel("Appuntamento a domicilio: Richiesto")
         else:
             label_is_a_domicilio = QLabel("Appuntamento a domicilio: Non richiesto")
-
-        font_is_a_domicilio = label_is_a_domicilio.font()
-        font_is_a_domicilio.setPointSize(12)
-        font_is_a_domicilio.setFamily('Georgia')
-        label_is_a_domicilio.setFont(font_is_a_domicilio)
+        label_is_a_domicilio.setFont(font)
         v_layout.addWidget(label_is_a_domicilio)
         v_layout.addItem(QSpacerItem(30, 50, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         label_anamnesi = QLabel("Anamnesi")
-        font_anamnesi = label_anamnesi.font()
-        font_anamnesi.setPointSize(15)
-        font_anamnesi.setFamily('Georgia')
-        font_anamnesi.setUnderline(True)
+        font.setPointSize(14)
+        font.setUnderline(True)
         label_anamnesi.setFont(font)
         v_layout.addWidget(label_anamnesi)
 
@@ -134,25 +107,17 @@ class VistaAppuntamentoVaccino(QWidget):
 
         v_layout.addLayout(self.grid_layout)
         self.setLayout(v_layout)
+        self.setFont(QFont('Arial Nova Light', 14))
         self.setWindowTitle("Appuntamento Vaccino " + self.controller.get_cartella_paziente_appuntamento().nome + " " + self.controller.get_cartella_paziente_appuntamento().cognome)
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
-        self.setMaximumSize(900, 800)
-        self.resize(900, 800)
+        self.setMaximumSize(800, 700)
+        self.resize(800, 700)
         self.move(0, 0)
-
 
     def get_label_anamnesi(self, domanda, chiave, posizione):
         label_domanda = QLabel(domanda + " " + self.controller.get_cartella_paziente_appuntamento().anamnesi[chiave])
         font_domanda = label_domanda.font()
         font_domanda.setPointSize(12)
-        font_domanda.setFamily('Georgia')
         label_domanda.setFont(font_domanda)
         self.grid_layout.addWidget(label_domanda, posizione, 0)
-
-    def center(self):
-        qr = self.frameGeometry()
-        cp = QDesktopWidget().availableGeometry().center()
-        qr.moveCenter(cp)
-        self.move(qr.topLeft())
-

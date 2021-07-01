@@ -87,7 +87,6 @@ class VistaListaAppuntamentiVaccini(QWidget):
         v_layout_tipologia = QVBoxLayout()
         label_tipologia = QLabel(tipologia)
         font_tipologia = label_tipologia.font()
-        font_tipologia.setFamily('Georgia')
         font_tipologia.setPointSize(15)
         font_tipologia.setItalic(True)
         label_tipologia.setFont(font_tipologia)
