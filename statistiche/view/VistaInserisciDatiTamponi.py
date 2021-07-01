@@ -16,7 +16,7 @@ class VistaInserisciDatiTamponi(QWidget):
 
         self.v_layout = QVBoxLayout()
 
-        font = QFont("Georgia",10)
+        font = QFont('Arial Nova Light', 10)
         font.setUnderline(True)
 
         self.label = QLabel("Risultato Tampone:")
@@ -35,9 +35,6 @@ class VistaInserisciDatiTamponi(QWidget):
         grid_layout.addWidget(self.negativo, 0, 1)
         self.v_layout.addLayout(grid_layout)
 
-        #self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
-
-        #if self.positivo.isChecked():
         self.sintomi = QLabel("Se positivo, presenta Sintomi?")
         self.sintomi.setFont(font)
         self.v_layout.addWidget(self.sintomi)
@@ -59,6 +56,7 @@ class VistaInserisciDatiTamponi(QWidget):
         self.v_layout.addWidget(conferma)
 
         self.setLayout(self.v_layout)
+        self.setFont(QFont('Arial Nova Light'))
         self.setWindowTitle("Inserisci Dati Tamponi")
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 

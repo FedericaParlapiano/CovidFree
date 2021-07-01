@@ -37,6 +37,7 @@ class VistaStatistiche(QWidget):
         v_layout.addLayout(v_layout_tamponi)
 
         self.setLayout(v_layout)
+        self.setFont(QFont('Arial Nova Light'))
         self.setWindowTitle("Statistiche")
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
@@ -48,7 +49,6 @@ class VistaStatistiche(QWidget):
         label = QLabel(testo)
         font_label = label.font()
         font_label.setPointSize(15)
-        font_label.setFamily('Georgia')
         font_label.setBold(True)
         label.setFont(font_label)
         label.setAlignment(Qt.AlignCenter)
@@ -56,7 +56,7 @@ class VistaStatistiche(QWidget):
 
     def get_button(self, testo, layout, riga, colonna, colore, connect):
         button = QPushButton(testo)
-        button.setFont(QFont('Georgia', 10))
+        button.setFont(QFont('Arial Nova Light', 10))
         button.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
         button.setStyleSheet("background-color: {}" .format(colore))
         button.clicked.connect(connect)

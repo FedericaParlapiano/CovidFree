@@ -88,5 +88,6 @@ class VistaCalendarioVaccini(QWidget):
     def calendar_date(self):
         dateselected = self.calendario_vaccini.selectedDate()
         data_selezionata = str(dateselected.toPyDate())
+        self.setFont(QFont('Arial Nova Light', 12))
         self.label.setText("Data selezionata : " + data_selezionata)
         return data_selezionata

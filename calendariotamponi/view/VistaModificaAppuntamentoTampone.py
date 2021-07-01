@@ -10,15 +10,14 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGridLayout, QLabel, QListView
 
 from appuntamentotampone.model.AppuntamentoTampone import AppuntamentoTampone
 from appuntamentotampone.view.VistaAppuntamentoTampone import VistaAppuntamentoTampone
-from calendariotamponi.controller.ControlloreCalendarioTamponi import ControlloreCalendarioTamponi
 
 
 class VistaModificaAppuntamentoTampone(QWidget):
 
-    def __init__(self, appuntamento):
-        super(VistaModificaAppuntamentoTampone, self).__init__()
-        self.controller = ControlloreCalendarioTamponi()
+    def __init__(self, controller, appuntamento):
+        super(VistaModificaAppuntamentoTampone, self).__init__(parent=None)
 
+        self.controller = controller
         self.appuntamento = appuntamento
         self.info = {}
 
@@ -74,12 +73,14 @@ class VistaModificaAppuntamentoTampone(QWidget):
         self.v_layout.addWidget(btn_ok)
 
         self.setLayout(self.v_layout)
+
+        self.setFont(QFont('Arial Nova Light', 12))
         self.setWindowTitle("Nuovo Appuntamento")
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
         self.setMaximumSize(400, 650)
         self.resize(400, 650)
-        self.move(200, 0)
+        self.move(90, 0)
 
     def get_form_entry(self, tipo, campo):
         self.v_layout.addWidget(QLabel(tipo))
@@ -190,7 +191,7 @@ class VistaModificaAppuntamentoTampone(QWidget):
         calendario.setMaximumDate(
             QDate(currentYear + 1, currentMonth, calendar.monthrange(currentYear, currentMonth)[1]))
         calendario.setSelectedDate(QDate(currentYear, currentMonth, 1))
-        calendario.setFont(QFont('Georgia', 10))
+        calendario.setFont(QFont('Arial Nova Light', 10))
         calendario.setStyleSheet('background-color: lightblue')
         calendario.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         calendario.setGeometry(200, 200, 300, 200)
@@ -218,7 +219,6 @@ class VistaModificaAppuntamentoTampone(QWidget):
             item.setText(fascia)
             item.setEditable(False)
             font = item.font()
-            font.setFamily('Georgia')
             font.setPointSize(12)
             item.setFont(font)
             self.list_view_orario_model.appendRow(item)

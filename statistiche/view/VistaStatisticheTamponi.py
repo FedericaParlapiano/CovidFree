@@ -28,6 +28,7 @@ class VistaStatisticheTamponi(QWidget):
         self.bottoni()
 
         self.setLayout(self.v_layout)
+        self.setFont(QFont('Arial Nova Light', 12))
         self.setWindowTitle("Statistiche Tamponi")
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
@@ -65,21 +66,18 @@ class VistaStatisticheTamponi(QWidget):
 
     def bottoni(self):
         button_tamponi_somministrati = QPushButton("Statistiche sui tamponi effettuati")
-        button_tamponi_somministrati.setFont(QFont('Georgia', 10))
         button_tamponi_somministrati.setFixedSize(480, 70)
         button_tamponi_somministrati.setStyleSheet("background-color: rgb(150,180,255)")
         button_tamponi_somministrati.clicked.connect(self.go_tamponi_somministrati)
         self.grid_layout.addWidget(button_tamponi_somministrati, 1, 0)
 
         button_positivi = QPushButton("Statistiche sui casi risultati positivi")
-        button_positivi.setFont(QFont('Georgia', 10))
         button_positivi.setFixedSize(480, 70)
         button_positivi.setStyleSheet("background-color: rgb(150,180,255)")
         button_positivi.clicked.connect(self.go_positivi)
         self.grid_layout.addWidget(button_positivi, 1, 1)
 
         button_sintomi = QPushButton("Statistiche sulla sintomatologia")
-        button_sintomi.setFont(QFont('Georgia', 10))
         button_sintomi.setFixedSize(480, 70)
         button_sintomi.setStyleSheet("background-color: rgb(150,180,255)")
         button_sintomi.clicked.connect(self.go_sintomi)
@@ -116,7 +114,7 @@ class VistaStatisticheTamponi(QWidget):
             chart.addSeries(torta)
             chart.setAnimationOptions(QChart.SeriesAnimations)
             chart.setTitle(titolo)
-            chart.setTitleFont(QFont('Georgia', 13, weight=QtGui.QFont.Bold))
+            chart.setTitleFont(QFont('Arial Nova Light', 15, weight=QtGui.QFont.Bold))
             chart.setTitleBrush(QColor(120,160, 254))
             chart.legend().setAlignment(Qt.AlignRight)
 
@@ -129,11 +127,6 @@ class VistaStatisticheTamponi(QWidget):
             self.grid_layout.addWidget(self.chartview, riga, colonna)
         else:
             label = QLabel("Al momento non sono ancora \n disponibili dati su \n" + titolo)
-            font_label = label.font()
-            font_label.setPointSize(12)
-            font_label.setFamily('Georgia')
-            font_label.setBold(True)
-            label.setFont(font_label)
             label.setAlignment(Qt.AlignCenter)
             self.grid_layout.addWidget(label, riga, colonna)
 

@@ -21,8 +21,6 @@ class VistaRicercaAppuntamentoTampone(QWidget):
         self.get_parametri_di_ricerca("Codice fiscale:")
 
         self.label = QLabel("Appuntamento per:")
-        font = QFont("Georgia", 12)
-        self.label.setFont(font)
         self.v_layout.addWidget(self.label)
 
         self.antigenico = QRadioButton('Antigenico Rapido')
@@ -40,6 +38,7 @@ class VistaRicercaAppuntamentoTampone(QWidget):
         self.v_layout.addWidget(btn)
 
         self.setLayout(self.v_layout)
+        self.setFont(QFont('Arial Nova Light', 12))
         self.setWindowTitle("Ricerca appuntamento")
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 

@@ -1,20 +1,18 @@
 from datetime import date
 
 from PyQt5 import QtGui
-from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon
+from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon, QFont
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QLabel, QGridLayout, QMessageBox
 
 from appuntamentotampone.view.VistaAppuntamentoTampone import VistaAppuntamentoTampone
-from calendariotamponi.controller.ControlloreCalendarioTamponi import ControlloreCalendarioTamponi
 from calendariotamponi.view.VistaModificaAppuntamentoTampone import VistaModificaAppuntamentoTampone
 
 
 class VistaListaAppuntamentiTamponi(QWidget):
-    def __init__(self, controller, data, callback):
+    def __init__(self, controller, data):
 
         super(VistaListaAppuntamentiTamponi, self).__init__()
-        self.controller = ControlloreCalendarioTamponi()
-        self.callback = callback
+        self.controller = controller
         self.data = data
 
         self.elenco_antigenico = []
@@ -72,6 +70,7 @@ class VistaListaAppuntamentiTamponi(QWidget):
         modifica_sierologico.clicked.connect(self.modifica_appuntamento_sierologico)
 
         self.setLayout(self.grid_layout)
+        self.setFont(QFont('Arial Nova Light', 14))
         self.setWindowTitle('Lista Appuntamenti Tamponi Giorno: {}'.format(self.data))
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
@@ -84,7 +83,6 @@ class VistaListaAppuntamentiTamponi(QWidget):
         v_layout_tipologia = QVBoxLayout()
         label_tipologia = QLabel(tipologia)
         font_tipologia = label_tipologia.font()
-        font_tipologia.setFamily('Georgia')
         font_tipologia.setPointSize(15)
         font_tipologia.setItalic(True)
         label_tipologia.setFont(font_tipologia)
@@ -127,7 +125,6 @@ class VistaListaAppuntamentiTamponi(QWidget):
                 item.setText(appuntamento.nome + " " + appuntamento.cognome)
                 item.setEditable(False)
                 font = item.font()
-                font.setFamily('Georgia')
                 font.setPointSize(12)
                 item.setFont(font)
                 if appuntamento.is_drive_through:
@@ -228,7 +225,7 @@ class VistaListaAppuntamentiTamponi(QWidget):
         if self.list_view_antigenico.selectedIndexes():
             selected = self.list_view_antigenico.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_antigenico[selected]
-            self.vista_modifica = VistaModificaAppuntamentoTampone(appuntamento_selezionato)
+            self.vista_modifica = VistaModificaAppuntamentoTampone(self.controller, appuntamento_selezionato)
             self.vista_modifica.show()
             self.close()
 
@@ -236,7 +233,7 @@ class VistaListaAppuntamentiTamponi(QWidget):
         if self.list_view_molecolare.selectedIndexes():
             selected = self.list_view_molecolare.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_molecolare[selected]
-            self.vista_modifica = VistaModificaAppuntamentoTampone(appuntamento_selezionato)
+            self.vista_modifica = VistaModificaAppuntamentoTampone(self.controller, appuntamento_selezionato)
             self.vista_modifica.show()
             self.close()
 
@@ -244,6 +241,6 @@ class VistaListaAppuntamentiTamponi(QWidget):
         if self.list_view_sierologico.selectedIndexes():
             selected = self.list_view_sierologico.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_sierologico[selected]
-            self.vista_modifica = VistaModificaAppuntamentoTampone(appuntamento_selezionato)
+            self.vista_modifica = VistaModificaAppuntamentoTampone(self.controller, appuntamento_selezionato)
             self.vista_modifica.show()
             self.close()

@@ -1,4 +1,4 @@
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QSpacerItem, QSizePolicy
 from PyQt5.QtCore import Qt
 
@@ -7,55 +7,45 @@ from materiale.controller.ControlloreMateriale import ControlloreMateriale
 class VistaTampone(QWidget):
     def __init__(self, tampone, parent=None):
         super(VistaTampone, self).__init__(parent)
-        self.controller = ControlloreMateriale(tampone)
 
+        self.controller = ControlloreMateriale(tampone)
         v_layout = QVBoxLayout()
+        font = QFont('Arial Nova Light')
 
         label = QLabel("Tampone")
-        label.setStyleSheet("border-radius: 20px; border: 2px solid green;")
-        font_label = label.font()
-        font_label.setPointSize(30)
-        font_label.setFamily('Georgia')
-        font_label.setCapitalization(True)
-        label.setFont(font_label)
+
+        label.setStyleSheet("border-radius: 20px; border: 2px solid black;")
+        font.setPointSize(25)
+        font.setCapitalization(True)
+        label.setFont(font)
         label.setAlignment(Qt.AlignCenter)
         v_layout.addWidget(label)
+        font.setCapitalization(False)
 
         label_nome = QLabel("Tipo: \'{}\'".format(self.controller.get_tipologia_materiale()))
-        font_nome = label_nome.font()
-        font_nome.setPointSize(20)
-        font_nome.setFamily('Georgia')
-        label_nome.setFont(font_nome)
+        font.setPointSize(20)
+        label_nome.setFont(font)
         v_layout.addWidget(label_nome)
 
         line = QSpacerItem(0, 30, QSizePolicy.Minimum, QSizePolicy.Minimum)
         v_layout.addItem(line)
 
         label_id = QLabel("Id: {}".format(self.controller.get_id_materiale()))
-        font_id = label_id.font()
-        font_id.setPointSize(16)
-        font_id.setFamily('Georgia')
-        font_id.setItalic(True)
-        label_id.setFont(font_id)
+        font.setPointSize(16)
+        font.setItalic(True)
+        label_id.setFont(font)
         v_layout.addWidget(label_id)
 
         label_quantita = QLabel("Quantità: {}".format(self.controller.get_quantita_materiale()))
-        font_quantita = label_quantita.font()
-        font_quantita.setPointSize(16)
-        font_quantita.setFamily('Georgia')
-        font_quantita.setItalic(True)
-        label_quantita.setFont(font_quantita)
+        label_quantita.setFont(font)
         v_layout.addWidget(label_quantita)
 
         label_prezzo = QLabel("Prezzo: €{}".format(self.controller.get_prezzo_tampone()))
-        font_prezzo = label_prezzo.font()
-        font_prezzo.setPointSize(16)
-        font_prezzo.setFamily('Georgia')
-        font_prezzo.setItalic(True)
-        label_prezzo.setFont(font_prezzo)
+        label_prezzo.setFont(font)
         v_layout.addWidget(label_prezzo)
 
         self.setWindowTitle("Tampone " + self.controller.get_tipologia_materiale())
+        self.setFont(QFont('Arial Nova Light'))
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
         self.setLayout(v_layout)
 

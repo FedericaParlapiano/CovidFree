@@ -16,7 +16,7 @@ class VistaInserisciEffettiCollaterali(QWidget):
 
         self.v_layout = QVBoxLayout()
 
-        font = QFont("Georgia",10)
+        font = QFont('Arial Nova Light', 10)
 
         self.label = QLabel("Selezionare quale vaccino è stato somministrato al paziente?")
         self.label.setFont(font)
@@ -81,7 +81,7 @@ class VistaInserisciEffettiCollaterali(QWidget):
         self.v_layout.addWidget(conferma)
 
         self.setLayout(self.v_layout)
-        self.resize(300,600)
+        self.setFont(QFont('Arial Nova Light'))
         self.setWindowTitle("Inserisci Effetti Collaterali")
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 

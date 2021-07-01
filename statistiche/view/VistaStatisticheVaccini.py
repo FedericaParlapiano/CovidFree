@@ -9,8 +9,9 @@ from statistiche.controller.ControlloreStatistiche import ControlloreStatistiche
 
 class VistaStatisticheVaccini(QWidget):
 
-    def __init__(self, parent=None, v_layout=None):
+    def __init__(self, parent=None):
         super(VistaStatisticheVaccini, self).__init__(parent)
+
         self.controller = ControlloreStatistiche()
         self.vaccino_per_tipologia = {"Astrazeneca": 0, "Moderna": 0, "Pfizer": 0}
         self.effetti_collaterali_astrazeneca = {}
@@ -21,6 +22,8 @@ class VistaStatisticheVaccini(QWidget):
         self.h_layout = QHBoxLayout()
         self.v_layout = QVBoxLayout()
         self.v_layout_effetti = QHBoxLayout()
+
+        self.setFont(QFont('Arial Nova Light'))
         self.setWindowTitle("Statistiche Vaccini")
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
@@ -78,7 +81,7 @@ class VistaStatisticheVaccini(QWidget):
             chart.addSeries(torta)
             chart.setAnimationOptions(QChart.SeriesAnimations)
             chart.setTitle(titolo)
-            chart.setTitleFont(QFont('Georgia', 15, weight=QtGui.QFont.Bold))
+            chart.setTitleFont(QFont('Arial Nova Light', 15, weight=QtGui.QFont.Bold))
             chart.setTitleBrush(QColor(160, 200, 254))
             chart.legend().setAlignment(Qt.AlignRight)
             i = 0
@@ -92,8 +95,7 @@ class VistaStatisticheVaccini(QWidget):
             label = QLabel("Al momento non sono ancora \n disponibili dati su " + titolo)
             font_label = label.font()
             font_label.setPointSize(12)
-            font_label.setFamily('Georgia')
-            font_label.setBold(True)
+            font_label.setFamily('Arial Nova Light')
             label.setFont(font_label)
             label.setAlignment(Qt.AlignCenter)
             self.grid_layout.addWidget(label, riga, colonna)

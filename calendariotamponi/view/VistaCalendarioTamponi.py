@@ -1,8 +1,7 @@
 from datetime import datetime
 import calendar
 from PyQt5.QtGui import QFont, QIcon
-from PyQt5.QtWidgets import QWidget, QCalendarWidget, QSizePolicy, QVBoxLayout, QPushButton, QHBoxLayout, QLabel, \
-    QGridLayout, QDesktopWidget
+from PyQt5.QtWidgets import QWidget, QCalendarWidget, QSizePolicy, QVBoxLayout, QPushButton, QLabel, QGridLayout
 from PyQt5.QtCore import QDate, Qt
 
 from calendariotamponi.controller.ControlloreCalendarioTamponi import ControlloreCalendarioTamponi
@@ -27,7 +26,6 @@ class VistaCalendarioTamponi(QWidget):
         self.label = QLabel('')
         calendar_layout.addWidget(self.label)
 
-
         buttons_layout = QVBoxLayout()
         buttons_layout.addWidget(self.get_generic_button("Visualizza", self.show_selected_data))
         buttons_layout.addWidget(self.get_generic_button("Aggiungi Appuntamento", self.show_add_appuntamento))
@@ -37,11 +35,12 @@ class VistaCalendarioTamponi(QWidget):
         grid_layout.addLayout(buttons_layout, 0, 1, alignment=Qt.AlignBottom)
 
         self.setLayout(grid_layout)
+        self.setFont(QFont('Arial Nova Light'))
         self.setWindowTitle("Calendario Appuntamenti Tamponi")
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
         self.setMaximumSize(1000, 650)
-        self.resize(915, 650)
+        self.resize(910, 650)
         self.move(0, 0)
 
     def init_calendario(self):
@@ -49,13 +48,12 @@ class VistaCalendarioTamponi(QWidget):
         currentMonth = datetime.now().month
         currentYear = datetime.now().year
 
-
         calendario.setMinimumDate(QDate(currentYear, currentMonth, 1))
         calendario.setMaximumDate(
             QDate(currentYear + 1, currentMonth, calendar.monthrange(currentYear, currentMonth)[1]))
         calendario.setSelectedDate(QDate(currentYear, currentMonth, 1))
 
-        calendario.setFont(QFont('Georgia', 10))
+        calendario.setFont(QFont('Arial Nova Light', 18))
         calendario.setStyleSheet('background-color: lightblue')
 
         calendario.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
@@ -65,28 +63,25 @@ class VistaCalendarioTamponi(QWidget):
 
     def get_generic_button(self, titolo, on_click):
         button = QPushButton(titolo)
-        button.setFont(QFont('Georgia', 13))
+        button.setFont(QFont('Arial Nova Light', 15))
         button.clicked.connect(on_click)
         return button
 
     def show_selected_data(self):
-        self.vista_visualizza_appuntamenti = VistaListaAppuntamentiTamponi(self.controller, self.calendar_date(), self.update_ui)
+        self.vista_visualizza_appuntamenti = VistaListaAppuntamentiTamponi(self.controller, self.calendar_date())
         self.vista_visualizza_appuntamenti.show()
 
     def show_add_appuntamento(self):
-        self.vista_inserisci_appuntamento = VistaInserisciAppuntamentoTampone(self.controller, self.update_ui)
+        self.vista_inserisci_appuntamento = VistaInserisciAppuntamentoTampone(self.controller)
         self.vista_inserisci_appuntamento.show()
 
     def show_ricerca_appuntamento(self):
         self.vista_ricerca_appuntamento = VistaRicercaAppuntamentoTampone()
         self.vista_ricerca_appuntamento.show()
 
-    def update_ui(self):
-        pass
-
     def calendar_date(self):
         dateselected = self.calendario_tamponi.selectedDate()
         data_selezionata = str(dateselected.toPyDate())
-
+        self.setFont(QFont('Arial Nova Light', 12))
         self.label.setText("Data selezionata : " + data_selezionata)
         return data_selezionata

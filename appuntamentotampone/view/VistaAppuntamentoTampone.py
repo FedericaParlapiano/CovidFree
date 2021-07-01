@@ -33,7 +33,7 @@ class VistaAppuntamentoTampone(QWidget):
 
         label_tipo = QLabel("Tipo tampone: {}".format(self.controller.get_tipo_tampone()))
         font_tipo = label_tipo.font()
-        font_tipo.setPointSize(19)
+        font_tipo.setPointSize(15)
         label_tipo.setFont(font_tipo)
         label_tipo.setAlignment(Qt.AlignCenter)
         v_layout.addWidget(label_tipo)
@@ -83,6 +83,6 @@ class VistaAppuntamentoTampone(QWidget):
         self.setWindowTitle("Appuntamento Tampone " + self.controller.get_nome() + " " + self.controller.get_cognome())
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
-        self.setMaximumSize(400, 500)
-        self.resize(400, 500)
+        self.setMaximumSize(400, 450)
+        self.resize(400, 450)
         self.move(200, 100)

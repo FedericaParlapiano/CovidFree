@@ -14,12 +14,6 @@ class CalendarioTamponi():
     def aggiungi_appuntamento(self, appuntamento):
         self.elenco_appuntamenti.append(appuntamento)
 
-    def get_appuntamento_by_data(self, data):
-        return self.elenco_appuntamenti[data]
-
-    def get_appuntamento_by_index(self,index):
-        return self.elenco_appuntamenti[index]
-
     def get_elenco_appuntamenti(self):
         return self.elenco_appuntamenti
 
@@ -55,7 +49,6 @@ class CalendarioTamponi():
                         pickle.dump(self.tamponi_presenti, handle, pickle.HIGHEST_PROTOCOL)
         return prenotato
 
-
     def get_appuntamento(self, nome, cognome, data_nascita):
         for appuntamento in self.elenco_appuntamenti:
             if appuntamento.nome == nome and appuntamento.cognome == cognome and appuntamento.data_nascita == data_nascita:
@@ -64,6 +57,7 @@ class CalendarioTamponi():
 
     def get_appuntamento_by_cf(self, nome, cognome, data_nascita, cf, tipo_tampone):
         for appuntamento in self.elenco_appuntamenti:
-            if appuntamento.nome == nome and appuntamento.cognome == cognome and appuntamento.data_nascita == data_nascita and appuntamento.cf == cf and appuntamento.tipo_tampone == tipo_tampone:
+            if appuntamento.nome == nome and appuntamento.cognome == cognome and appuntamento.data_nascita == data_nascita and appuntamento.cf == cf \
+                    and appuntamento.tipo_tampone == tipo_tampone:
                 return appuntamento
         return None

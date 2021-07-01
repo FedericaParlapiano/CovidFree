@@ -72,9 +72,8 @@ class VistaListaAppuntamentiVaccini(QWidget):
         elimina_pfizer.clicked.connect(self.elimina_appuntamento_pfizer)
         modifica_pfizer.clicked.connect(self.modifica_appuntamento_pfizer)
 
-        self.setFont(QFont('Arial Nova Light', 14))
-
         self.setLayout(self.grid_layout)
+        self.setFont(QFont('Arial Nova Light', 14))
         self.setWindowTitle('Lista Appuntamenti Vaccini Giorno: {}'.format(self.data))
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 

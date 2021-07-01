@@ -1,6 +1,4 @@
 import calendar
-import os
-import pickle
 from datetime import date, datetime
 from PyQt5.QtCore import QDate
 from PyQt5.QtGui import QFont, QStandardItemModel, QStandardItem, QIcon
@@ -12,10 +10,10 @@ from appuntamentotampone.view.VistaAppuntamentoTampone import VistaAppuntamentoT
 
 class VistaInserisciAppuntamentoTampone(QWidget):
 
-    def __init__(self, controller, callback):
-        super(VistaInserisciAppuntamentoTampone, self).__init__()
+    def __init__(self, controller):
+        super(VistaInserisciAppuntamentoTampone, self).__init__(parent=None)
+
         self.controller = controller
-        self.callback = callback
         self.info = {}
 
         self.v_layout = QVBoxLayout()
@@ -70,11 +68,12 @@ class VistaInserisciAppuntamentoTampone(QWidget):
 
         self.setLayout(self.v_layout)
         self.setWindowTitle("Nuovo Appuntamento")
+        self.setFont(QFont('Arial Nova Light', 12))
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
         self.setMaximumSize(620, 700)
         self.resize(620, 700)
-        self.move(200, 0)
+        self.move(90, 0)
 
     def get_form_entry(self, tipo):
         self.v_layout.addWidget(QLabel(tipo))
@@ -155,7 +154,6 @@ class VistaInserisciAppuntamentoTampone(QWidget):
         calendario.setMaximumDate(
             QDate(currentYear + 1, currentMonth, calendar.monthrange(currentYear, currentMonth)[1]))
         calendario.setSelectedDate(QDate(currentYear, currentMonth, 1))
-        calendario.setFont(QFont('Georgia', 10))
         calendario.setStyleSheet('background-color: lightblue')
         calendario.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         calendario.setGeometry(200, 200, 300, 200)
@@ -182,7 +180,6 @@ class VistaInserisciAppuntamentoTampone(QWidget):
             item.setText(fascia)
             item.setEditable(False)
             font = item.font()
-            font.setFamily('Georgia')
             font.setPointSize(12)
             item.setFont(font)
             self.list_view_orario_model.appendRow(item)
