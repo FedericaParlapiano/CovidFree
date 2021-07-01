@@ -1,4 +1,4 @@
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox
 
 from materiale.controller.ControlloreMateriale import ControlloreMateriale
@@ -14,11 +14,6 @@ class VistaAggiornaFornitura(QWidget):
 
         v_layout = QVBoxLayout()
         label_fornitura = QLabel("Inserisci la quantità del materiale da aggiungere al magazzino:")
-        font_fornitura = label_fornitura.font()
-        font_fornitura.setPointSize(16)
-        font_fornitura.setFamily('Georgia')
-        font_fornitura.setItalic(True)
-        label_fornitura.setFont(font_fornitura)
         v_layout.addWidget(label_fornitura)
 
         self.nuova_quantita = QLineEdit(self)
@@ -29,6 +24,7 @@ class VistaAggiornaFornitura(QWidget):
         v_layout.addWidget(btn_ok)
 
         self.setLayout(v_layout)
+        self.setFont(QFont('Arial Nova Light', 13))
         self.setWindowTitle("Aggiornamento della fornitura di " + materiale.tipologia)
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 

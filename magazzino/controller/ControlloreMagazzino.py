@@ -3,7 +3,6 @@ from magazzino.model.Magazzino import Magazzino
 
 class ControlloreMagazzino():
     def __init__(self):
-
         super(ControlloreMagazzino, self).__init__()
         self.model = Magazzino()
 

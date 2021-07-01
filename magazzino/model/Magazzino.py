@@ -12,6 +12,7 @@ class Magazzino():
         self.magazzino = []
         self.vaccini = []
         self.tamponi = []
+
         if os.path.isfile('magazzino/data/lista_vaccini_salvata.pickle'):
             with open('magazzino/data/lista_vaccini_salvata.pickle', 'rb') as f:
                 self.vaccini = pickle.load(f)

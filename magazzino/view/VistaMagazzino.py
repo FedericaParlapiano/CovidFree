@@ -1,4 +1,4 @@
-from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon
+from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon, QFont
 from PyQt5.QtWidgets import QWidget, QPushButton, QListView, QVBoxLayout, QGridLayout, QLabel
 
 from magazzino.controller.ControlloreMagazzino import ControlloreMagazzino
@@ -21,21 +21,17 @@ class VistaMagazzino(QWidget):
         self.list_view_tamponi = QListView()
         self.update_ui()
 
+        font = QFont('Arial Nova Light', 18)
+
         label_vaccini = QLabel("Presidi sezione vaccini")
-        font_vaccini = label_vaccini.font()
-        font_vaccini.setFamily('Georgia')
-        font_vaccini.setPointSize(15)
-        font_vaccini.setItalic(True)
-        label_vaccini.setFont(font_vaccini)
+        font.setItalic(True)
+        label_vaccini.setFont(font)
         v_layout_vaccini.addWidget(label_vaccini)
         v_layout_vaccini.addWidget(self.list_view_vaccini)
 
         label_tamponi = QLabel("Presidi sezione tamponi")
-        font_tamponi = label_vaccini.font()
-        font_tamponi.setFamily('Georgia')
-        font_tamponi.setPointSize(15)
-        font_tamponi.setItalic(True)
-        label_tamponi.setFont(font_tamponi)
+        font.setItalic(True)
+        label_tamponi.setFont(font)
         v_layout_tamponi.addWidget(label_tamponi)
         v_layout_tamponi.addWidget(self.list_view_tamponi)
 
@@ -61,6 +57,7 @@ class VistaMagazzino(QWidget):
         grid_layout.addLayout(buttons_tamponi, 1, 1)
 
         self.setLayout(grid_layout)
+        self.setFont(QFont('Arial Nova Light'))
         self.setWindowTitle("Lista Presidi")
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
@@ -75,8 +72,7 @@ class VistaMagazzino(QWidget):
             item.setText(vaccino.tipologia)
             item.setEditable(False)
             font = item.font()
-            font.setFamily('Georgia')
-            font.setPointSize(12)
+            font.setPointSize(15)
             item.setFont(font)
             self.listview_vaccini_model.appendRow(item)
         self.list_view_vaccini.setModel(self.listview_vaccini_model)
@@ -87,8 +83,7 @@ class VistaMagazzino(QWidget):
             item.setText(tampone.tipologia)
             item.setEditable(False)
             font = item.font()
-            font.setFamily('Georgia')
-            font.setPointSize(12)
+            font.setPointSize(15)
             item.setFont(font)
             self.listview_tamponi_model.appendRow(item)
         self.list_view_tamponi.setModel(self.listview_tamponi_model)
