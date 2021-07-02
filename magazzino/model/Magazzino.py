@@ -55,6 +55,7 @@ class Magazzino():
         for materiale in self.get_magazzino():
             if materiale.tipologia == tipologia:
                 materiale.aggiorna_quantita(quantita)
+        self.save_data()
 
     def save_data(self):
         with open('magazzino/data/lista_vaccini_salvata.pickle', 'wb') as handle:
