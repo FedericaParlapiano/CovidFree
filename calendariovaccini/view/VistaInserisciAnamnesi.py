@@ -12,7 +12,7 @@ class VistaInserisciAnamnesi(QWidget):
         self.info = {}
         self.anamnesi = {}
 
-        font = QFont('Arial Nova Light', 14)
+        font = QFont('Arial Nova Light', 12)
         font.setBold(True)
         self.grid_layout = QGridLayout()
         label1 = QLabel('Da compilare a cura del personale e da riesaminare insieme ai Professionisti Sanitari addetti alla vaccinazione.')
@@ -45,13 +45,13 @@ class VistaInserisciAnamnesi(QWidget):
         self.grid_layout.addWidget(btn, 14, 0, -1, 3)
 
         self.setLayout(self.grid_layout)
-        self.setFont(QFont('Arial Nova Light', 12))
+        self.setFont(QFont('Arial Nova Light', 10))
         self.setWindowTitle("Questionario anamnestico")
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
         self.setMaximumSize(700, 400)
         self.resize(700, 400)
-        self.move(600, 100)
+        self.move(630, 100)
 
     def get_domanda(self, chiave, domanda, riga):
         label = QLabel(domanda)

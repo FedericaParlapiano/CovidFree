@@ -30,7 +30,7 @@ class VistaAggiornaFornitura(QWidget):
 
         self.setMaximumSize(600, 100)
         self.resize(600, 100)
-        self.move(70, 250)
+        self.move(210, 250)
 
     def aggiorna_quantita(self):
         ok = True
