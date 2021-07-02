@@ -175,7 +175,6 @@ class VistaListaAppuntamentiVaccini(QWidget):
 
                 if msg.exec() == QMessageBox.Ok:
                     self.controller.lettura_magazzino()
-                    self.controller.aggiorna_magazzino(appuntamento_selezionato.vaccino)
                     self.controller.elimina_appuntamento(appuntamento_selezionato)
                     self.elenco_astrazeneca.remove(appuntamento_selezionato)
 
@@ -185,7 +184,6 @@ class VistaListaAppuntamentiVaccini(QWidget):
                                                                         'Seconda Dose')
                         if seconda_dose is not None:
                             self.controller.lettura_magazzino()
-                            self.controller.aggiorna_magazzino(seconda_dose.vaccino)
                             self.controller.elimina_appuntamento(seconda_dose)
 
                 self.update_ui()
@@ -212,7 +210,6 @@ class VistaListaAppuntamentiVaccini(QWidget):
 
                 if msg.exec() == QMessageBox.Ok:
                     self.controller.lettura_magazzino()
-                    self.controller.aggiorna_magazzino(appuntamento_selezionato.vaccino)
                     self.controller.elimina_appuntamento(appuntamento_selezionato)
                     self.elenco_moderna.remove(appuntamento_selezionato)
 
@@ -222,7 +219,6 @@ class VistaListaAppuntamentiVaccini(QWidget):
                                                                         'Seconda Dose')
                         if seconda_dose is not None:
                             self.controller.lettura_magazzino()
-                            self.controller.aggiorna_magazzino(seconda_dose.vaccino)
                             self.controller.elimina_appuntamento(seconda_dose)
 
                 self.update_ui()
@@ -249,7 +245,6 @@ class VistaListaAppuntamentiVaccini(QWidget):
 
                 if msg.exec() == QMessageBox.Ok:
                     self.controller.lettura_magazzino()
-                    self.controller.aggiorna_magazzino(appuntamento_selezionato.vaccino)
                     self.controller.elimina_appuntamento(appuntamento_selezionato)
                     self.elenco_pfizer.remove(appuntamento_selezionato)
 
@@ -259,7 +254,6 @@ class VistaListaAppuntamentiVaccini(QWidget):
                                                                         'Seconda Dose')
                         if seconda_dose is not None:
                             self.controller.lettura_magazzino()
-                            self.controller.aggiorna_magazzino(seconda_dose.vaccino)
                             self.controller.elimina_appuntamento(seconda_dose)
 
                 self.update_ui()
@@ -284,6 +278,6 @@ class VistaListaAppuntamentiVaccini(QWidget):
         if self.list_view_pfizer.selectedIndexes():
             selected = self.list_view_pfizer.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_pfizer[selected]
-            self.vista_modifica = VistaModificaAppuntamentoVaccino(appuntamento_selezionato,self.controller)
+            self.vista_modifica = VistaModificaAppuntamentoVaccino(appuntamento_selezionato, self.controller)
             self.vista_modifica.show()
             self.close()

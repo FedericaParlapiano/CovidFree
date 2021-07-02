@@ -18,11 +18,9 @@ class VistaInserisciEffettiCollaterali(QWidget):
 
         font = QFont('Arial Nova Light', 10)
 
-        self.label = QLabel("Selezionare quale vaccino è stato somministrato al paziente?")
+        self.label = QLabel("Selezionare quale vaccino è stato somministrato al paziente")
         self.label.setFont(font)
         self.v_layout.addWidget(self.label)
-
-        font.setUnderline(True)
 
         self.astrazeneca = QRadioButton('Astrazeneca')
         self.moderna = QRadioButton('Moderna')
@@ -41,40 +39,46 @@ class VistaInserisciEffettiCollaterali(QWidget):
 
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
+        self.label_indicazione = QLabel("Se il soggetto non ha riscontrato effetti collaterali, \nbasterà premere conferma dopo aver selezionato il vaccino somministrato.")
+        self.label_indicazione.setFont(font)
+        self.v_layout.addWidget(self.label_indicazione)
+
+        self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
+        font.setUnderline(True)
+
         self.molto_comuni = QLabel("Effetti collaterali molto comuni:")
         self.molto_comuni.setFont(font)
         self.v_layout.addWidget(self.molto_comuni)
 
-        self.definisci_effetto_collaterale("Dolore al sito","Dolore nel sito di iniezione")
-        self.definisci_effetto_collaterale("Arrossamento al sito","Arrossamento nel sito di iniezione")
-        self.definisci_effetto_collaterale("Stanchezza","Stanchezza")
-        self.definisci_effetto_collaterale("Brividi","Brividi")
-        self.definisci_effetto_collaterale("Dolori","Dolori muscolari e/o articolari")
-        self.definisci_effetto_collaterale("Mal di testa","Mal di testa")
-        self.definisci_effetto_collaterale("Febbre","Febbre")
-        self.definisci_effetto_collaterale("Nausea","Nausea")
+        self.definisci_effetto_collaterale("Dolore al sito", "Dolore nel sito di iniezione")
+        self.definisci_effetto_collaterale("Arrossamento al sito", "Arrossamento nel sito di iniezione")
+        self.definisci_effetto_collaterale("Stanchezza", "Stanchezza")
+        self.definisci_effetto_collaterale("Brividi", "Brividi")
+        self.definisci_effetto_collaterale("Dolori", "Dolori muscolari e/o articolari")
+        self.definisci_effetto_collaterale("Mal di testa", "Mal di testa")
+        self.definisci_effetto_collaterale("Febbre", "Febbre")
+        self.definisci_effetto_collaterale("Nausea", "Nausea")
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         self.comuni = QLabel("Effetti collaterali comuni:")
         self.comuni.setFont(font)
         self.v_layout.addWidget(self.comuni)
 
-        self.definisci_effetto_collaterale("Malessere","Sensazione di malessere")
-        self.definisci_effetto_collaterale("Eruzione cutanea","Eruzione cutanea nel sito di iniezione")
-        self.definisci_effetto_collaterale("Urticaria","Urticaria nel sito di iniezione")
-        self.definisci_effetto_collaterale("Vomito","Vomito e/o diarrea")
+        self.definisci_effetto_collaterale("Malessere", "Sensazione di malessere")
+        self.definisci_effetto_collaterale("Eruzione cutanea", "Eruzione cutanea nel sito di iniezione")
+        self.definisci_effetto_collaterale("Urticaria", "Urticaria nel sito di iniezione")
+        self.definisci_effetto_collaterale("Vomito", "Vomito e/o diarrea")
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         self.rari = QLabel("Effetti collaterali rari:")
         self.rari.setFont(font)
         self.v_layout.addWidget(self.rari)
 
-        self.definisci_effetto_collaterale("Paralisi","Paralisi facciale periferica acuta")
-        self.definisci_effetto_collaterale("Linfonodi","Gonfiore dei linfonodi")
-        self.definisci_effetto_collaterale("Trombosi","Trombosi artriosa")
+        self.definisci_effetto_collaterale("Paralisi", "Paralisi facciale periferica acuta")
+        self.definisci_effetto_collaterale("Linfonodi", "Gonfiore dei linfonodi")
+        self.definisci_effetto_collaterale("Trombosi", "Trombosi artriosa")
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
-
-        self.definisci_effetto_collaterale("Nessun effetto", "Nessun effetto collaterale")
 
         conferma = QPushButton("Conferma")
         conferma.clicked.connect(self.salva_dati)
@@ -85,8 +89,8 @@ class VistaInserisciEffettiCollaterali(QWidget):
         self.setWindowTitle("Inserisci Effetti Collaterali")
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
-        self.setMaximumSize(300, 600)
-        self.resize(300, 600)
+        self.setMaximumSize(400, 800)
+        self.resize(400, 700)
         self.move(200, 0)
 
     def definisci_effetto_collaterale(self, effetto, descrizione):
@@ -95,6 +99,7 @@ class VistaInserisciEffettiCollaterali(QWidget):
         self.v_layout.addWidget(checkbox)
 
     def salva_dati(self):
+        nessun_effetto = True
         if self.bg.checkedButton() is None:
             QMessageBox.critical(self, 'Errore', 'E\' necessario indicare quale vaccino è stato somministrato '
                       'al paziente per poter procedere all\'inserimento', QMessageBox.Ok,QMessageBox.Ok)
@@ -103,6 +108,9 @@ class VistaInserisciEffettiCollaterali(QWidget):
             for key in self.info.keys():
                 if self.info[key].isChecked():
                     self.effetti_riscontrati.append(key)
+                    nessun_effetto = False
+            if nessun_effetto:
+                self.effetti_riscontrati.append("Nessun effetto collaterale")
 
             self.controller.salva_effetti_collaterali(self.effetti_riscontrati)
             self.close()

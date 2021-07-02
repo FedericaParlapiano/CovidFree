@@ -27,7 +27,6 @@ class VistaStatisticheVaccini(QWidget):
         self.setWindowTitle("Statistiche Vaccini")
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
-        self.setMaximumSize(950, 950)
         self.resize(950, 950)
         self.move(0, 0)
 
@@ -79,7 +78,7 @@ class VistaStatisticheVaccini(QWidget):
                 torta.setLabelsVisible()
                 torta.setLabelsPosition(QPieSlice.LabelInsideHorizontal)
                 red = 100
-                green =230
+                green = 230
                 for slice in torta.slices():
                     slice.setLabel("{:.1f}%".format(100 * slice.percentage()))
                     slice.setBrush(QColor(red, green, 254))

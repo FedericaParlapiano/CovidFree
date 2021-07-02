@@ -32,8 +32,10 @@ class CalendarioVaccini():
 
     def elimina_appuntamento(self, appuntamento):
         for prenotazione in self.elenco_appuntamenti:
-            if prenotazione == appuntamento:
+            if prenotazione.cartella_paziente.cf == appuntamento.cartella_paziente.cf and appuntamento.vaccino == prenotazione.vaccino and prenotazione.data_appuntamento == appuntamento.data_appuntamento and prenotazione.id == appuntamento.id and prenotazione.data_appuntamento==appuntamento.data_appuntamento and prenotazione.fascia_oraria==appuntamento.fascia_oraria:
                 self.elenco_appuntamenti.remove(prenotazione)
+                self.aggiorna_magazzino(appuntamento.vaccino)
+                return
 
     def save_data(self):
         with open('calendariovaccini/data/elenco_appuntamenti_fissati.pickle', 'wb') as handle:
