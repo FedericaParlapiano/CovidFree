@@ -13,7 +13,7 @@ class CartellaPaziente():
         self.preferenza = preferenza
         self.anamnesi = anamnesi
         if categoria == ' ':
-            self.categoria = self.assegna_categoria()
+            self.assegna_categoria()
         else:
             self.categoria = categoria
 
@@ -23,16 +23,17 @@ class CartellaPaziente():
         differenza = anno_corrente - anno_di_nascita
 
         if differenza >= 80:
-            categoria = 'over 80'
+            self.categoria = 'over 80'
         elif differenza >= 70:
-            categoria = 'categoria 70-79'
+            self.categoria = 'categoria 70-79'
         elif differenza >= 60:
-            categoria = 'categoria 60-69'
+            self.categoria = 'categoria 60-69'
         elif differenza >= 50:
-            categoria = 'categoria 50-59'
+            self.categoria = 'categoria 50-59'
         elif differenza >= 40:
-            categoria = 'categoria 40-49'
+            self.categoria = 'categoria 40-49'
         elif differenza >= 30:
-            categoria = 'categoria 30-39'
+            self.categoria = 'categoria 30-39'
         else:
-            categoria = 'under 30'
+            self.categoria = 'under 30'
+

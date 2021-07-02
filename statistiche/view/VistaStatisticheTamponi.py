@@ -9,7 +9,7 @@ from statistiche.controller.ControlloreStatistiche import ControlloreStatistiche
 
 class VistaStatisticheTamponi(QWidget):
 
-    def __init__(self, parent=None, v_layout=None):
+    def __init__(self, parent=None):
 
         super(VistaStatisticheTamponi, self).__init__(parent)
 

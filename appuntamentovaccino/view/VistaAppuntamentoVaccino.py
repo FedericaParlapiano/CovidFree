@@ -80,6 +80,10 @@ class VistaAppuntamentoVaccino(QWidget):
         label_data_nascita.setFont(font)
         v_layout.addWidget(label_data_nascita)
 
+        label_categoria = QLabel("Categoria: {}".format(self.controller.get_cartella_paziente_appuntamento().categoria))
+        label_categoria.setFont(font)
+        v_layout.addWidget(label_categoria)
+
         if appuntamento.is_a_domicilio:
             label_is_a_domicilio = QLabel("Appuntamento a domicilio: Richiesto")
         else:

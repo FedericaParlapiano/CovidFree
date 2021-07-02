@@ -56,7 +56,7 @@ class VistaStatistiche(QWidget):
 
     def get_button(self, testo, layout, riga, colonna, colore, connect):
         button = QPushButton(testo)
-        button.setFont(QFont('Arial Nova Light', 10))
+        button.setFont(QFont('Arial Nova Light', 12))
         button.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
         button.setStyleSheet("background-color: {}" .format(colore))
         button.clicked.connect(connect)
