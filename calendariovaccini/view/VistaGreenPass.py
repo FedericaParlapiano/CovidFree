@@ -52,13 +52,13 @@ class VistaGreenPass(QWidget):
         label_data_nascita1 = QLabel("Data di nascita")
         v_layout.addWidget(label_data_nascita1)
 
-        label_data_nascita2 = QLabel("Date of birth(yyyy-mm-dd)")
+        label_data_nascita2 = QLabel("Date of birth(yyyy/mm/dd)")
         font_data_nascita2 = label_data_nascita2.font()
         font_data_nascita2.setPointSize(10)
         label_data_nascita2.setFont(font_data_nascita2)
         v_layout.addWidget(label_data_nascita2)
 
-        data_nascita = datetime.strptime(appuntamento.data_appuntamento, '%d-%m-%Y')
+        data_nascita = datetime.strptime(appuntamento.cartella_paziente.data_di_nascita, '%d/%m/%Y')
         str_data_nascita = str(data_nascita.strftime('%Y-%m-%d'))
 
         label_data_nascita3 = QLabel(str_data_nascita)
@@ -128,7 +128,7 @@ class VistaGreenPass(QWidget):
         if telefono:
             QMessageBox.information(self, 'Invio Green Pass',
                                     "A breve il  Green Pass verrà inviato al numero " + telefono + " associato alla cartella del paziente " + paziente,
-                                    QMessageBox.Ok, QMessageBox.Cancel)
+                                    QMessageBox.Ok)
 
     def scadenza(self):
         s = datetime.strptime(self.appuntamento.data_appuntamento, '%d-%m-%Y') + timedelta(days=270)
