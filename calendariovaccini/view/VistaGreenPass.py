@@ -93,7 +93,6 @@ class VistaGreenPass(QWidget):
         font_europa = label_europa.font()
         font_europa.setPointSize(20)
         font_europa.setBold(True)
-        font_europa.setItalic(True)
         label_europa.setFont(font_europa)
         label_europa.setAlignment(Qt.AlignCenter)
         v_layout_l.addWidget(label_europa)

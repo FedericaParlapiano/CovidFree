@@ -150,24 +150,25 @@ class VistaModificaAppuntamentoTampone(QWidget):
                 ok = False
 
         if ok is True:
-            da_eliminare = self.controller.get_appuntamento(self.appuntamento.nome,
-                                                 self.appuntamento.cognome, self.appuntamento.data_nascita)
-            self.controller.lettura_magazzino()
-            self.controller.aggiorna_magazzino(da_eliminare.tipo_tampone)
-            self.controller.elimina_appuntamento(self.controller.get_appuntamento(self.appuntamento.nome,
-                                                 self.appuntamento.cognome, self.appuntamento.data_nascita))
+            if self.conferma_modifica():
+                da_eliminare = self.controller.get_appuntamento(self.appuntamento.nome,
+                                                     self.appuntamento.cognome, self.appuntamento.data_nascita)
+                self.controller.lettura_magazzino()
+                self.controller.aggiorna_magazzino(da_eliminare.tipo_tampone)
+                self.controller.elimina_appuntamento(self.controller.get_appuntamento(self.appuntamento.nome,
+                                                     self.appuntamento.cognome, self.appuntamento.data_nascita))
 
-            self.appuntamento_tampone = AppuntamentoTampone(nome, cognome, cf, telefono, indirizzo, data_nascita, self.data_selezionata, self.orario_selected, is_drive_through, tipo_tampone)
+                self.appuntamento_tampone = AppuntamentoTampone(nome, cognome, cf, telefono, indirizzo, data_nascita, self.data_selezionata, self.orario_selected, is_drive_through, tipo_tampone)
 
-            if self.appuntamento_tampone.tipo_tampone is not None:
-                self.controller.aggiungi_appuntamento(self.appuntamento_tampone)
-                self.vista_riepilogo = VistaAppuntamentoTampone(self.appuntamento_tampone)
-                self.vista_riepilogo.show()
-            else:
-                QMessageBox.critical(self, 'Errore', 'Ci dispiace ma non è possibile prenotare '
-                                                           'l\'appuntamento a causa di una mancanza di tamponi che possono essere somministrati al paziente.',QMessageBox.Ok, QMessageBox.Ok)
+                if self.appuntamento_tampone.tipo_tampone is not None:
+                    self.controller.aggiungi_appuntamento(self.appuntamento_tampone)
+                    self.vista_riepilogo = VistaAppuntamentoTampone(self.appuntamento_tampone)
+                    self.vista_riepilogo.show()
+                else:
+                    QMessageBox.critical(self, 'Errore', 'Ci dispiace ma non è possibile prenotare '
+                                                               'l\'appuntamento a causa di una mancanza di tamponi che possono essere somministrati al paziente.',QMessageBox.Ok, QMessageBox.Ok)
 
-            self.close()
+                self.close()
 
 
     def controllo_disponibilita(self):
@@ -223,3 +224,19 @@ class VistaModificaAppuntamentoTampone(QWidget):
             item.setFont(font)
             self.list_view_orario_model.appendRow(item)
         self.list_view_orario.setModel(self.list_view_orario_model)
+
+    def conferma_modifica(self):
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Information)
+        msg.setText("Sei sicuro di voler modificare l'appuntamento?")
+        msg.setInformativeText("La decisione è irreversibile!")
+        msg.setWindowTitle("Conferma eliminazione")
+        msg.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
+        msg.setDetailedText("N.B. Se l'appuntamento da modificare è assocato ad un secondo appuntamento, anche questo verrà modificato considerando il vaccino assegnato.")
+        msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        msg.move(250, 100)
+
+        if msg.exec() == QMessageBox.Ok:
+            return True
+        else:
+            return False
