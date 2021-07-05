@@ -189,6 +189,10 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
                                                                     self.vista_mostra_date.orario_selezionato,
                                                                     is_a_domicilio)
                     self.controller.aggiungi_appuntamento(appuntamento_seconda_dose)
+                    if not appuntamento_seconda_dose.vaccino == appuntamento_vaccino.vaccino:
+                        QMessageBox.warning(self, 'Attenzione',
+                                            'Le scorte al momento non garantiscono che al paziente venga somministrato lo stesso vaccino per entrambe le dosi. Vi invitiamo a modificare l\'appuntamento per la seconda dose dopo che il magazzino verrà rifornito.',
+                                            QMessageBox.Ok, QMessageBox.Ok)
                     self.vista_riepilogo_2 = VistaAppuntamentoVaccino(appuntamento_seconda_dose)
                     self.vista_riepilogo_2.show()
 

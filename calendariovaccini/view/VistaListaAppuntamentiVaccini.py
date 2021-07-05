@@ -170,6 +170,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
                 msg.setInformativeText("La decisione è irreversibile!")
                 msg.setDetailedText("N.B. Se l'appuntamento da eliminare è assocato ad un secondo appuntamento, anche questo verrà rimosso.")
                 msg.setWindowTitle("Conferma eliminazione")
+                msg.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
                 msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
                 msg.move(250,100)
 
@@ -205,6 +206,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
                 msg.setInformativeText("La decisione è irreversibile!")
                 msg.setWindowTitle("Conferma eliminazione")
                 msg.setDetailedText("N.B. Se l'appuntamento da eliminare è assocato ad un secondo appuntamento, anche questo verrà rimosso.")
+                msg.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
                 msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
                 msg.move(250,100)
 
@@ -240,6 +242,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
                 msg.setInformativeText("La decisione è irreversibile!")
                 msg.setWindowTitle("Conferma eliminazione")
                 msg.setDetailedText("N.B. Se l'appuntamento da eliminare è assocato ad un secondo appuntamento, anche questo verrà rimosso.")
+                msg.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
                 msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
                 msg.move(250, 100)
 
