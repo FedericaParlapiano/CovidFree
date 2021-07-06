@@ -116,8 +116,8 @@ class VistaStatisticheTamponi(QWidget):
 
                 for slice in torta.slices():
                     slice.setLabel("{:.1f}%".format(100 * slice.percentage()))
-                    slice.setBrush(QColor(red, 160, 254))
-                    red += 20
+                    slice.setBrush(QColor(red, 180, 254))
+                    red += 45
 
                 chart = QChart()
                 chart.addSeries(torta)
