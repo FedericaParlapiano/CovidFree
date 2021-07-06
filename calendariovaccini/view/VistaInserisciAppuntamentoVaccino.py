@@ -123,16 +123,16 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
                                      QMessageBox.Ok, QMessageBox.Ok)
                 ok = False
 
-            if ok is True and date.today().year - data_inserita.year < 16:
+            if ok is True and date.today().year - data_inserita.year < 18:
                 QMessageBox.critical(self, 'Errore',
-                                     'Per i minori di 16 anni non è prevista la possibilità di prenotarsi per la vaccinazione',
+                                     'Per i minori di 18 anni non è prevista la possibilità di prenotarsi per la vaccinazione',
                                      QMessageBox.Ok, QMessageBox.Ok)
                 ok = False
 
-            if ok is True and categoria_speciale == ' ' and date.today().year - data_inserita.year < 50:
+            '''if ok is True and categoria_speciale == ' ' and date.today().year - data_inserita.year < 50:
                 QMessageBox.critical(self, 'Errore', 'Attualmente le direttive nazionali non permettono la prenotazione a coloro che hanno '
                                                      'un\'età inferiore ai 50 anni e non rientrano in una delle categorie con priorità', QMessageBox.Ok, QMessageBox.Ok)
-                ok = False
+                ok = False'''
 
         if ok is True:
             if not bool(self.vista_inserisci_anamnesi.anamnesi):
