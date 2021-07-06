@@ -75,12 +75,14 @@ class VistaInserisciAppuntamentoTampone(QWidget):
         self.resize(620, 700)
         self.move(90, 0)
 
+    # Funzione che viene richiamata per la ottenere i campi da compilare.
     def get_form_entry(self, tipo):
         self.v_layout.addWidget(QLabel(tipo))
         current_text_edit = QLineEdit(self)
         self.v_layout.addWidget(current_text_edit)
         self.info[tipo] = current_text_edit
 
+    # Funzione che, dopo una serie di controlli, aggiunge l'appuntamento.
     def add_appuntamento(self):
         nome = self.info["Nome*"].text()
         cognome = self.info["Cognome*"].text()
@@ -130,7 +132,6 @@ class VistaInserisciAppuntamentoTampone(QWidget):
                 QMessageBox.critical(self, 'Errore', 'Siamo spiacenti, la fascia oraria selezionata è al completo.', QMessageBox.Ok, QMessageBox.Ok)
                 ok = False
         if ok is True:
-            d = datetime.strptime(self.data_selezionata, '%Y-%m-%d')
             is_drive_through = False
             if self.drive_through.isChecked():
                 is_drive_through = True
@@ -142,10 +143,12 @@ class VistaInserisciAppuntamentoTampone(QWidget):
             self.vista_riepilogo.show()
             self.close()
 
+    # Funzione che viene utilizzata in uno dei controlli della funzione precedente per il controllo della disponibilità.
     def controllo_disponibilita(self):
         self.controller.lettura_magazzino()
         return self.controller.prenota_tampone(self.tipo_tampone.currentText())
 
+    # Funzione che inizializza il calendario dell'interfaccia grafica dal quale si seleziona la data per l'appuntamento.
     def init_calendario(self):
         calendario = QCalendarWidget(self)
         currentMonth = datetime.now().month
@@ -160,21 +163,11 @@ class VistaInserisciAppuntamentoTampone(QWidget):
         calendario.setGridVisible(True)
         return calendario
 
-    def calendar_date(self):
-        dateselected = self.calendario_appuntamento.selectedDate()
-        self.data_selezionata = str(dateselected.toPyDate())
-        self.label.setText("Data selezionata* : " + self.data_selezionata)
-        return self.data_selezionata
-
-    def show_selected_orario(self, current):
-        if self.list_view_orario.selectedIndexes():
-            self.orario_selected = self.orari[current.row()]
-            self.label_orario.setText("Fascia oraria selezionata* : " + self.orario_selected)
-        return self.orario_selected
-
+    # Funzione che crea la lista delle fasce orarie.
     def update_ui(self):
         self.list_view_orario_model = QStandardItemModel(self.list_view_orario)
-        self.orari = ["9:00-10:00", "10:00-11:00", "11:00-12:00", "12:00-13:00", "13:00-14:00", "14:00-15:00", "15:00-16:00", "16:00-17:00", "17:00-18:00", "18:00-19:00"]
+        self.orari = ["9:00-10:00", "10:00-11:00", "11:00-12:00", "12:00-13:00", "13:00-14:00", "14:00-15:00",
+                      "15:00-16:00", "16:00-17:00", "17:00-18:00", "18:00-19:00"]
         for fascia in self.orari:
             item = QStandardItem()
             item.setText(fascia)
@@ -184,3 +177,17 @@ class VistaInserisciAppuntamentoTampone(QWidget):
             item.setFont(font)
             self.list_view_orario_model.appendRow(item)
         self.list_view_orario.setModel(self.list_view_orario_model)
+
+    # Funzione che ritorna la data selezionata.
+    def calendar_date(self):
+        dateselected = self.calendario_appuntamento.selectedDate()
+        self.data_selezionata = str(dateselected.toPyDate())
+        self.label.setText("Data selezionata* : " + self.data_selezionata)
+        return self.data_selezionata
+
+    # Funzione che ritorna la fascia oraria selezionata.
+    def show_selected_orario(self, current):
+        if self.list_view_orario.selectedIndexes():
+            self.orario_selected = self.orari[current.row()]
+            self.label_orario.setText("Fascia oraria selezionata* : " + self.orario_selected)
+        return self.orario_selected

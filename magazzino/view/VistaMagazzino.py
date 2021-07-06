@@ -65,6 +65,7 @@ class VistaMagazzino(QWidget):
         self.resize(600, 300)
         self.move(200, 200)
 
+    # Funzione che popola le liste dei presidi presenti nel magazzino
     def update_ui(self):
         self.listview_vaccini_model = QStandardItemModel(self.list_view_vaccini)
         for vaccino in self.controller.get_elenco_vaccini():
@@ -88,6 +89,7 @@ class VistaMagazzino(QWidget):
             self.listview_tamponi_model.appendRow(item)
         self.list_view_tamponi.setModel(self.listview_tamponi_model)
 
+    # Funzione che mostra il vaccino selezionato.
     def show_selected_vaccino(self):
          if self.list_view_vaccini.selectedIndexes():
              selected = self.list_view_vaccini.selectedIndexes()[0].row()
@@ -95,6 +97,7 @@ class VistaMagazzino(QWidget):
              self.vista_vaccino = VistaVaccino(vaccino_selezionato)
              self.vista_vaccino.show()
 
+    # Funzione che mostra il tampone selezionato.
     def show_selected_tampone(self):
          if self.list_view_tamponi.selectedIndexes():
              selected = self.list_view_tamponi.selectedIndexes()[0].row()
@@ -102,6 +105,7 @@ class VistaMagazzino(QWidget):
              self.vista_tampone = VistaTampone(tampone_selezionato)
              self.vista_tampone.show()
 
+    # Funzione che mostra la vista che permette l'aggiornamento della quantità del vaccino selezionato.
     def aggiorna_selected_vaccino(self):
          if self.list_view_vaccini.selectedIndexes():
              selected = self.list_view_vaccini.selectedIndexes()[0].row()
@@ -110,6 +114,7 @@ class VistaMagazzino(QWidget):
                                                            self.update_ui)
              self.vista_fornitura.show()
 
+    # Funzione che mostra la vista che permette l'aggiornamento della quantità del tampone selezionato.
     def aggiorna_selected_tampone(self):
          if self.list_view_tamponi.selectedIndexes():
              selected = self.list_view_tamponi.selectedIndexes()[0].row()
@@ -118,6 +123,7 @@ class VistaMagazzino(QWidget):
                                                            self.update_ui)
              self.vista_fornitura.show()
 
+    # Funzione che richiama il metodo del controllore che salva i dati aggiornati.
     def closeEvent(self, event):
         self.controller.save_data()
         event.accept()

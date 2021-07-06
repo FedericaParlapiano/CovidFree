@@ -17,6 +17,7 @@ class CartellaPaziente():
         else:
             self.categoria = categoria
 
+    # Funzione che assegna al soggetto la categoria di appartenenza a seconda dell' anno di nascita.
     def assegna_categoria(self):
         anno_corrente = date.today().year
         anno_di_nascita = datetime.strptime(self.data_di_nascita, '%d/%m/%Y').year

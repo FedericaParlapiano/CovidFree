@@ -67,6 +67,7 @@ class VistaInserisciAnamnesi(QWidget):
         self.grid_layout.addWidget(btn2, riga, 2)
         self.info[chiave] = bg
 
+    # Funzione che controlla se l'anamnesi è stata completata correttamente.
     def check_anamnesi_completa(self):
         controllo = True
 

@@ -76,6 +76,7 @@ class VistaModificaAppuntamentoVaccino(QWidget):
         self.resize(400, 500)
         self.move(200, 0)
 
+    # Funzione che viene richiamata per la ottenere i campi da compilare.
     def get_form_entry(self, tipo, campo):
         self.v_layout.addWidget(QLabel(tipo))
         current_text_edit = QLineEdit(self)
@@ -83,12 +84,15 @@ class VistaModificaAppuntamentoVaccino(QWidget):
         self.v_layout.addWidget(current_text_edit)
         self.info[tipo] = current_text_edit
 
+    # Funzione che mostra la vista per il completamento dell'anamnesi
     def go_inserisci_anamnesi(self):
         self.vista_inserisci_anamnesi.show()
 
+    # Funzione che mostra la vista per la scelta della data e della fascia oraria.
     def go_scelta_data(self):
         self.vista_mostra_date.show()
 
+    # Funzione che, dopo una serie di controlli, aggiunge l'appuntamento.
     def add_appuntamento(self):
         nome = self.info["Nome*"].text()
         cognome = self.info["Cognome*"].text()

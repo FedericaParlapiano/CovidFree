@@ -98,6 +98,7 @@ class VistaInserisciEffettiCollaterali(QWidget):
         self.info[effetto] = checkbox
         self.v_layout.addWidget(checkbox)
 
+    # Funzione che salva le risposte inserite dall'utente per il calcolo delle statistiche.
     def salva_dati(self):
         nessun_effetto = True
         if self.bg.checkedButton() is None:

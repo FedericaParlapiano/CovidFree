@@ -40,6 +40,7 @@ class VistaHome(QWidget):
         self.resize(910, 650)
         self.move(0, 0)
 
+    # Funzione che viene richiamata per creare un bottone.
     def get_generic_button(self, titolo, colore, on_click):
         button = QPushButton(titolo)
         button.setStyleSheet("background-color: {}".format(colore))
@@ -48,18 +49,22 @@ class VistaHome(QWidget):
         button.clicked.connect(on_click)
         return button
 
+    # Funzione che mostra la vista del calendario dei vaccini.
     def go_calendario_vaccini(self):
         self.vista_calendario_vaccini = VistaCalendarioVaccini()
         self.vista_calendario_vaccini.show()
 
+    # Funzione che mostra la vista del calendario dei tamponi.
     def go_calendario_tamponi(self):
         self.vista_calendario_tamponi = VistaCalendarioTamponi()
         self.vista_calendario_tamponi.show()
 
+    # Funzione che mostra la vista del magazzino.
     def go_magazzino(self):
         self.vista_magazzino = VistaMagazzino()
         self.vista_magazzino.show()
 
+    # Funzione che mostra la vista delle statistiche.
     def go_statistiche(self):
         self.vista_statistiche = VistaStatistiche()
         self.vista_statistiche.show()

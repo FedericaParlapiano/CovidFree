@@ -82,6 +82,7 @@ class VistaModificaAppuntamentoTampone(QWidget):
         self.resize(400, 650)
         self.move(90, 0)
 
+    # Funzione che viene richiamata per la ottenere i campi da compilare.
     def get_form_entry(self, tipo, campo):
         self.v_layout.addWidget(QLabel(tipo))
         current_text_edit = QLineEdit(self)
@@ -89,6 +90,7 @@ class VistaModificaAppuntamentoTampone(QWidget):
         self.v_layout.addWidget(current_text_edit)
         self.info[tipo] = current_text_edit
 
+    # Funzione che, dopo una serie di controlli, aggiunge l'appuntamento.
     def add_appuntamento(self):
         nome = self.info["Nome*"].text()
         cognome = self.info["Cognome*"].text()
@@ -170,20 +172,12 @@ class VistaModificaAppuntamentoTampone(QWidget):
 
                 self.close()
 
-
+    # Funzione che viene utilizzata in uno dei controlli della funzione precedente per il controllo della disponibilità.
     def controllo_disponibilita(self):
-        disponibile = False
-        if os.path.isfile('magazzino/data/lista_tamponi_salvata.pickle'):
-            with open('magazzino/data/lista_tamponi_salvata.pickle', 'rb') as f:
-                self.tamponi_presenti = pickle.load(f)
-        for tampone in self.tamponi_presenti:
-            if tampone.tipologia == self.tipo_tampone.currentText() and tampone.is_disponibile():
-                disponibile = True
-                tampone.quantita = tampone.quantita - 1
-                with open('magazzino/data/lista_tamponi_salvata.pickle', 'wb') as handle:
-                    pickle.dump(self.tamponi_presenti, handle, pickle.HIGHEST_PROTOCOL)
-        return disponibile
+        self.controller.lettura_magazzino()
+        return self.controller.prenota_tampone(self.tipo_tampone.currentText())
 
+    # Funzione che inizializza il calendario dell'interfaccia grafica dal quale si seleziona la data per l'appuntamento.
     def init_calendario(self):
         calendario = QCalendarWidget(self)
         currentMonth = datetime.now().month
@@ -199,18 +193,7 @@ class VistaModificaAppuntamentoTampone(QWidget):
         calendario.setGridVisible(True)
         return calendario
 
-    def calendar_date(self):
-        dateselected = self.calendario_appuntamento.selectedDate()
-        self.data_selezionata = str(dateselected.toPyDate())
-        self.label.setText("Data selezionata* : " + self.data_selezionata)
-        return self.data_selezionata
-
-    def show_selected_orario(self, current):
-        if self.list_view_orario.selectedIndexes():
-            self.orario_selected = self.orari[current.row()]
-            self.label_orario.setText("Fascia oraria selezionata* : " + self.orario_selected)
-        return self.orario_selected
-
+    # Funzione che crea la lista delle fascie orarie.
     def update_ui(self):
         self.list_view_orario_model = QStandardItemModel(self.list_view_orario)
         self.orari = ["9:00-10:00", "10:00-11:00", "11:00-12:00", "12:00-13:00", "13:00-14:00", "14:00-15:00",
@@ -225,12 +208,25 @@ class VistaModificaAppuntamentoTampone(QWidget):
             self.list_view_orario_model.appendRow(item)
         self.list_view_orario.setModel(self.list_view_orario_model)
 
+    # Funzione che ritorna la data selezionata.
+    def calendar_date(self):
+        dateselected = self.calendario_appuntamento.selectedDate()
+        self.data_selezionata = str(dateselected.toPyDate())
+        self.label.setText("Data selezionata* : " + self.data_selezionata)
+        return self.data_selezionata
+
+    # Funzione che ritorna la fascia oraria selezionata.
+    def show_selected_orario(self, current):
+        if self.list_view_orario.selectedIndexes():
+            self.orario_selected = self.orari[current.row()]
+            self.label_orario.setText("Fascia oraria selezionata* : " + self.orario_selected)
+        return self.orario_selected
+
     def conferma_modifica(self):
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
         msg.setText("Sei sicuro di voler modificare l'appuntamento?")
-        msg.setInformativeText("La decisione è irreversibile!")
-        msg.setWindowTitle("Conferma eliminazione")
+        msg.setWindowTitle("Conferma modifica")
         msg.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
         msg.setDetailedText("N.B. Se l'appuntamento da modificare è assocato ad un secondo appuntamento, anche questo verrà modificato considerando il vaccino assegnato.")
         msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)

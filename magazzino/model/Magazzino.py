@@ -33,30 +33,38 @@ class Magazzino():
 
         self.magazzino = self.vaccini + self.tamponi
 
+    # Funzione che aggiunge alla lista dei vaccini il vaccino passato come parametro.
     def aggiungi_vaccino(self, vaccino):
         self.vaccini.append(vaccino)
 
+    # Funzione che aggiunge alla lista dei tamponi il tampone passato come parametro.
     def aggiungi_tampone(self, tampone):
         self.tamponi.append(tampone)
 
+    # Funzione che restituisce il presidio presente nella lista magazzino nella posizione passata come parametro.
     def get_presidio_by_index(self, index):
         return self.magazzino[index]
 
+    # Funzione che restituisce la lista dei tamponi.
     def get_tamponi(self):
         return self.tamponi
 
+    # Funzione che restituisce la lista dei vaccini.
     def get_vaccini(self):
         return self.vaccini
 
+    # Funzione che restituisce il magazzino.
     def get_magazzino(self):
         return self.magazzino
 
+    # Funzione che aggiorna la quantità del materiale passato come parametro sommando alla quantità già presente il numero passato come parametro.
     def aggiorna_quantita_by_tipologia(self, tipologia, quantita):
         for materiale in self.get_magazzino():
             if materiale.tipologia == tipologia:
                 materiale.aggiorna_quantita(quantita)
         self.save_data()
 
+    # Funzione che salva i file con i dati aggiornati.
     def save_data(self):
         with open('magazzino/data/lista_vaccini_salvata.pickle', 'wb') as handle:
             pickle.dump(self.vaccini, handle, pickle.HIGHEST_PROTOCOL)

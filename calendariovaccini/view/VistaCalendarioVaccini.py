@@ -45,6 +45,7 @@ class VistaCalendarioVaccini(QWidget):
         self.resize(910, 650)
         self.move(0, 0)
 
+    # Funzione che inizializza il calendario dell'interfaccia grafica.
     def init_calendario(self):
         calendario = QCalendarWidget(self)
         currentMonth = datetime.now().month
@@ -61,6 +62,7 @@ class VistaCalendarioVaccini(QWidget):
         calendario.setGridVisible(True)
         return calendario
 
+    # Funzione che viene richiamata per creare un bottone.
     def get_generic_button(self, titolo, on_click):
         button = QPushButton(titolo)
         button.setFont(QFont('Arial Nova Light', 15))
@@ -69,22 +71,27 @@ class VistaCalendarioVaccini(QWidget):
         button.clicked.connect(on_click)
         return button
 
+    # Funzione che mostra la lista degli appuntamenti associati alla data selezionata.
     def show_selected_data(self):
         self.vista_visualizza_appuntamenti = VistaListaAppuntamentiVaccini(self.calendar_date(), self.controller)
         self.vista_visualizza_appuntamenti.show()
 
+    # Funzione che mostra la vista  per l'inserimento dei dati, da parte dell'utente, per fissare un appuntamento.
     def show_add_appuntamento(self):
         self.vista_inserisci_appuntamento = VistaInserisciAppuntamentoVaccino(self.controller)
         self.vista_inserisci_appuntamento.show()
 
+    # Funzione che mostra la vista per la ricerca di un appuntamento.
     def show_ricerca_appuntamento(self):
         self.vista_ricerca_appuntamento = VistaRicercaAppuntamentoVaccino()
         self.vista_ricerca_appuntamento.show()
 
+    # Funzione che mostra la lista dei Green Pass disponibili al giorno corrente.
     def show_green_pass_list(self):
         self.vista_lista_green_pass = VistaListaGreenPass()
         self.vista_lista_green_pass.show()
 
+    # Funzione che restituisce la data selezionata.
     def calendar_date(self):
         dateselected = self.calendario_vaccini.selectedDate()
         data_selezionata = str(dateselected.toPyDate())

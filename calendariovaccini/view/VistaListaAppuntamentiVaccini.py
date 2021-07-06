@@ -81,6 +81,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
         self.resize(910, 400)
         self.move(0,0)
 
+    # Funzione per la creazione di un layout in cui vengono elencati gli appuntamenti.
     def get_list(self, tipologia, colonna):
 
         v_layout_tipologia = QVBoxLayout()
@@ -93,6 +94,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
 
         self.grid_layout.addLayout(v_layout_tipologia, 0, colonna)
 
+    # Funzione per la visualizzazione dell'appuntamento selezionato nella lista.
     def show_selected_info_astrazeneca(self):
         if self.list_view_astrazeneca.selectedIndexes():
             selected = self.list_view_astrazeneca.selectedIndexes()[0].row()
@@ -101,6 +103,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
             self.vista_vaccino.show()
             self.update_ui()
 
+    # Funzione per la visualizzazione dell'appuntamento selezionato nella lista.
     def show_selected_info_moderna(self):
         if self.list_view_moderna.selectedIndexes():
             selected = self.list_view_moderna.selectedIndexes()[0].row()
@@ -109,6 +112,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
             self.vista_vaccino.show()
             self.update_ui()
 
+    # Funzione per la visualizzazione dell'appuntamento selezionato nella lista.
     def show_selected_info_pfizer(self):
         if self.list_view_pfizer.selectedIndexes():
             selected = self.list_view_pfizer.selectedIndexes()[0].row()
@@ -117,6 +121,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
             self.vista_vaccino.show()
             self.update_ui()
 
+    # Funzione che inserisce un appuntamento nello specifico elenco.
     def update_ui(self):
         self.list_view_astrazeneca_model = QStandardItemModel(self.list_view_astrazeneca)
         self.list_view_moderna_model = QStandardItemModel(self.list_view_moderna)
@@ -152,6 +157,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
         self.list_view_moderna.setModel(self.list_view_moderna_model)
         self.list_view_pfizer.setModel(self.list_view_pfizer_model)
 
+    # Funzione per l'eliminazione dell'appuntamento selezionato dalla lista dei vaccini "Astrazenece"
     def elimina_appuntamento_astrazeneca(self):
         if self.list_view_astrazeneca.selectedIndexes():
             selected = self.list_view_astrazeneca.selectedIndexes()[0].row()
@@ -189,6 +195,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
 
                 self.update_ui()
 
+    # Funzione per l'eliminazione dell'appuntamento selezionato dalla lista dei vaccini "Moderna"
     def elimina_appuntamento_moderna(self):
         if self.list_view_moderna.selectedIndexes():
             selected = self.list_view_moderna.selectedIndexes()[0].row()
@@ -225,6 +232,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
 
                 self.update_ui()
 
+    # Funzione per l'eliminazione dell'appuntamento selezionato dalla lista dei vaccini "Pfizer"
     def elimina_appuntamento_pfizer(self):
         if self.list_view_pfizer.selectedIndexes():
             selected = self.list_view_pfizer.selectedIndexes()[0].row()
@@ -261,6 +269,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
 
                 self.update_ui()
 
+    # Funzione per la modifica dell'appuntamento selezionato dalla lista dei vaccini "Astrazenece"
     def modifica_appuntamento_astrazeneca(self):
         if self.list_view_astrazeneca.selectedIndexes():
             selected = self.list_view_astrazeneca.selectedIndexes()[0].row()
@@ -269,6 +278,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
             self.vista_modifica.show()
             self.close()
 
+    # Funzione per la modifica dell'appuntamento selezionato dalla lista dei vaccini "Moderna"
     def modifica_appuntamento_moderna(self):
         if self.list_view_moderna.selectedIndexes():
             selected = self.list_view_moderna.selectedIndexes()[0].row()
@@ -277,6 +287,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
             self.vista_modifica.show()
             self.close()
 
+    # Funzione per la modifica dell'appuntamento selezionato dalla lista dei vaccini "Pfizer"
     def modifica_appuntamento_pfizer(self):
         if self.list_view_pfizer.selectedIndexes():
             selected = self.list_view_pfizer.selectedIndexes()[0].row()

@@ -121,6 +121,7 @@ class VistaGreenPass(QWidget):
         self.resize(500, 700)
         self.move(50, 0)
 
+    # Funzione per l'invio del Green Pass
     def invio_green_pass(self):
         paziente = self.appuntamento.cartella_paziente.nome + ' ' + self.appuntamento.cartella_paziente.cognome
         telefono = self.appuntamento.cartella_paziente.telefono
@@ -129,6 +130,7 @@ class VistaGreenPass(QWidget):
                                     "A breve il  Green Pass verrà inviato al numero " + telefono + " associato alla cartella del paziente " + paziente,
                                     QMessageBox.Ok)
 
+    # Funzione che ritorna la data di scadenza del Green Pass.
     def scadenza(self):
         s = datetime.strptime(self.appuntamento.data_appuntamento, '%d-%m-%Y') + timedelta(days=270)
         scadenza = str(s.strftime('%d-%m-%Y'))

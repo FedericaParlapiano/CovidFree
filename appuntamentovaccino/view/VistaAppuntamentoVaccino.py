@@ -119,6 +119,7 @@ class VistaAppuntamentoVaccino(QWidget):
         self.resize(800, 700)
         self.move(0, 0)
 
+    # Funzione che viene richiamata per la scrittura delle domande dell'anamnesi.
     def get_label_anamnesi(self, domanda, chiave, posizione):
         label_domanda = QLabel(domanda + " " + self.controller.get_cartella_paziente_appuntamento().anamnesi[chiave])
         font_domanda = label_domanda.font()

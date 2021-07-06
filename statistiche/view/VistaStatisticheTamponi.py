@@ -64,6 +64,7 @@ class VistaStatisticheTamponi(QWidget):
                     else:
                         self.dati_sintomi["Asintomatico"] = 1
 
+    # Funzione che viene richiamata per creare un bottone.
     def bottoni(self):
         button_tamponi_somministrati = QPushButton("Statistiche sui tamponi effettuati")
         button_tamponi_somministrati.setFixedSize(480, 70)
@@ -94,6 +95,7 @@ class VistaStatisticheTamponi(QWidget):
     def go_sintomi(self):
         self.get_torta(self.dati_sintomi, "Statistiche sulla \n sintomatologia", 0, 2)
 
+    # Funzione che, in base ai dati raccolti, crea un grafico a torta.
     def get_torta(self, elenco, titolo, riga, colonna):
         vuoto = 0
         for item in elenco:

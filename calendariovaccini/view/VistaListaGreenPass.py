@@ -35,28 +35,32 @@ class VistaListaGreenPass(QWidget):
         self.resize(600, 400)
         self.move(150, 200)
 
+    # Funzione che popola la lista dei green pass attivi al giorno corrente.
     def get_list(self):
         self.list_view_elenco_green_pass_model = QStandardItemModel(self.list_view_elenco_green_pass)
 
         for appuntamento in self.controller.get_elenco_appuntamenti():
             item = QStandardItem()
-            #data_oggi = date.today()
             scadenza = datetime.strptime(appuntamento.data_appuntamento, '%d-%m-%Y') + timedelta(days=270)
-            #if (data_oggi.month-data_appuntamento.month) >= 0 and (data_oggi.month-data_appuntamento.month) < 9 and (data_oggi.day-data_appuntamento.day) >= 0:
-            #if (data_oggi.month - data_appuntamento.month) < 0:
-            if scadenza.year > date.today().year or (scadenza.month >= date.today().month and scadenza.day > date.today().day):
-                if appuntamento.id == "Prima Dose":
-                    item.setText(appuntamento.cartella_paziente.nome + " " + appuntamento.cartella_paziente.cognome)
-                    item.setEditable(False)
-                    font = item.font()
-                    font.setFamily('Arial Nova Light')
-                    font.setPointSize(13)
-                    item.setFont(font)
+            scadenza_convertita = date(scadenza.year, scadenza.month, scadenza.day)
+            data_appuntamento = datetime.strptime(appuntamento.data_appuntamento, '%d-%m-%Y')
+            data_convertita= date(data_appuntamento.year, data_appuntamento.month, data_appuntamento.day)
 
-                    self.list_view_elenco_green_pass_model.appendRow(item)
-                    self.elenco_green_pass.append(appuntamento)
+            if data_convertita < date.today():
+                if scadenza_convertita > date.today():
+                    if appuntamento.id == "Prima Dose":
+                        item.setText(appuntamento.cartella_paziente.nome + " " + appuntamento.cartella_paziente.cognome)
+                        item.setEditable(False)
+                        font = item.font()
+                        font.setFamily('Arial Nova Light')
+                        font.setPointSize(13)
+                        item.setFont(font)
+
+                        self.list_view_elenco_green_pass_model.appendRow(item)
+                        self.elenco_green_pass.append(appuntamento)
         self.list_view_elenco_green_pass.setModel(self.list_view_elenco_green_pass_model)
 
+    # Funzione che mostra il Green Pass selezionato.
     def show_selected_green_pass(self):
         if self.list_view_elenco_green_pass.selectedIndexes():
             selected = self.list_view_elenco_green_pass.selectedIndexes()[0].row()

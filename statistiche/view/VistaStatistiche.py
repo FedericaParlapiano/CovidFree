@@ -54,6 +54,7 @@ class VistaStatistiche(QWidget):
         label.setAlignment(Qt.AlignCenter)
         layout.addWidget(label)
 
+    # Funzione che viene richiamata per creare un bottone.
     def get_button(self, testo, layout, riga, colonna, colore, connect):
         button = QPushButton(testo)
         button.setFont(QFont('Arial Nova Light', 12))
@@ -62,19 +63,22 @@ class VistaStatistiche(QWidget):
         button.clicked.connect(connect)
         layout.addWidget(button, riga, colonna)
 
-
+    # Funzione che mostra la vista per la visualizzazione delle statistiche sui vaccini.
     def go_visulizza_vaccini(self):
         self.vista_statistiche_vaccini = VistaStatisticheVaccini()
         self.vista_statistiche_vaccini.show()
 
+    # Funzione che mostra la vista per l'inserimento dei dati per le statistiche sui vaccini.
     def go_inserisci_vaccini(self):
         self.inserisci_effetti_collaterali = VistaInserisciEffettiCollaterali()
         self.inserisci_effetti_collaterali.show()
 
+    # Funzione che mostra la vista per la visualizzazione delle statistiche sui tamponi.
     def go_visualizza_tamponi(self):
         self.vista_statistiche_tamponi = VistaStatisticheTamponi()
         self.vista_statistiche_tamponi.show()
 
+    # Funzione che mostra la vista per l'inserimento dei dati per le statistiche sui tamponi.
     def go_inserisci_tamponi(self):
         self.inserisci_dati_tamponi= VistaInserisciDatiTamponi()
         self.inserisci_dati_tamponi.show()

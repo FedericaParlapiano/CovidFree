@@ -75,18 +75,22 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
         self.resize(400, 500)
         self.move(200, 0)
 
+    # Funzione che viene richiamata per la ottenere i campi da compilare.
     def get_form_entry(self, tipo):
         self.v_layout.addWidget(QLabel(tipo))
         current_text_edit = QLineEdit(self)
         self.v_layout.addWidget(current_text_edit)
         self.info[tipo] = current_text_edit
 
+    # Funzione che mostra la vista per il completamento dell'anamnesi.
     def go_inserisci_anamnesi(self):
         self.vista_inserisci_anamnesi.show()
 
+    # Funzione che mostra la vista per la scelta della data e della fascia oraria.
     def go_scelta_data(self):
         self.vista_mostra_date.show()
 
+    # Funzione che, dopo una serie di controlli, aggiunge l'appuntamento.
     def add_appuntamento(self):
         nome = self.info["Nome*"].text()
         cognome = self.info["Cognome*"].text()
@@ -178,9 +182,9 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
                 if self.vista_inserisci_anamnesi.anamnesi['Positivo COVID-19'] != 'tra i 3 e i 6 mesi':
                     data_prima_dose = datetime.strptime(self.vista_mostra_date.data_scelta, '%d-%m-%Y')
                     if appuntamento_vaccino.vaccino == "Pfizer":
-                        data_seconda_dose = str((data_prima_dose + timedelta(days=28)).strftime('%d-%m-%Y'))
-                    elif appuntamento_vaccino.vaccino == "Moderna":
                         data_seconda_dose = str((data_prima_dose + timedelta(days=21)).strftime('%d-%m-%Y'))
+                    elif appuntamento_vaccino.vaccino == "Moderna":
+                        data_seconda_dose = str((data_prima_dose + timedelta(days=28)).strftime('%d-%m-%Y'))
                     elif appuntamento_vaccino.vaccino == "Astrazeneca":
                         data_seconda_dose = str((data_prima_dose + timedelta(days=60)).strftime('%d-%m-%Y'))
 

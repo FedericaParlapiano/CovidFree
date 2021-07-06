@@ -32,6 +32,7 @@ class VistaAggiornaFornitura(QWidget):
         self.resize(600, 100)
         self.move(210, 250)
 
+    # Funzione che mostra la vista che permette l'aggiornamento della quantità del vaccino selezionato.
     def aggiorna_quantita(self):
         ok = True
         if self.nuova_quantita.text() == "":

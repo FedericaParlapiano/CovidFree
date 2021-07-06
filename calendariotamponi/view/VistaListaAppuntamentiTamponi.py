@@ -78,7 +78,7 @@ class VistaListaAppuntamentiTamponi(QWidget):
         self.resize(910, 400)
         self.move(0, 0)
 
-
+    # Funzione per la creazione di un layout in cui vengono elencati gli appuntamenti.
     def get_list(self, tipologia, colonna):
         v_layout_tipologia = QVBoxLayout()
         label_tipologia = QLabel(tipologia)
@@ -90,6 +90,7 @@ class VistaListaAppuntamentiTamponi(QWidget):
 
         self.grid_layout.addLayout(v_layout_tipologia, 0, colonna)
 
+    # Funzione per la visualizzazione dell'appuntamento selezionato nella lista.
     def show_selected_info_molecolare(self):
         if self.list_view_molecolare.selectedIndexes():
             selected = self.list_view_molecolare.selectedIndexes()[0].row()
@@ -98,6 +99,7 @@ class VistaListaAppuntamentiTamponi(QWidget):
             self.vista_tampone.show()
             self.update_ui()
 
+    # Funzione per la visualizzazione dell'appuntamento selezionato nella lista.
     def show_selected_info_antigenico(self):
         if self.list_view_antigenico.selectedIndexes():
             selected = self.list_view_antigenico.selectedIndexes()[0].row()
@@ -106,6 +108,7 @@ class VistaListaAppuntamentiTamponi(QWidget):
             self.vista_tampone.show()
             self.update_ui()
 
+    # Funzione per la visualizzazione dell'appuntamento selezionato nella lista.
     def show_selected_info_sierologico(self):
         if self.list_view_sierologico.selectedIndexes():
             selected = self.list_view_sierologico.selectedIndexes()[0].row()
@@ -114,6 +117,7 @@ class VistaListaAppuntamentiTamponi(QWidget):
             self.vista_tampone.show()
             self.update_ui()
 
+    # Funzione che inserisce un appuntamento nello specifico elenco.
     def update_ui(self):
         self.list_view_antigenico_model = QStandardItemModel(self.list_view_antigenico)
         self.list_view_molecolare_model = QStandardItemModel(self.list_view_molecolare)
@@ -143,6 +147,7 @@ class VistaListaAppuntamentiTamponi(QWidget):
         self.list_view_molecolare.setModel(self.list_view_molecolare_model)
         self.list_view_sierologico.setModel(self.list_view_sierologico_model)
 
+    # Funzione per l'eliminazione dell'appuntamento selezionato dalla lista dei tamponi "Antigenico Rapido"
     def elimina_appuntamento_antigenico(self):
         if self.list_view_antigenico.selectedIndexes():
             selected = self.list_view_antigenico.selectedIndexes()[0].row()
@@ -170,6 +175,7 @@ class VistaListaAppuntamentiTamponi(QWidget):
                     self.elenco_antigenico.remove(appuntamento_selezionato)
                 self.update_ui()
 
+    # Funzione per l'eliminazione dell'appuntamento selezionato dalla lista dei tamponi "Molecolare"
     def elimina_appuntamento_molecolare(self):
         if self.list_view_molecolare.selectedIndexes():
             selected = self.list_view_molecolare.selectedIndexes()[0].row()
@@ -197,6 +203,7 @@ class VistaListaAppuntamentiTamponi(QWidget):
                     self.elenco_molecolare.remove(appuntamento_selezionato)
                 self.update_ui()
 
+    # Funzione per l'eliminazione dell'appuntamento selezionato dalla lista dei tamponi "Sierologico"
     def elimina_appuntamento_sierologico(self):
         if self.list_view_sierologico.selectedIndexes():
             selected = self.list_view_sierologico.selectedIndexes()[0].row()
@@ -224,6 +231,7 @@ class VistaListaAppuntamentiTamponi(QWidget):
                     self.elenco_sierologico.remove(appuntamento_selezionato)
                 self.update_ui()
 
+    # Funzione per la modifica dell'appuntamento selezionato dalla lista dei tamponi "Antigenico Rapido"
     def modifica_appuntamento_antigenico(self):
         if self.list_view_antigenico.selectedIndexes():
             selected = self.list_view_antigenico.selectedIndexes()[0].row()
@@ -232,6 +240,7 @@ class VistaListaAppuntamentiTamponi(QWidget):
             self.vista_modifica.show()
             self.close()
 
+    # Funzione per la modifica dell'appuntamento selezionato dalla lista dei tamponi "Molecolare"
     def modifica_appuntamento_molecolare(self):
         if self.list_view_molecolare.selectedIndexes():
             selected = self.list_view_molecolare.selectedIndexes()[0].row()
@@ -240,6 +249,7 @@ class VistaListaAppuntamentiTamponi(QWidget):
             self.vista_modifica.show()
             self.close()
 
+    # Funzione per la modifica dell'appuntamento selezionato dalla lista dei tamponi "Sierologico"
     def modifica_appuntamento_sierologico(self):
         if self.list_view_sierologico.selectedIndexes():
             selected = self.list_view_sierologico.selectedIndexes()[0].row()

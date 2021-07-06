@@ -16,6 +16,9 @@ class AppuntamentoVaccino():
 
         self.vaccino = self.assegna_vaccino()
 
+    # Funzione per l'assegnamento del vaccino: dalla lettura del magazzino si popola la lista vaccini_presenti. A partire dai suoi elementi si
+    # considerano i vaccini le cui quantità sono maggiorni di 0 e che, in base all'anamnesi, possono essere somministrati al soggetto.
+    # Considerando, inoltre, l'eventuale preferenza espressa dallo stesso. Scelto il vaccino da assegnare si aggiorna il magazzino.
     def assegna_vaccino(self):
         preferenza = self.cartella_paziente.preferenza
         anamnesi = self.cartella_paziente.anamnesi

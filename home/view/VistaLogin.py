@@ -33,6 +33,7 @@ class VistaLogin(QWidget):
         self.resize(500, 170)
         self.move(50, 100)
 
+    # Funzione che controlla il corretto inserimento delle credenziali di accesso.
     def controllo_accesso(self):
         if self.user_name.text() == 'Clinica CovidFree' and self.password.text() == 'CovidFree':
             self.vista_home = VistaHome()

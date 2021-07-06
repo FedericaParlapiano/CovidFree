@@ -64,6 +64,7 @@ class VistaDateAppuntamento(QWidget):
         self.resize(700, 300)
         self.move(100, 200)
 
+    # Funzione che determina le prime dieci date disponibili e tra cui scegliere per la prenotazione.
     def determina_date(self):
         contatore = 10
         i = 1
@@ -91,6 +92,7 @@ class VistaDateAppuntamento(QWidget):
 
         self.list_view_date.setModel(self.list_view_date_model)
 
+    # Funzione che, una volta scelta la data per l'appuntamento, va a effettuare un controllo sulle fasce orarie disponibili.
     def get_data(self):
         self.orari_appuntamenti = {}
         self.orari_disponibili = ["9:00-10:00", "10:00-11:00", "11:00-12:00", "12:00-13:00", "13:00-14:00",
@@ -130,6 +132,7 @@ class VistaDateAppuntamento(QWidget):
 
         self.list_view_orari.setModel(self.list_view_orari_model)
 
+    # Funzione che mostra l'orario selezionato.
     def get_orario(self):
         if self.list_view_orari.selectedIndexes():
             selected = self.list_view_orari.selectedIndexes()[0].row()
@@ -138,6 +141,7 @@ class VistaDateAppuntamento(QWidget):
         else:
             QMessageBox.critical(self, 'Errore', 'Hai dimenticato di inserire una fascia oraria! Non è possibile procedere!', QMessageBox.Ok, QMessageBox.Ok)
 
+    # Funzione che, una volta completati tutti i campi, chiude la finestra.
     def conferma(self):
         if self.orario_selezionato != "" and self.data_scelta != "":
             self.registrazione_completa = True

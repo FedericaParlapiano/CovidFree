@@ -65,6 +65,7 @@ class VistaInserisciDatiTamponi(QWidget):
         self.move(270, 200)
 
 
+    # Funzione che salva le risposte inserite dall'utente per il calcolo delle statistiche.
     def salva_dati(self):
 
         if self.positivo.isChecked() and self.bg1.checkedButton() is None:

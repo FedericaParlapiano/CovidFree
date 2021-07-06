@@ -46,12 +46,14 @@ class VistaRicercaAppuntamentoTampone(QWidget):
         self.resize(500, 200)
         self.move(170, 200)
 
+    # Funzione che viene richiamata per la ottenere i campi da compilare.
     def get_parametri_di_ricerca(self, tipo):
         self.v_layout.addWidget(QLabel(tipo))
         current_text_edit = QLineEdit(self)
         self.v_layout.addWidget(current_text_edit)
         self.info[tipo] = current_text_edit
 
+    # Funzione che, dopo una serie di controlli, affettua la ricerca dell'appuntamento. Se viene trovato, viene visualizzato.
     def ricerca_appuntamento(self):
         nome = self.info["Nome:"].text()
         cognome = self.info["Cognome:"].text()

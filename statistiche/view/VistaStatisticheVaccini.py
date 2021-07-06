@@ -62,6 +62,7 @@ class VistaStatisticheVaccini(QWidget):
         self.get_torta(self.effetti_collaterali_pfizer, "Effetti collaterali \n Pfizer", 1, 1)
         self.setLayout(self.grid_layout)
 
+    # Funzione che, in base ai dati raccolti, crea un grafico a torta.
     def get_torta(self, elenco, titolo, riga, colonna):
         vuoto = 0
         for item in elenco:
