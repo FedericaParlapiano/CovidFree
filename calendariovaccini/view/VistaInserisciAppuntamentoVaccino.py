@@ -176,34 +176,74 @@ class VistaInserisciAppuntamentoVaccino(QWidget):
                                                        self.vista_mostra_date.data_scelta,
                                                        self.vista_mostra_date.orario_selezionato, is_a_domicilio)
 
-            if appuntamento_vaccino.vaccino is not None:
-                self.controller.aggiungi_appuntamento(appuntamento_vaccino)
+            if categoria_speciale == " ":
+                if date.today() < date(2021, 3, 21):
+                    if cartella_paziente.categoria != 'over 80' or cartella_paziente.categoria != 'categoria 70-79':
+                        QMessageBox.critical(self, 'Errore', 'Secondo il calendario regionale, non è ancora possibile prenotare la vaccinazione per la '+cartella_paziente.categoria,
+                                             QMessageBox.Ok,
+                                             QMessageBox.Ok)
+                        ok = False
 
-                if self.vista_inserisci_anamnesi.anamnesi['Positivo COVID-19'] != 'tra i 3 e i 6 mesi':
-                    data_prima_dose = datetime.strptime(self.vista_mostra_date.data_scelta, '%d-%m-%Y')
-                    if appuntamento_vaccino.vaccino == "Pfizer":
-                        data_seconda_dose = str((data_prima_dose + timedelta(days=21)).strftime('%d-%m-%Y'))
-                    elif appuntamento_vaccino.vaccino == "Moderna":
-                        data_seconda_dose = str((data_prima_dose + timedelta(days=28)).strftime('%d-%m-%Y'))
-                    elif appuntamento_vaccino.vaccino == "Astrazeneca":
-                        data_seconda_dose = str((data_prima_dose + timedelta(days=60)).strftime('%d-%m-%Y'))
+                elif date.today() < date(2021, 4, 17):
+                    if cartella_paziente.categoria != 'over 80' or cartella_paziente.categoria != 'categoria 70-79' or cartella_paziente.categoria != 'categoria 60-69':
+                        QMessageBox.critical(self, 'Errore',
+                                             'Secondo il calendario regionale, non è ancora possibile prenotare la vaccinazione per la ' + cartella_paziente.categoria,
+                                             QMessageBox.Ok,
+                                             QMessageBox.Ok)
+                        ok = False
 
-                    appuntamento_seconda_dose = AppuntamentoVaccino('Seconda Dose', cartella_paziente,
-                                                                    data_seconda_dose,
-                                                                    self.vista_mostra_date.orario_selezionato,
-                                                                    is_a_domicilio)
-                    self.controller.aggiungi_appuntamento(appuntamento_seconda_dose)
-                    if not appuntamento_seconda_dose.vaccino == appuntamento_vaccino.vaccino:
-                        QMessageBox.warning(self, 'Attenzione',
-                                            'Le scorte al momento non garantiscono che al paziente venga somministrato lo stesso vaccino per entrambe le dosi. Vi invitiamo a modificare l\'appuntamento per la seconda dose dopo che il magazzino verrà rifornito.',
-                                            QMessageBox.Ok, QMessageBox.Ok)
-                    self.vista_riepilogo_2 = VistaAppuntamentoVaccino(appuntamento_seconda_dose)
-                    self.vista_riepilogo_2.show()
+                elif date.today() < date(2021, 5, 15):
+                    if cartella_paziente.categoria != 'over 80' or cartella_paziente.categoria != 'categoria 70-79' or cartella_paziente.categoria != 'categoria 60-69' or cartella_paziente.categoria != 'categoria 50-59':
+                        QMessageBox.critical(self, 'Errore',
+                                             'Secondo il calendario regionale, non è ancora possibile prenotare la vaccinazione per la ' + cartella_paziente.categoria,
+                                             QMessageBox.Ok,
+                                             QMessageBox.Ok)
+                        ok = False
 
-                self.vista_riepilogo = VistaAppuntamentoVaccino(appuntamento_vaccino)
-                self.vista_riepilogo.show()
-            else:
-                QMessageBox.critical(self, 'Errore', 'Ci dispiace ma non è possibile prenotare '
-                                                         'l\'appuntamento a causa di una mancanza di vaccini che possono essere somministrati al paziente.',
-                                     QMessageBox.Ok, QMessageBox.Ok)
-            self.close()
+                elif date.today() < date(2021, 5, 19):
+                    if cartella_paziente.categoria != 'over 80' or cartella_paziente.categoria != 'categoria 70-79' or cartella_paziente.categoria != 'categoria 60-69' or cartella_paziente.categoria != 'categoria 50-59' or cartella_paziente.categoria != 'categoria 40-49':
+                        QMessageBox.critical(self, 'Errore',
+                                             'Secondo il calendario regionale, non è ancora possibile prenotare la vaccinazione per la ' + cartella_paziente.categoria,
+                                             QMessageBox.Ok,
+                                             QMessageBox.Ok)
+                        ok = False
+                elif date.today() < date(2021, 6, 5):
+                    if cartella_paziente.categoria == 'categoria 30-39' or cartella_paziente.categoria == 'under 30':
+                        QMessageBox.critical(self, 'Errore',
+                                             'Secondo il calendario regionale, non è ancora possibile prenotare la vaccinazione per la categoria del paziente',
+                                             QMessageBox.Ok,
+                                             QMessageBox.Ok)
+                        ok = False
+
+            if ok:
+                if appuntamento_vaccino.vaccino is not None:
+                    self.controller.aggiungi_appuntamento(appuntamento_vaccino)
+
+                    if self.vista_inserisci_anamnesi.anamnesi['Positivo COVID-19'] != 'tra i 3 e i 6 mesi':
+                        data_prima_dose = datetime.strptime(self.vista_mostra_date.data_scelta, '%d-%m-%Y')
+                        if appuntamento_vaccino.vaccino == "Pfizer":
+                            data_seconda_dose = str((data_prima_dose + timedelta(days=21)).strftime('%d-%m-%Y'))
+                        elif appuntamento_vaccino.vaccino == "Moderna":
+                            data_seconda_dose = str((data_prima_dose + timedelta(days=28)).strftime('%d-%m-%Y'))
+                        elif appuntamento_vaccino.vaccino == "Astrazeneca":
+                            data_seconda_dose = str((data_prima_dose + timedelta(days=60)).strftime('%d-%m-%Y'))
+
+                        appuntamento_seconda_dose = AppuntamentoVaccino('Seconda Dose', cartella_paziente,
+                                                                        data_seconda_dose,
+                                                                        self.vista_mostra_date.orario_selezionato,
+                                                                        is_a_domicilio)
+                        self.controller.aggiungi_appuntamento(appuntamento_seconda_dose)
+                        if not appuntamento_seconda_dose.vaccino == appuntamento_vaccino.vaccino:
+                            QMessageBox.warning(self, 'Attenzione',
+                                                'Le scorte al momento non garantiscono che al paziente venga somministrato lo stesso vaccino per entrambe le dosi. Vi invitiamo a modificare l\'appuntamento per la seconda dose dopo che il magazzino verrà rifornito.',
+                                                QMessageBox.Ok, QMessageBox.Ok)
+                        self.vista_riepilogo_2 = VistaAppuntamentoVaccino(appuntamento_seconda_dose)
+                        self.vista_riepilogo_2.show()
+
+                    self.vista_riepilogo = VistaAppuntamentoVaccino(appuntamento_vaccino)
+                    self.vista_riepilogo.show()
+                else:
+                    QMessageBox.critical(self, 'Errore', 'Ci dispiace ma non è possibile prenotare '
+                                                             'l\'appuntamento a causa di una mancanza di vaccini che possono essere somministrati al paziente.',
+                                         QMessageBox.Ok, QMessageBox.Ok)
+                self.close()

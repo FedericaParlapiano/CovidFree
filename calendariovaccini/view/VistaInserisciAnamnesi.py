@@ -88,6 +88,12 @@ class VistaInserisciAnamnesi(QWidget):
             self.anamnesi['Contatto'] = self.info['Contatto'].checkedButton().text()
             self.anamnesi['Sintomi'] = self.info['Sintomi'].checkedButton().text()
             self.anamnesi['Positivo COVID-19'] = self.mesi.currentText()
+
+            if self.anamnesi['Gravidanza'] == "Sì":
+                QMessageBox.warning(self, 'Attenzione',
+                                    'La vaccinazione in gravidanza non è né consigliata né sconsigliata. Si procederà comunque con la prenotazione, tuttavia vi invitiamo a parlare con il medico per prendere una decisione informata.',
+                                    QMessageBox.Ok, QMessageBox.Ok)
+
             self.close()
         else:
             QMessageBox.critical(self, 'Errore', 'Per favore, rispondi a tutte le domande', QMessageBox.Ok, QMessageBox.Ok)
