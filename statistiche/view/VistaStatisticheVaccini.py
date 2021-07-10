@@ -1,3 +1,5 @@
+from datetime import date, datetime
+
 from PyQt5 import Qt, QtGui
 from PyQt5.QtChart import QPieSeries, QChart, QChartView, QPieSlice
 from PyQt5.QtGui import QFont, QPainter, QColor, QIcon
@@ -33,7 +35,11 @@ class VistaStatisticheVaccini(QWidget):
         for appuntamento in self.controller.get_elenco_appuntamenti_vaccini():
             for key in self.vaccino_per_tipologia:
                 if appuntamento.vaccino == key:
-                    self.vaccino_per_tipologia[appuntamento.vaccino] += 1
+                    data_appuntamento = datetime.strptime(appuntamento.data_appuntamento,
+                                                                      '%d-%m-%Y')
+                    selezionato = str(data_appuntamento.strftime('%Y-%m-%d'))
+                    if selezionato < str(date.today()):
+                        self.vaccino_per_tipologia[appuntamento.vaccino] += 1
 
         for lista_effetti_astrazeneca in self.controller.get_effetti_collaterali("Astrazeneca"):
             for effetto in lista_effetti_astrazeneca:

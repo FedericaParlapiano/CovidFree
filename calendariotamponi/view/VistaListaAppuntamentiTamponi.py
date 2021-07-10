@@ -236,24 +236,38 @@ class VistaListaAppuntamentiTamponi(QWidget):
         if self.list_view_antigenico.selectedIndexes():
             selected = self.list_view_antigenico.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_antigenico[selected]
-            self.vista_modifica = VistaModificaAppuntamentoTampone(self.controller, appuntamento_selezionato)
-            self.vista_modifica.show()
-            self.close()
+
+            if appuntamento_selezionato.data_appuntamento < str(date.today()):
+                QMessageBox.critical(self, 'Errore', 'Non è possibile modificare appuntamenti passati',
+                                     QMessageBox.Ok, QMessageBox.Ok)
+            else:
+                self.vista_modifica = VistaModificaAppuntamentoTampone(self.controller, appuntamento_selezionato)
+                self.vista_modifica.show()
+                self.close()
 
     # Funzione per la modifica dell'appuntamento selezionato dalla lista dei tamponi "Molecolare"
     def modifica_appuntamento_molecolare(self):
         if self.list_view_molecolare.selectedIndexes():
             selected = self.list_view_molecolare.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_molecolare[selected]
-            self.vista_modifica = VistaModificaAppuntamentoTampone(self.controller, appuntamento_selezionato)
-            self.vista_modifica.show()
-            self.close()
+
+            if appuntamento_selezionato.data_appuntamento < str(date.today()):
+                QMessageBox.critical(self, 'Errore', 'Non è possibile modificare appuntamenti passati',
+                                     QMessageBox.Ok, QMessageBox.Ok)
+            else:
+                self.vista_modifica = VistaModificaAppuntamentoTampone(self.controller, appuntamento_selezionato)
+                self.vista_modifica.show()
+                self.close()
 
     # Funzione per la modifica dell'appuntamento selezionato dalla lista dei tamponi "Sierologico"
     def modifica_appuntamento_sierologico(self):
         if self.list_view_sierologico.selectedIndexes():
             selected = self.list_view_sierologico.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_sierologico[selected]
-            self.vista_modifica = VistaModificaAppuntamentoTampone(self.controller, appuntamento_selezionato)
-            self.vista_modifica.show()
-            self.close()
+            if appuntamento_selezionato.data_appuntamento < str(date.today()):
+                QMessageBox.critical(self, 'Errore', 'Non è possibile modificare appuntamenti passati',
+                                     QMessageBox.Ok, QMessageBox.Ok)
+            else:
+                self.vista_modifica = VistaModificaAppuntamentoTampone(self.controller, appuntamento_selezionato)
+                self.vista_modifica.show()
+                self.close()

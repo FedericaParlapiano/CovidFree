@@ -228,7 +228,6 @@ class VistaModificaAppuntamentoTampone(QWidget):
         msg.setText("Sei sicuro di voler modificare l'appuntamento?")
         msg.setWindowTitle("Conferma modifica")
         msg.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
-        msg.setDetailedText("N.B. Se l'appuntamento da modificare è assocato ad un secondo appuntamento, anche questo verrà modificato considerando il vaccino assegnato.")
         msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
         msg.move(250, 100)
 

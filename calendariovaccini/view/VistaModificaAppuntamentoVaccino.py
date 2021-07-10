@@ -113,7 +113,7 @@ class VistaModificaAppuntamentoVaccino(QWidget):
 
         if ok is True:
             try:
-                data_inserita = datetime.strptime(self.info["Data di nascita (dd/mm/YYYY)*"].text(),'%d/%m/%Y')
+                data_inserita = datetime.strptime(self.info["Data di nascita (dd/mm/YYYY)*"].text(), '%d/%m/%Y')
             except:
                 QMessageBox.critical(self, 'Errore', 'Inserisci la data nel formato richiesto: dd/MM/yyyy',
                                      QMessageBox.Ok, QMessageBox.Ok)
@@ -170,16 +170,12 @@ class VistaModificaAppuntamentoVaccino(QWidget):
 
         if ok is True:
             if self.conferma_modifica():
-                da_eliminare = self.controller.get_appuntamento(self.appuntamento.cartella_paziente.nome, self.appuntamento.cartella_paziente.cognome, self.appuntamento.id)
-                self.controller.lettura_magazzino()
-                self.controller.aggiorna_magazzino(da_eliminare.vaccino)
-                self.controller.elimina_appuntamento(da_eliminare)
-
                 cartella_paziente = CartellaPaziente(nome, cognome, data_nascita, cf, indirizzo, telefono,
                                                      categoria_speciale, preferenze, self.vista_inserisci_anamnesi.anamnesi)
                 self.appuntamento_vaccino = AppuntamentoVaccino(self.appuntamento.id, cartella_paziente,
                                                            self.vista_mostra_date.data_scelta,
                                                            self.vista_mostra_date.orario_selezionato, is_a_domicilio)
+                self.controller.lettura_magazzino()
 
                 if categoria_speciale == " ":
                     if date.today() < date(2021, 3, 21):
@@ -213,7 +209,7 @@ class VistaModificaAppuntamentoVaccino(QWidget):
                                                  QMessageBox.Ok,
                                                  QMessageBox.Ok)
                             ok = False
-                    elif date.today() < date(2021, 6, 5):
+                    elif date.today() < date(2021, 8, 5):
                         if cartella_paziente.categoria == 'categoria 30-39' or cartella_paziente.categoria == 'under 30':
                             QMessageBox.critical(self, 'Errore',
                                                  'Secondo il calendario regionale, non è ancora possibile prenotare la vaccinazione per la categoria del paziente',
@@ -222,8 +218,17 @@ class VistaModificaAppuntamentoVaccino(QWidget):
                             ok = False
 
                 if ok:
+
                     if self.appuntamento_vaccino.vaccino is not None:
                         self.controller.aggiungi_appuntamento(self.appuntamento_vaccino)
+
+                        da_eliminare = self.controller.get_appuntamento(self.appuntamento.cartella_paziente.nome,
+                                                                        self.appuntamento.cartella_paziente.cognome,
+                                                                        self.appuntamento.id)
+                        self.controller.lettura_magazzino()
+                        if da_eliminare:
+                            self.controller.aggiorna_magazzino(da_eliminare.vaccino)
+                            self.controller.elimina_appuntamento(da_eliminare)
 
                         if self.appuntamento.id == 'Prima Dose':
                             seconda_dose = self.controller.get_appuntamento(self.appuntamento.cartella_paziente.nome, self.appuntamento.cartella_paziente.cognome, 'Seconda Dose')
@@ -234,12 +239,11 @@ class VistaModificaAppuntamentoVaccino(QWidget):
                             if self.vista_inserisci_anamnesi.anamnesi['Positivo COVID-19'] != 'tra i 3 e i 6 mesi':
                                 data_prima_dose = datetime.strptime(self.vista_mostra_date.data_scelta, '%d-%m-%Y')
                                 if self.appuntamento_vaccino.vaccino == "Pfizer":
-                                    data_seconda_dose = str((data_prima_dose + timedelta(days=28)).strftime('%d-%m-%Y'))
-                                elif self.appuntamento_vaccino.vaccino == "Moderna":
                                     data_seconda_dose = str((data_prima_dose + timedelta(days=21)).strftime('%d-%m-%Y'))
+                                elif self.appuntamento_vaccino.vaccino == "Moderna":
+                                    data_seconda_dose = str((data_prima_dose + timedelta(days=28)).strftime('%d-%m-%Y'))
                                 elif self.appuntamento_vaccino.vaccino == "Astrazeneca":
                                     data_seconda_dose = str((data_prima_dose + timedelta(days=60)).strftime('%d-%m-%Y'))
-
                                 appuntamento_seconda_dose = AppuntamentoVaccino('Seconda Dose', cartella_paziente,
                                                                                 data_seconda_dose,
                                                                                 self.vista_mostra_date.orario_selezionato,
@@ -267,9 +271,9 @@ class VistaModificaAppuntamentoVaccino(QWidget):
         msg.setIcon(QMessageBox.Information)
         msg.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
         msg.setText("Sei sicuro di voler modificare l'appuntamento?")
-        msg.setInformativeText("La decisione è irreversibile!")
+        msg.setInformativeText("Sarà comunque possibile rimodificare l'appuntamento in seguito.")
         msg.setWindowTitle("Conferma eliminazione")
-        msg.setDetailedText("N.B. Se l'appuntamento da modificare è assocato ad un secondo appuntamento, anche questo verrà modificato considerando il vaccino assegnato.")
+        msg.setDetailedText("N.B. Se l'appuntamento da modificare è associato ad un secondo appuntamento, anche questo verrà modificato considerando il vaccino assegnato.")
         msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
         msg.move(250, 100)
 

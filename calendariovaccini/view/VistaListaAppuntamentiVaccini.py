@@ -174,7 +174,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
                 msg.setText("Sei sicuro di voler eliminare l'appuntamento?")
                 msg.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
                 msg.setInformativeText("La decisione è irreversibile!")
-                msg.setDetailedText("N.B. Se l'appuntamento da eliminare è assocato ad un secondo appuntamento, anche questo verrà rimosso.")
+                msg.setDetailedText("N.B. Se l'appuntamento da eliminare è associato ad un secondo appuntamento, anche questo verrà rimosso.")
                 msg.setWindowTitle("Conferma eliminazione")
                 msg.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
                 msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
@@ -212,7 +212,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
                 msg.setText("Sei sicuro di voler eliminare l'appuntamento?")
                 msg.setInformativeText("La decisione è irreversibile!")
                 msg.setWindowTitle("Conferma eliminazione")
-                msg.setDetailedText("N.B. Se l'appuntamento da eliminare è assocato ad un secondo appuntamento, anche questo verrà rimosso.")
+                msg.setDetailedText("N.B. Se l'appuntamento da eliminare è associato ad un secondo appuntamento, anche questo verrà rimosso.")
                 msg.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
                 msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
                 msg.move(250,100)
@@ -249,7 +249,7 @@ class VistaListaAppuntamentiVaccini(QWidget):
                 msg.setText("Sei sicuro di voler eliminare l'appuntamento?")
                 msg.setInformativeText("La decisione è irreversibile!")
                 msg.setWindowTitle("Conferma eliminazione")
-                msg.setDetailedText("N.B. Se l'appuntamento da eliminare è assocato ad un secondo appuntamento, anche questo verrà rimosso.")
+                msg.setDetailedText("N.B. Se l'appuntamento da eliminare è associato ad un secondo appuntamento, anche questo verrà rimosso.")
                 msg.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
                 msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
                 msg.move(250, 100)
@@ -274,24 +274,48 @@ class VistaListaAppuntamentiVaccini(QWidget):
         if self.list_view_astrazeneca.selectedIndexes():
             selected = self.list_view_astrazeneca.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_astrazeneca[selected]
-            self.vista_modifica = VistaModificaAppuntamentoVaccino(appuntamento_selezionato, self.controller)
-            self.vista_modifica.show()
-            self.close()
+
+            data_appuntamento_selezionato = datetime.strptime(appuntamento_selezionato.data_appuntamento, '%d-%m-%Y')
+            selezionato = str(data_appuntamento_selezionato.strftime('%Y-%m-%d'))
+            if selezionato < str(date.today()):
+                QMessageBox.critical(self, 'Errore', 'Non è possibile modificare appuntamenti passati',
+                                     QMessageBox.Ok, QMessageBox.Ok)
+            else:
+                self.vista_modifica = VistaModificaAppuntamentoVaccino(appuntamento_selezionato, self.controller)
+                self.vista_modifica.show()
+
+                self.close()
 
     # Funzione per la modifica dell'appuntamento selezionato dalla lista dei vaccini "Moderna"
     def modifica_appuntamento_moderna(self):
         if self.list_view_moderna.selectedIndexes():
             selected = self.list_view_moderna.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_moderna[selected]
-            self.vista_modifica = VistaModificaAppuntamentoVaccino(appuntamento_selezionato, self.controller)
-            self.vista_modifica.show()
-            self.close()
+
+            data_appuntamento_selezionato = datetime.strptime(appuntamento_selezionato.data_appuntamento, '%d-%m-%Y')
+            selezionato = str(data_appuntamento_selezionato.strftime('%Y-%m-%d'))
+            if selezionato < str(date.today()):
+                QMessageBox.critical(self, 'Errore', 'Non è possibile modificare appuntamenti passati',
+                                     QMessageBox.Ok, QMessageBox.Ok)
+            else:
+                self.vista_modifica = VistaModificaAppuntamentoVaccino(appuntamento_selezionato, self.controller)
+                self.vista_modifica.show()
+
+                self.close()
 
     # Funzione per la modifica dell'appuntamento selezionato dalla lista dei vaccini "Pfizer"
     def modifica_appuntamento_pfizer(self):
         if self.list_view_pfizer.selectedIndexes():
             selected = self.list_view_pfizer.selectedIndexes()[0].row()
             appuntamento_selezionato = self.elenco_pfizer[selected]
-            self.vista_modifica = VistaModificaAppuntamentoVaccino(appuntamento_selezionato, self.controller)
-            self.vista_modifica.show()
-            self.close()
+
+            data_appuntamento_selezionato = datetime.strptime(appuntamento_selezionato.data_appuntamento, '%d-%m-%Y')
+            selezionato = str(data_appuntamento_selezionato.strftime('%Y-%m-%d'))
+            if selezionato < str(date.today()):
+                QMessageBox.critical(self, 'Errore', 'Non è possibile modificare appuntamenti passati',
+                                     QMessageBox.Ok, QMessageBox.Ok)
+            else:
+                self.vista_modifica = VistaModificaAppuntamentoVaccino(appuntamento_selezionato, self.controller)
+                self.vista_modifica.show()
+
+                self.close()
