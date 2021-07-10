@@ -209,7 +209,7 @@ class VistaModificaAppuntamentoVaccino(QWidget):
                                                  QMessageBox.Ok,
                                                  QMessageBox.Ok)
                             ok = False
-                    elif date.today() < date(2021, 8, 5):
+                    elif date.today() < date(2021, 6, 5):
                         if cartella_paziente.categoria == 'categoria 30-39' or cartella_paziente.categoria == 'under 30':
                             QMessageBox.critical(self, 'Errore',
                                                  'Secondo il calendario regionale, non è ancora possibile prenotare la vaccinazione per la categoria del paziente',
