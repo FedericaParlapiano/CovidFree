@@ -114,7 +114,7 @@ class VistaGreenPass(QWidget):
 
         self.setLayout(h_layout)
         self.setFont(QFont('Arial Nova Light', 15))
-        self.setWindowTitle('Grenn pass {} {}' .format(appuntamento.cartella_paziente.nome, appuntamento.cartella_paziente.cognome))
+        self.setWindowTitle('Green Pass {} {}' .format(appuntamento.cartella_paziente.nome, appuntamento.cartella_paziente.cognome))
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
         self.setMaximumSize(500, 700)
