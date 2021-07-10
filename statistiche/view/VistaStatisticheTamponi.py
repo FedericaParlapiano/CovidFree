@@ -1,5 +1,3 @@
-from datetime import datetime, date
-
 from PyQt5 import Qt, QtGui
 from PyQt5.QtChart import QPieSeries, QPieSlice, QChart, QChartView
 from PyQt5.QtGui import QFont, QColor, QPainter, QIcon
@@ -41,11 +39,7 @@ class VistaStatisticheTamponi(QWidget):
         for appuntamento in self.controller.get_elenco_appuntamenti_tamponi():
             for key in self.tampone_per_tipologia:
                 if appuntamento.tipo_tampone == key:
-                    data_appuntamento = datetime.strptime(appuntamento.data_appuntamento,
-                                                          '%Y-%m-%d')
-                    selezionato = str(data_appuntamento.strftime('%Y-%m-%d'))
-                    if selezionato < str(date.today()):
-                        self.tampone_per_tipologia[appuntamento.tipo_tampone] += 1
+                    self.tampone_per_tipologia[appuntamento.tipo_tampone] += 1
 
         for lista_dati in self.controller.get_dati_tamponi():
             for dato in lista_dati:

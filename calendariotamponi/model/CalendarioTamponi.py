@@ -11,6 +11,8 @@ class CalendarioTamponi():
             with open('calendariotamponi/data/elenco_appuntamenti_salvati.pickle', 'rb') as f:
                 self.elenco_appuntamenti = pickle.load(f)
 
+        self.lettura_magazzino()
+
     # Funzione che appende alla lista degli appuntamenti fissati i nuovi appuntamenti che vengono inseriti.
     def aggiungi_appuntamento(self, appuntamento):
         self.elenco_appuntamenti.append(appuntamento)

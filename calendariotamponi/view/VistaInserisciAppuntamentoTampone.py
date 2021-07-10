@@ -53,14 +53,14 @@ class VistaInserisciAppuntamentoTampone(QWidget):
         self.drive_through = QCheckBox("Presenta sintomi o ha avuto contatti con persone positive o è attualmente positivo")
 
         self.v_layout.addWidget(self.drive_through)
-        self.v_layout.addItem(QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Expanding))
+        self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         self.v_layout.addWidget(QLabel("Tipologia di tampone da effettuare*"))
         self.tipo_tampone = QComboBox()
         self.tipo_tampone.addItems([" ", "Antigenico Rapido", "Molecolare", "Sierologico"])
 
         self.v_layout.addWidget(self.tipo_tampone)
-        self.v_layout.addItem(QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Expanding))
+        self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         btn_ok = QPushButton("OK")
         btn_ok.clicked.connect(self.add_appuntamento)
@@ -68,7 +68,7 @@ class VistaInserisciAppuntamentoTampone(QWidget):
 
         self.setLayout(self.v_layout)
         self.setWindowTitle("Nuovo Appuntamento")
-        self.setFont(QFont('Arial Nova Light', 10))
+        self.setFont(QFont('Arial Nova Light', 12))
         self.setWindowIcon(QIcon('appuntamentovaccino/data/CovidFree_Clinica.png'))
 
         self.setMaximumSize(620, 700)
@@ -168,7 +168,6 @@ class VistaInserisciAppuntamentoTampone(QWidget):
         calendario.setMaximumDate(
             QDate(currentYear + 1, currentMonth, calendar.monthrange(currentYear, currentMonth)[1]))
         calendario.setSelectedDate(QDate(currentYear, currentMonth, 1))
-        calendario.setFont(QFont('Arial Nova Light', 8))
         calendario.setStyleSheet('background-color: lightblue')
         calendario.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         calendario.setGeometry(200, 200, 300, 200)
@@ -185,7 +184,7 @@ class VistaInserisciAppuntamentoTampone(QWidget):
             item.setText(fascia)
             item.setEditable(False)
             font = item.font()
-            font.setPointSize(10)
+            font.setPointSize(12)
             item.setFont(font)
             self.list_view_orario_model.appendRow(item)
         self.list_view_orario.setModel(self.list_view_orario_model)
