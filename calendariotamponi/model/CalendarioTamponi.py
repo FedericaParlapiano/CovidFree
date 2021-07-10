@@ -19,6 +19,10 @@ class CalendarioTamponi():
     def get_elenco_appuntamenti(self):
         return self.elenco_appuntamenti
 
+    # Funzione che restituisce l'elenco dei tamponi presenti nel magazzino.
+    def get_tamponi_presenti(self):
+        return self.tamponi_presenti
+
     # Funzione che elimina l'appuntamento passato come parametro dalla lista degli appuntamenti.
     def elimina_appuntamento(self, appuntamento):
         for prenotazione in self.elenco_appuntamenti:

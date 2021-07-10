@@ -13,6 +13,9 @@ class ControlloreCalendarioTamponi():
     def get_elenco_appuntamenti(self):
         return self.model.get_elenco_appuntamenti()
 
+    def get_tamponi_presenti(self):
+        return self.model.get_tamponi_presenti()
+
     def elimina_appuntamento(self, appuntamento):
         self.model.elimina_appuntamento(appuntamento)
         self.save_data()
